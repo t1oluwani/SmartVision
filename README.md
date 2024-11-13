@@ -1,2 +1,5 @@
-# SmartVision
-A machine learning project focused on visual recognition to identify handwritten digits and _________ objects.
+TODO:
+Complete VR/ML Logic 
+Initialize Flask Backend
+Connect Backend to Frontend
+Style Frontend properly and test
