@@ -1,9 +1,9 @@
-.OR-Scope .upload-container {
+.OR-Scope .container {
   text-align: center;
   margin: 20px;
 }
 
-.OR-Scope .upload-box {
+.OR-Scope .upload-box, .OR-Scope .generate-box {
   width: 400px;
   height: 400px;
   background-color: lightgray;
@@ -13,7 +13,7 @@
   justify-content: center;
 }
 
-.OR-Scope .upload-placeholder {
+.OR-Scope .upload-placeholder, .OR-Scope .generate-placeholder {
   width: 100%;
   height: 100%;
   background-color: white;
