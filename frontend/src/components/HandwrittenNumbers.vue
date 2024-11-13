@@ -6,6 +6,7 @@
           <!-- Placeholder for canvas: White rectangle -->
           <div class="canvas-placeholder">Canvas Area</div>
         </div>
+
         <div class="model-switch">
           <label for="model">Choose Model:</label>
           <select v-model="selectedModel" id="model">
@@ -14,6 +15,7 @@
           </select>
         </div>
         <button @click="identify">Identify</button>
+        
         <h3>The handwritten number has a value of __ with __% confidence</h3>
       </div>
     </div>
