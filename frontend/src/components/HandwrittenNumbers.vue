@@ -1,0 +1,36 @@
+<template>
+  <div class="HN-Scope">
+    <div class="tab-content">
+      <div class="canvas-container">
+        <div class="canvas-box">
+          <!-- Placeholder for canvas: White rectangle -->
+          <div class="canvas-placeholder">Canvas Area</div>
+        </div>
+        <div class="model-switch">
+          <label for="model">Choose Model:</label>
+          <select v-model="selectedModel" id="model">
+            <option value="logistic-regression">Logistic Regression</option>
+            <option value="neural-network">Neural Network</option>
+          </select>
+        </div>
+        <button @click="identify">Identify</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedModel: 'logistic-regression', // Default model
+    };
+  },
+  methods: {
+    identify() {
+      // Placeholder for identify function (no logic)
+      alert(`Identifying with ${this.selectedModel}`);
+    },
+  },
+};
+</script>
