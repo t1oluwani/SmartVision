@@ -17,6 +17,20 @@ learning_rate = 1e-03
 batch_size_train = 200
 batch_size_test = 1000
 
+image_dimension = 28 * 28
+
+# Logistic regression model
+class LogisticRegressionModel(nn.Module):
+    def __init__(self):
+        super(LogisticRegressionModel, self).__init__()
+        self.fc = nn.Linear(image_dimension, 10)
+
+    def forward(self, x):
+        x = x.view(x.size(0), -1)
+        x = self.fc(x)
+        x = nn.functional.softmax(x, dim=1)
+        return x
+
 
 def logistic_regression(device):
     # Set random seed
@@ -24,7 +38,6 @@ def logistic_regression(device):
     torch.manual_seed(random_seed)  # Set random seed for reproducibility
 
     # Load MNIST dataset
-    image_dimension = 28 * 28
     train_loader, validation_loader, test_loader = load_MNIST()
 
     # # Check the shape of the data
@@ -33,27 +46,15 @@ def logistic_regression(device):
     # print(example_data.shape)
     # print(example_targets.shape)
 
-    # Logistic regression
-    class LogisticRegression(nn.Module):
-        def __init__(self):
-            super(LogisticRegression, self).__init__()
-            self.fc = nn.Linear(image_dimension, 10)
-
-        def forward(self, x):
-            x = x.view(x.size(0), -1)
-            x = self.fc(x)
-            x = nn.functional.softmax(x, dim=1)
-            return x
-
     # Define the model and optimizer
-    logistic_model = LogisticRegression().to(device)
+    logistic_model = LogisticRegressionModel().to(device)
     optimizer = optim.Adam(
         logistic_model.parameters(), lr=learning_rate, weight_decay=w_decay
     )
     one_hot = torch.nn.functional.one_hot
 
     # Training function
-    def train(epoch, data_loader, model, optimizer):
+    def train(data_loader, model, optimizer):
         for batch_idx, (data, target) in enumerate(data_loader):
             data = data.to(device)
             target = target.to(device)
@@ -103,7 +104,7 @@ def logistic_regression(device):
     # Training the model
     eval("-", validation_loader, logistic_model, "Validation")
     for epoch in range(1, n_epochs + 1):
-        train(epoch, train_loader, logistic_model, optimizer)
+        train(train_loader, logistic_model, optimizer)
         eval(epoch, validation_loader, logistic_model, "Validation")
 
     # Testing the model
@@ -130,18 +131,6 @@ def tune_hyper_parameter(target_metric, device):
     image_dimension = 28 * 28
     train_loader, validation_loader, test_loader = load_MNIST()
 
-    #  Logistic regression
-    class LogisticRegression(nn.Module):
-        def __init__(self):
-            super(LogisticRegression, self).__init__()
-            self.fc = nn.Linear(image_dimension, 10)
-
-        def forward(self, x):
-            x = x.view(x.size(0), -1)
-            x = self.fc(x)
-            x = nn.functional.softmax(x, dim=1)
-            return x
-
     for _ in range(25):
         # Randomly sample hyperparameters
         lr_val = random.choice(learning_rates)
@@ -152,7 +141,7 @@ def tune_hyper_parameter(target_metric, device):
         )
 
         # Define the model and optimizer
-        logistic_model = LogisticRegression().to(device)
+        logistic_model = LogisticRegressionModel().to(device)
         optimizer = optim.Adam(
             logistic_model.parameters(), lr=lr_val, weight_decay=wd_val
         )
