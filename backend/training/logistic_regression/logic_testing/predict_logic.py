@@ -7,8 +7,11 @@ import matplotlib.pyplot as plt
 
 import os, sys
 sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
-from methods import logistic_regression
+from methods import LogisticRegressionModel
 
+import os, sys
+sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
+from methods import logistic_regression
 
 def process_and_predict(image_path, model, device):
     # Load the image
@@ -39,6 +42,13 @@ def process_and_predict(image_path, model, device):
 
     return predicted
 
+# HELPER FUNCTION - Load the trained model
+def load_model(model_path, device):
+    model = LogisticRegressionModel().to(device)  
+    model.load_state_dict(torch.load(model_path, weights_only=True))  
+    model.eval()
+    return model
+
 
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -46,11 +56,9 @@ if __name__ == "__main__":
     # results = logistic_regression(device)
     # model = results["model"]
     
-    # Load trained model 
+    # Load pre-trained model 
     model_path = 'LR_model.pth' 
-    model = logistic_regression(device) 
-    model.load_state_dict(torch.load(model_path))
-    model.to(device) 
+    model = load_model(model_path, device)
 
     # Path to the uploaded image
     # image_path = "test_images/image_2(0).png"
