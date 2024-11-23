@@ -20,8 +20,8 @@ batch_size_test = 1000
 
 def logistic_regression(device):
     # Set random seed
-    torch.backends.cudnn.enabled = False # Disable cuDNN for reproducibility
-    torch.manual_seed(random_seed) # Set random seed for reproducibility
+    torch.backends.cudnn.enabled = False  # Disable cuDNN for reproducibility
+    torch.manual_seed(random_seed)  # Set random seed for reproducibility
 
     # Load MNIST dataset
     image_dimension = 28 * 28
@@ -85,7 +85,7 @@ def logistic_regression(device):
                     output, one_hot(target, num_classes=10).float(), size_average=False
                 ).item()
         loss /= len(data_loader.dataset)
-        
+
         # Print the evaluation results in easily readable format
         print(
             dataset
@@ -105,10 +105,11 @@ def logistic_regression(device):
 
     # Testing the model
     eval(test_loader, logistic_model, "Test")
-    
+
     # Save the model
     results = dict(model=logistic_model)
     return results
+
 
 def tune_hyper_parameter(target_metric, device):
     start = timeit.default_timer()  # start the timer
@@ -143,7 +144,9 @@ def tune_hyper_parameter(target_metric, device):
         lr_val = random.choice(learning_rates)
         wd_val = random.choice(weight_decays)
         ne_val = random.choice(num_epochs)
-        print(f"Training with [learning_rate={lr_val}, weight_decay={wd_val}, epochs={ne_val}]")
+        print(
+            f"Training with [learning_rate={lr_val}, weight_decay={wd_val}, epochs={ne_val}]"
+        )
 
         # Define the model and optimizer
         logistic_model = LogisticRegression().to(device)
@@ -227,6 +230,7 @@ def load_MNIST():
     )
 
     return train_loader, validation_loader, test_loader
+
 
 def train_for_param(epoch, optimizer, model, data_loader):
     one_hot = torch.nn.functional.one_hot
