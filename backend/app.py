@@ -23,6 +23,8 @@ model = None
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("Device Availale: ", device)
+
 
 # Test Route
 @app.route('/', methods=['GET'])
