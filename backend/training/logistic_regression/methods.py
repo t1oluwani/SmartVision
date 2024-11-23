@@ -26,11 +26,11 @@ def logistic_regression(device):
     image_dimension = 28 * 28
     train_loader, validation_loader, test_loader = load_MNIST()
 
-    # Check the shape of the data
-    examples = enumerate(test_loader)
-    batch_idx, (example_data, example_targets) = next(examples)
-    print(example_data.shape)
-    print(example_targets.shape)
+    # # Check the shape of the data
+    # examples = enumerate(test_loader)
+    # batch_idx, (example_data, example_targets) = next(examples)
+    # print(example_data.shape)
+    # print(example_targets.shape)
 
     # Logistic regression
     class LogisticRegression(nn.Module):
@@ -88,7 +88,7 @@ def logistic_regression(device):
         # Print the evaluation results in easily readable format
         print(
             dataset
-            + " Set: |Avgerage Loss: {:.4f} |Accuracy Raw: {}/{} | Accuracy(%): {:.0f}%|\n".format(
+            + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy(%): ({:.0f}%) |\n".format(
                 loss,
                 correct,
                 len(data_loader.dataset),

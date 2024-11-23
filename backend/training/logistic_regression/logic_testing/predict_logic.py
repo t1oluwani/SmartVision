@@ -1,8 +1,12 @@
-from PIL import Image
+
 import numpy as np
+from PIL import Image
 import torch
 from torchvision import transforms
 import matplotlib.pyplot as plt
+
+import os, sys
+sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
 from methods import logistic_regression
 
 

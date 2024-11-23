@@ -3,6 +3,7 @@ TODOs:
 - Connect Backend to Frontend
 - Style Frontend properly and test
 - Proper READme
+- Requirements.txt file for virtual enviroment module prerequisites
 
 Feature TODOs (VR/ML Logic):
 - Feature1: Recognize Handwritten Digits (MNIST-10). Via Logistic Regression
@@ -21,4 +22,4 @@ PyTorch Website
 - https://pytorch.org/tutorials/beginner/basics/
 - https://pytorch.org/tutorials/beginner/introyt/
 
-UofA CMPUT 328 Visual Recognition Class
+UofA CMPUT 328 Visual Recognition Class Notes
