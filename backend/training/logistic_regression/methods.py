@@ -17,7 +17,6 @@ learning_rate = 1e-03
 batch_size_train = 200
 batch_size_test = 1000
 
-
 def logistic_regression(device):
     # Set random seed
     torch.backends.cudnn.enabled = False  # Disable cuDNN for reproducibility
