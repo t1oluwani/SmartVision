@@ -88,7 +88,7 @@ def logistic_regression(device):
         # Print the evaluation results in easily readable format
         print(
             dataset
-            + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy(%): ({:.0f}%) |\n".format(
+            + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.0f}%) |\n".format(
                 loss,
                 correct,
                 len(data_loader.dataset),

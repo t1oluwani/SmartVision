@@ -48,9 +48,9 @@ if __name__ == "__main__":
     model = results["model"]
 
     # Path to the uploaded image (replace with your image path)
-    image_path = "test_images/image_2(0)"
-    # image_path = "test_images/image_5(0)"
-    # image_path = "test_images/image_5(1)"
+    image_path = "test_images/image_2(0).png"
+    # image_path = "test_images/image_5(0).jpeg"
+    # image_path = "test_images/image_5(1).png"
 
     # Predict the class of the uploaded image
     predicted_class = process_and_predict(image_path, model, device)
