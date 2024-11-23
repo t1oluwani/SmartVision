@@ -4,7 +4,10 @@ from collections import OrderedDict
 import torch
 from torchvision import transforms, datasets
 
+import os, sys
+sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
 from methods import logistic_regression
+
 torch.multiprocessing.set_sharing_strategy('file_system')
 
 # Function to test the model
@@ -52,11 +55,13 @@ def main():
     results = logistic_regression(device) # triggers logistic regression function
     model = results['model']
     if model is None:
-        print('model is None')
+        print('No Model was Trained')
         return
     else:
-        torch.save(model.state_dict(), 'model.pth') # Saves only the model parameters
-        # torch.save(model, 'model_full.pth') # Saves the full model
+        print("Attempting to save the model")
+        torch.save(model.state_dict(), 'LR_model.pth') # Saves only the model parameters
+        print("Model saved successfully?")
+        # torch.save(model, 'LR_model_full.pth') # Saves the full model
 
     # Compute the run time
     stop = timeit.default_timer() # stop the timer
@@ -72,7 +77,7 @@ def main():
         run_time=run_time
     )
     # Print the results
-    print(f"results:")
+    print(f"Testing Results:")
     for key in result:
         print(f"\t{key}: {result[key]}")
 

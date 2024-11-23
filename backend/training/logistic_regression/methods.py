@@ -17,6 +17,7 @@ learning_rate = 1e-03
 batch_size_train = 200
 batch_size_test = 1000
 
+
 def logistic_regression(device):
     # Set random seed
     torch.backends.cudnn.enabled = False  # Disable cuDNN for reproducibility
@@ -70,7 +71,7 @@ def logistic_regression(device):
             #     100. * batch_idx / len(data_loader), loss.item()))
 
     # Evaluation function
-    def eval(data_loader, model, dataset):
+    def eval(epoch, data_loader, model, dataset):
         loss = 0
         correct = 0
         with torch.no_grad():
@@ -87,7 +88,10 @@ def logistic_regression(device):
 
         # Print the evaluation results in easily readable format
         print(
-            dataset
+            "Epoch "
+            + str(epoch)
+            + ": "
+            + dataset
             + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.0f}%) |\n".format(
                 loss,
                 correct,
@@ -97,13 +101,13 @@ def logistic_regression(device):
         )
 
     # Training the model
-    eval(validation_loader, logistic_model, "Validation")
+    eval("-", validation_loader, logistic_model, "Validation")
     for epoch in range(1, n_epochs + 1):
         train(epoch, train_loader, logistic_model, optimizer)
-        eval(validation_loader, logistic_model, "Validation")
+        eval(epoch, validation_loader, logistic_model, "Validation")
 
     # Testing the model
-    eval(test_loader, logistic_model, "Test")
+    eval("-", test_loader, logistic_model, "Test")
 
     # Save the model
     results = dict(model=logistic_model)

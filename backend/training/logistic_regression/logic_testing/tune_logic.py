@@ -1,7 +1,10 @@
 import torch
 import timeit
 
+import os, sys
+sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
 from methods import tune_hyper_parameter
+
 torch.multiprocessing.set_sharing_strategy('file_system')
 
 # Main function: Tune hyperparameters for the logistic regression model

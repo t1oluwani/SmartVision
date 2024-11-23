@@ -33,8 +33,8 @@ def process_and_predict(image_path, model, device):
 
     plt.imshow(img_tensor.squeeze().cpu().numpy(), cmap="gray")
     plt.show()  # Display the image
+    
     print(img_tensor.shape)
-    img.show()
     print(output)
 
     return predicted
@@ -43,14 +43,20 @@ def process_and_predict(image_path, model, device):
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    # Load the trained model (use your logistic regression training code)
-    results = logistic_regression(device)
-    model = results["model"]
+    # results = logistic_regression(device)
+    # model = results["model"]
+    
+    # Load trained model 
+    model_path = 'LR_model.pth' 
+    model = logistic_regression(device) 
+    model.load_state_dict(torch.load(model_path))
+    model.to(device) 
 
-    # Path to the uploaded image (replace with your image path)
-    image_path = "test_images/image_2(0).png"
+    # Path to the uploaded image
+    # image_path = "test_images/image_2(0).png"
     # image_path = "test_images/image_5(0).jpeg"
     # image_path = "test_images/image_5(1).png"
+    image_path = "test_images/image_7(0).jpg"
 
     # Predict the class of the uploaded image
     predicted_class = process_and_predict(image_path, model, device)
