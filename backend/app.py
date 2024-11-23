@@ -1,11 +1,22 @@
-from flask import Flask, request, jsonify
 import os
 from PIL import Image
+
 import torch
 from torchvision import transforms
 
+from flask_cors import CORS
+from flask import Flask, request, jsonify
+
 # Initialize Flask app
 app = Flask(__name__)
+
+# Enable CORS
+CORS(app, resources={r"/api/*": {
+    "origins": ["http://localhost:8080"],
+    "methods": ["GET", "POST"],
+    "allow_headers": ["Content-Type", "Authorization"],
+    "supports_credentials": True
+}})
 
 # Model placeholder (load your trained model here)
 model = None
