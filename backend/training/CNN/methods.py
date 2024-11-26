@@ -1,26 +1,22 @@
 import torch
-import timeit
-import random
-import torchvision
+from torchvision import datasets, transforms
+
 import numpy as np
+
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import random_split
 
 n_epochs = 10
-momentum = 0.9
-random_seed = 1
 w_decay = 1e-05
-log_interval = 100
 learning_rate = 1e-03
 batch_size_train = 200
 batch_size_test = 1000
 
-image_dimension = 28 * 28
 
 # CNN Architecture for MNIST
-class Net(nn.Module): 
+class Net(nn.Module):
     def __init__(self, in_channels):
         super(Net, self).__init__()
 
@@ -39,19 +35,19 @@ class Net(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
-        
+
         return F.log_softmax(x, dim=1)
 
 
 def CNN(device):
-    # Load MNIST dataset
     train_loader, validation_loader, test_loader = load_MNIST()
-    
-    in_channels = 1 # MNIST dataset has 1 channel
+    in_channels = 1  # MNIST dataset has 1 channel
 
     # Define the model and optimizer
     cnn_model = Net(in_channels).to(device)
-    optimizer = optim.Adam(cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay)
+    optimizer = optim.Adam(
+        cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
+    )
     one_hot = torch.nn.functional.one_hot
 
     # Training function
@@ -88,7 +84,7 @@ def CNN(device):
             + str(epoch)
             + ": "
             + dataset
-            + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.0f}%) |\n".format(
+            + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.2f}%) |\n".format(
                 loss,
                 correct,
                 len(data_loader.dataset),
@@ -97,52 +93,53 @@ def CNN(device):
         )
 
     # Training the model
-    eval("-", validation_loader, cnn_model, "Validation")
+    # eval("-", validation_loader, cnn_model, "Validation")
     for epoch in range(1, n_epochs + 1):
         train(train_loader, cnn_model, optimizer)
         eval(epoch, validation_loader, cnn_model, "Validation")
 
     # Testing the model
-    eval("-", test_loader, cnn_model, "Test")
+    # eval("-", test_loader, cnn_model, "Test")
 
     # Save the model
     results = dict(model=cnn_model)
     return results
 
+
 # HELPER FUNCTIONS
 def load_MNIST():
     # Load MNIST training set
-    MNIST_training = torchvision.datasets.MNIST(
+    MNIST_data_set = datasets.MNIST(
         "/MNIST_dataset/",
         train=True,
         download=True,
-        transform=torchvision.transforms.Compose(
+        transform=transforms.Compose(
             [
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+                transforms.ToTensor(),
+                transforms.Normalize((0.1307,), (0.3081,)),
             ]
         ),
     )
 
     # Load MNIST test set
-    MNIST_test_set = torchvision.datasets.MNIST(
+    MNIST_test_set = datasets.MNIST(
         "/MNIST_dataset/",
         train=False,
         download=True,
-        transform=torchvision.transforms.Compose(
+        transform=transforms.Compose(
             [
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+                transforms.ToTensor(),
+                transforms.Normalize((0.1307,), (0.3081,)),
             ]
         ),
     )
 
     # Create a training and a validation set
     MNIST_training_set, MNIST_validation_set = random_split(
-        MNIST_training, [48000, 12000]
+        MNIST_data_set, [48000, 12000]
     )
 
-    # Create data loaders
+    # Data loaders
     train_loader = torch.utils.data.DataLoader(
         MNIST_training_set, batch_size=batch_size_train, shuffle=True
     )
@@ -154,22 +151,3 @@ def load_MNIST():
     )
 
     return train_loader, validation_loader, test_loader
-
-
-def train_for_param(epoch, optimizer, model, data_loader):
-    one_hot = torch.nn.functional.one_hot
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-    # Training function
-    for batch_idx, (data, target) in enumerate(data_loader):
-        data = data.to(device)
-        target = target.to(device)
-        optimizer.zero_grad()
-        output = model(data)
-
-        loss = F.mse_loss(output, one_hot(target, num_classes=10).float())
-        loss.backward()
-        optimizer.step()
-
-
-
