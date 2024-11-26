@@ -11,9 +11,9 @@ from torch.utils.data import random_split
 n_epochs = 10
 momentum = 0.9
 random_seed = 1
-w_decay = 1e-05
+w_decay = 7e-05 # old w_decay = 1e-05
 log_interval = 100
-learning_rate = 1e-03
+learning_rate = 0.001 # old learning_rate = 1e-03
 batch_size_train = 200
 batch_size_test = 1000
 

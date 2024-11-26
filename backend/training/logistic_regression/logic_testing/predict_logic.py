@@ -60,8 +60,13 @@ if __name__ == "__main__":
     # Load pre-trained model 
     model_path = 'LR_model.pth' 
     model = load_model(model_path, device)
-
+    
+    
+    score = 0
     for num in range(10):
         image_path = f"test_images/image_{num}.jpg"
         predicted_class = process_and_predict(image_path, model, device)
+        score += 1 if num == predicted_class else 0
         print(f"The model predicts the uploaded image of {num} as: {predicted_class}")
+    print(f"Model Accuracy: {score}/10")
+        
