@@ -16,27 +16,32 @@ batch_size_test = 1000
 
 
 # FNN Architecture for MNIST
-class Net(nn.Module):
-    def __init__(self, in_channels):
-        super(Net, self).__init__()
+class FNNModel(nn.Module):
+    def __init__(self, loss_type, num_classes):
+        super(FNNModel, self).__init__()
 
-        self.conv1 = nn.Conv2d(in_channels, 6, kernel_size=5)
-        self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
-        self.fc1 = nn.Linear(256, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
+        self.loss_type = loss_type
+        self.num_classes = num_classes
+        self.fc1 = nn.Linear(784, 64)
+        self.fc2 = nn.Linear(64, 32)
+        self.fc3 = nn.Linear(32, 10)
 
     def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, kernel_size=2, stride=2)
-        x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, kernel_size=2, stride=2)
-        x = x.view(x.size(0), -1)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
+        output = x.view(x.size(0), -1)
+        output = F.tanh(self.fc1(output))
+        output = F.relu(self.fc2(output))
+        output =        self.fc3(output)
 
-        return F.log_softmax(x, dim=1)
+        return output
+
+    def get_loss(self, output, target):
+        if self.loss_type == 'ce':
+            loss = F.cross_entropy(output, target)
+        elif self.loss_type == 'L2':
+            new_output = F.softmax(output,dim=1)
+            loss = F.mse_loss(new_output, F.one_hot(target, num_classes=self.num_classes).float())
+
+        return loss
 
 
 def CNN(device):

@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 import os, sys
 sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
-from methods import FNN
+from methods import FNNModel
 
 def process_and_predict(image_path, model, device):
     # Load the image
