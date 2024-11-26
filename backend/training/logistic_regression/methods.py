@@ -48,9 +48,7 @@ def logistic_regression(device):
 
     # Define the model and optimizer
     logistic_model = LogisticRegressionModel().to(device)
-    optimizer = optim.Adam(
-        logistic_model.parameters(), lr=learning_rate, weight_decay=w_decay
-    )
+    optimizer = optim.Adam(logistic_model.parameters(), lr=learning_rate, weight_decay=w_decay)
     one_hot = torch.nn.functional.one_hot
 
     # Training function

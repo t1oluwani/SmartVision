@@ -51,9 +51,7 @@ def CNN(device):
 
     # Define the model and optimizer
     cnn_model = Net(in_channels).to(device)
-    optimizer = optim.Adam(
-        cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
-    )
+    optimizer = optim.Adam(cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay)
     one_hot = torch.nn.functional.one_hot
 
     # Training function
@@ -213,7 +211,7 @@ def load_MNIST():
         MNIST_training_set, batch_size=batch_size_train, shuffle=True
     )
     validation_loader = torch.utils.data.DataLoader(
-        MNIST_validation_set, batch_size=batch_size_train, shuffle=True
+        MNIST_validation_set, batch_size=batch_size_train, shuffle=False
     )
     test_loader = torch.utils.data.DataLoader(
         MNIST_test_set, batch_size=batch_size_test, shuffle=True
