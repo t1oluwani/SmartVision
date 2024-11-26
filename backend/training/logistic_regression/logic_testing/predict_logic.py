@@ -37,8 +37,8 @@ def process_and_predict(image_path, model, device):
         predicted = torch.argmax(output, dim=1).item()  # Get the predicted class
 
     # Debug Lines
-    plt.imshow(img_tensor.squeeze().cpu().numpy(), cmap="gray") # Convert back to visible image
-    plt.show()  # Display the image
+    # plt.imshow(img_tensor.squeeze().cpu().numpy(), cmap="gray") # Convert back to visible image
+    # plt.show()  # Display the image
     # print(img_tensor.shape)
     # print(output)
 
