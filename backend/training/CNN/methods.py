@@ -35,8 +35,9 @@ class CNNModel(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
+        output = F.log_softmax(x, dim=1)
 
-        return F.log_softmax(x, dim=1)
+        return output
 
 
 def CNN(device):

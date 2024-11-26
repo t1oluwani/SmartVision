@@ -17,10 +17,9 @@ batch_size_test = 1000
 
 # FNN Architecture for MNIST
 class FNNModel(nn.Module):
-    def __init__(self, loss_type, num_classes):
+    def __init__(self, num_classes):
         super(FNNModel, self).__init__()
 
-        self.loss_type = loss_type
         self.num_classes = num_classes
         self.fc1 = nn.Linear(784, 64)
         self.fc2 = nn.Linear(64, 32)
@@ -33,25 +32,18 @@ class FNNModel(nn.Module):
         output =        self.fc3(output)
 
         return output
-
-    def get_loss(self, output, target):
-        if self.loss_type == 'ce':
-            loss = F.cross_entropy(output, target)
-        elif self.loss_type == 'L2':
-            new_output = F.softmax(output,dim=1)
-            loss = F.mse_loss(new_output, F.one_hot(target, num_classes=self.num_classes).float())
-
-        return loss
+        # loss = F.cross_entropy(output, target)
 
 
-def CNN(device):
+
+def FNN(device):
     train_loader, validation_loader, test_loader = load_MNIST()
     in_channels = 1  # MNIST dataset has 1 channel
 
     # Define the model and optimizer
-    cnn_model = Net(in_channels).to(device)
+    fnn_model = FNNModel(in_channels).to(device)
     optimizer = optim.Adam(
-        cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
+        fnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
     )
     one_hot = torch.nn.functional.one_hot
 
@@ -98,13 +90,12 @@ def CNN(device):
         )
 
     # Training the model
-    # eval("-", validation_loader, cnn_model, "Validation")
     for epoch in range(1, n_epochs + 1):
         train(train_loader, cnn_model, optimizer)
         eval(epoch, validation_loader, cnn_model, "Validation")
 
     # Testing the model
-    # eval("-", test_loader, cnn_model, "Test")
+    # eval("T", test_loader, cnn_model, "Test")
 
     # Save the model
     results = dict(model=cnn_model)
