@@ -36,11 +36,11 @@ def process_and_predict(image_path, model, device):
         output = model(img_tensor)
         predicted = torch.argmax(output, dim=1).item()  # Get the predicted class
 
-    plt.imshow(img_tensor.squeeze().cpu().numpy(), cmap="gray")
-    plt.show()  # Display the image
-    
-    print(img_tensor.shape)
-    print(output)
+    # Debug Lines
+    # plt.imshow(img_tensor.squeeze().cpu().numpy(), cmap="gray") # Convert back to visible image
+    # plt.show()  # Display the image
+    # print(img_tensor.shape)
+    # print(output)
 
     return predicted
 
@@ -61,19 +61,7 @@ if __name__ == "__main__":
     model_path = 'LR_model.pth' 
     model = load_model(model_path, device)
 
-    # Path to the uploaded image
-    image_paths = ["test_images/image_0.jpg",
-                   "test_images/image_1.jpg",
-                   "test_images/image_2.jpg",
-                   "test_images/image_3.jpg",
-                   "test_images/image_4.jpg",
-                   "test_images/image_5.jpg",
-                   "test_images/image_6.jpg",
-                   "test_images/image_7.jpg",
-                   "test_images/image_8.jpg",
-                   "test_images/image_9.jpg"]
-    
-    for image_path in image_paths:
-        # Predict the class of the uploaded image
+    for num in range(10):
+        image_path = f"test_images/image_{num}.jpg"
         predicted_class = process_and_predict(image_path, model, device)
-        print(f"The model predicts the uploaded image as: {predicted_class}")
+        print(f"The model predicts the uploaded image of {num} as: {predicted_class}")
