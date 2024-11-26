@@ -60,7 +60,7 @@ def main():
     else:
         print("Attempting to save the model")
         torch.save(model.state_dict(), 'LR_model.pth') # Saves only the model parameters
-        print("Model saved successfully?")
+        print("Model saved successfully")
         # torch.save(model, 'LR_model_full.pth') # Saves the full model
 
     # Compute the run time
