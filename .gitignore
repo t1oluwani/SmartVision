@@ -3,3 +3,7 @@ smartvenv/
 
 # Raw Model Data
 backend\training\logistic_regression\logic_testing\data\MNIST\raw
+backend\training\FNN\logic_testing\data\MNIST\raw
+backend\training\CNN\logic_testing\data\MNIST\raw
+
+
