@@ -16,9 +16,9 @@ batch_size_test = 1000
 
 
 # CNN Architecture for MNIST
-class Net(nn.Module):
+class CNNModel(nn.Module):
     def __init__(self, in_channels):
-        super(Net, self).__init__()
+        super(CNNModel, self).__init__()
 
         self.conv1 = nn.Conv2d(in_channels, 6, kernel_size=5)
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
@@ -44,7 +44,7 @@ def CNN(device):
     in_channels = 1  # MNIST dataset has 1 channel
 
     # Define the model and optimizer
-    cnn_model = Net(in_channels).to(device)
+    cnn_model = CNNModel(in_channels).to(device)
     optimizer = optim.Adam(
         cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
     )

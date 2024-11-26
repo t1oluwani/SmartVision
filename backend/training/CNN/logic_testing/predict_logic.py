@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 import os, sys
 sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
-from methods import Net
+from methods import CNNModel
 
 def process_and_predict(image_path, model, device):
     # Load the image
@@ -43,7 +43,7 @@ def process_and_predict(image_path, model, device):
 # HELPER FUNCTION - Load the trained model
 def load_model(model_path, device):
     in_channels = 1
-    model = Net(in_channels).to(device)
+    model = CNNModel(in_channels).to(device)
     model.load_state_dict(torch.load(model_path, weights_only=True))  
     model.eval()
     return model

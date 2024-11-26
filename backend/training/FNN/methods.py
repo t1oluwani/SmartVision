@@ -15,7 +15,7 @@ batch_size_train = 200
 batch_size_test = 1000
 
 
-# CNN Architecture for MNIST
+# FNN Architecture for MNIST
 class Net(nn.Module):
     def __init__(self, in_channels):
         super(Net, self).__init__()
