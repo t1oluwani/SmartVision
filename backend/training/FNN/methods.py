@@ -10,7 +10,7 @@ from torch.utils.data import random_split
 
 n_epochs = 10
 learning_rate = 1e-01
-batch_size_train = 128
+batch_size_train = 200
 batch_size_test = 1000
 
 w_decay = 1e-05
