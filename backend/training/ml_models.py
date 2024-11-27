@@ -100,25 +100,45 @@ def FNN(device):
     
     train_loader, validation_loader, test_loader = load_MNIST()
 
-    
-
     # Train the model
     for epoch in range(1, fnn_model.n_epochs + 1):
-        train(train_loader, fnn_model, fnn_optimizer)
-        evaluate(epoch, validation_loader, fnn_model, "Validation")
+        train(device, fnn_model, fnn_optimizer, train_loader, loss_type="ce", )
+        evaluate(device, fnn_model, validation_loader, epoch, loss_type="ce", dataset="Validation")
         
     # Test the model
-    evaluate("T", test_loader, fnn_model, "Test")
+    evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
 
     # Save the model
     results = dict(model=fnn_model)
     return results
 
+def CNN(device):
+    train_loader, validation_loader, test_loader = load_MNIST()
+    in_channels = 1  # MNIST dataset has 1 channel
+
+    # Define the model and optimizer
+    cnn_model = CNNModel(in_channels).to(device)
+    optimizer = optim.Adam(
+        cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
+    )
+
+    # Training the model
+    # eval("-", validation_loader, cnn_model, "Validation")
+    for epoch in range(1, n_epochs + 1):
+        train(train_loader, cnn_model, optimizer)
+        eval(epoch, validation_loader, cnn_model, "Validation")
+
+    # Testing the model
+    # eval("-", test_loader, cnn_model, "Test")
+
+    # Save the model
+    results = dict(model=cnn_model)
+    return results
 
 # HELPER FUNCTIONS: ====================================================================================================
 
 # Training function
-def train(data_loader, model, optimizer, loss_type, device):
+def train(device, model, optimizer, loss_type, data_loader):
     model.train()
 
     for data, target in enumerate(data_loader):
@@ -132,7 +152,7 @@ def train(data_loader, model, optimizer, loss_type, device):
         optimizer.step()
 
 # Evaluation function
-def evaluate(epoch, data_loader, model, loss_type, dataset, device):
+def evaluate(device, model, data_loader, epoch, loss_type, dataset):
     model.eval() 
     
     loading_bar = tqdm(data_loader, ncols=100, position=0, leave=True)
@@ -159,7 +179,7 @@ def evaluate(epoch, data_loader, model, loss_type, dataset, device):
 
 # Loss function
 def get_loss(loss_type, output, target):
-    if loss_type == "cross_entropy":
+    if   loss_type == "ce":
         return F.cross_entropy(output, target)
     elif loss_type == "mse":
         return F.mse_loss(output, one_hot(target, num_classes=10).float())
