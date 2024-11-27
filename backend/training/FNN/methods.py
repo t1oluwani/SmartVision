@@ -1,7 +1,7 @@
+import pbar
+
 import torch
 from torchvision import datasets, transforms
-
-import numpy as np
 
 import torch.nn as nn
 import torch.optim as optim
@@ -14,7 +14,6 @@ learning_rate = 1e-03
 batch_size_train = 200
 batch_size_test = 1000
 
-
 # FNN Architecture for MNIST
 class FNNModel(nn.Module):
     def __init__(self, num_classes):
@@ -26,22 +25,19 @@ class FNNModel(nn.Module):
         self.fc3 = nn.Linear(32, 10)
 
     def forward(self, x):
-        output = x.view(x.size(0), -1)
-        output = F.tanh(self.fc1(output))
-        output = F.relu(self.fc2(output))
-        output =        self.fc3(output)
+        x = x.view(x.size(0), -1)
+        x = F.tanh(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        output =   self.fc3(x)
 
         return output
-        # loss = F.cross_entropy(output, target)
-
-
-
+    
 def FNN(device):
     train_loader, validation_loader, test_loader = load_MNIST()
-    in_channels = 1  # MNIST dataset has 1 channel
+    num_classes = 10 # 10 classes for MNIST
 
     # Define the model and optimizer
-    fnn_model = FNNModel(in_channels).to(device)
+    fnn_model = FNNModel(num_classes).to(device)
     optimizer = optim.Adam(
         fnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
     )
@@ -49,21 +45,28 @@ def FNN(device):
 
     # Training function
     def train(data_loader, model, optimizer):
+        model.train()
+        
+        # pbar = tqdm(data_loader, ncols=100, position=0, leave=True)
+        # for batch_idx, (data, target) in enumerate(pbar):
         for batch_idx, (data, target) in enumerate(data_loader):
             data = data.to(device)
             target = target.to(device)
             optimizer.zero_grad()
             output = model(data)
 
-            # loss = F.cross_entropy(output, target)
-            loss = F.mse_loss(output, one_hot(target, num_classes=10).float())
+            loss = F.cross_entropy(output, target)
             loss.backward()
             optimizer.step()
+            
+            # pbar.set_description("Loss: {:.4f}".format(loss.item()))
 
     # Evaluation function
     def eval(epoch, data_loader, model, dataset):
-        loss = 0
+        model.eval()
+        
         correct = 0
+        eval_loss = 0
         with torch.no_grad():
             for data, target in data_loader:
                 data = data.to(device)
@@ -71,9 +74,9 @@ def FNN(device):
                 output = model(data)
                 pred = output.data.max(1, keepdim=True)[1]
                 correct += pred.eq(target.data.view_as(pred)).sum()
-                los = F.nll_loss(output, target)
-                loss += los.item()
-        loss /= len(data_loader.dataset)
+                loss = F.nll_loss(output, target)
+                eval_loss += loss.item()
+        eval_loss /= len(data_loader.dataset)
 
         # Print the evaluation results in easily readable format
         print(
@@ -82,7 +85,7 @@ def FNN(device):
             + ": "
             + dataset
             + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.2f}%) |\n".format(
-                loss,
+                eval_loss,
                 correct,
                 len(data_loader.dataset),
                 100.0 * correct / len(data_loader.dataset),

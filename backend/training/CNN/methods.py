@@ -1,8 +1,6 @@
 import torch
 from torchvision import datasets, transforms
 
-import numpy as np
-
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
@@ -13,7 +11,6 @@ w_decay = 1e-05
 learning_rate = 1e-03
 batch_size_train = 200
 batch_size_test = 1000
-
 
 # CNN Architecture for MNIST
 class CNNModel(nn.Module):
@@ -38,7 +35,6 @@ class CNNModel(nn.Module):
         output = F.log_softmax(x, dim=1)
 
         return output
-
 
 def CNN(device):
     train_loader, validation_loader, test_loader = load_MNIST()
