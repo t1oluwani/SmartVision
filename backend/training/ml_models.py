@@ -7,10 +7,11 @@ import torch.nn.functional as F
 from torch.utils.data import random_split
 from torchvision import datasets, transforms
 
-
 random_seed = 1
 torch.manual_seed(random_seed)
 
+batch_size_train = 256
+batch_size_test = 1024
 
 # FNN Architecture for MNIST
 class FNNModel(nn.Module):
@@ -21,8 +22,6 @@ class FNNModel(nn.Module):
         self.n_epochs = 10
         self.momentum = 0.5
         self.learning_rate = 1e-01
-        self.batch_size_train = 128
-        self.batch_size_test = 1000
         self.num_classes = num_classes
         
         self.fc1 = nn.Linear(784, 64)
@@ -101,18 +100,17 @@ def FNN(device):
     return results
 
 
-# HELPER FUNCTIONS
+# HELPER FUNCTIONS:
+
 def load_MNIST():
-    # Load MNIST dataset for training and validating
+    # Load the MNIST dataset for training, validation, and testing
     MNIST_data_set = datasets.MNIST("/MNIST_dataset/", train=True, download=True,
         transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307), (0.3081))]))
-
-    # Load MNIST test set
+    
     MNIST_test_set = datasets.MNIST(
         "/MNIST_dataset/", train=False, download=True,
         transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307), (0.3081))]))
 
-    # Create a training and a validation set
     MNIST_training_set, MNIST_validation_set = random_split(MNIST_data_set, [48000, 12000])
 
     # Data loaders
