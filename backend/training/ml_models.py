@@ -147,7 +147,21 @@ def CNN(device):
     results = dict(model=cnn_model)
     return results
 
+def logistic_regression(device):
+    logistic_model = LogisticRegressionModel().to(device)
+    logistic_optimizer = optim.Adam(logistic_model.parameters(), lr=logistic_model.learning_rate, weight_decay=logistic_model.w_decay)
 
+    # Train the model
+    for epoch in range(1, logistic_model.n_epochs + 1):
+        train(device, logistic_model, logistic_optimizer, train_loader, loss_type="mse")
+        evaluate(device, logistic_model, validation_loader, epoch, loss_type="mse", dataset="Validation")
+
+    # Test the model
+    evaluate(device, logistic_model, test_loader, epoch="T", loss_type="mse", dataset="Test")
+
+    # Save the model
+    results = dict(model=logistic_model)
+    return results
 
 # HELPER FUNCTIONS: ====================================================================================================
 
