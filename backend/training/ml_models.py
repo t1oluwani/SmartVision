@@ -115,13 +115,13 @@ def FNN(device):
     return results
 
 
-# HELPER FUNCTIONS:
+# HELPER FUNCTIONS: ====================================================================================================
 
 # Training function
 def train(data_loader, model, optimizer, loss_type, device):
     model.train()
 
-    for batch_idx, (data, target) in enumerate(data_loader):
+    for data, target in enumerate(data_loader):
         data = data.to(device)
         target = target.to(device)
         optimizer.zero_grad()
@@ -133,12 +133,12 @@ def train(data_loader, model, optimizer, loss_type, device):
 
 # Evaluation function
 def evaluate(epoch, data_loader, model, loss_type, dataset, device):
-    model.eval()
+    model.eval() 
     
-    correct = 0
-    eval_loss = 0
     loading_bar = tqdm(data_loader, ncols=100, position=0, leave=True)
-    
+   
+    correct = 0
+    eval_loss = 0    
     with torch.no_grad():
         for data, target in loading_bar:
             data = data.to(device)
@@ -153,10 +153,9 @@ def evaluate(epoch, data_loader, model, loss_type, dataset, device):
             
             loading_bar.set_description("Epoch " + str(epoch) + ": ")
     eval_loss /= len(data_loader.dataset)
-
+    
     print(dataset, "Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.2f}%) |\n".format(
             eval_loss, correct, len(data_loader.dataset), 100.0 * correct / len(data_loader.dataset)))
-
 
 # Loss function
 def get_loss(loss_type, output, target):
@@ -170,7 +169,6 @@ def get_loss(loss_type, output, target):
         print("Invalid loss function")
         return None
         
-
 # Load MNIST dataset
 def load_MNIST():
     MNIST_data_set = datasets.MNIST("/MNIST_dataset/", train=True, download=True,
