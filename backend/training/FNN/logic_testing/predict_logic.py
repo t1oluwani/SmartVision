@@ -43,7 +43,7 @@ def process_and_predict(image_path, model, device):
 # HELPER FUNCTION - Load the trained model
 def load_model(model_path, device):
     in_channels = 1
-    model = Net(in_channels).to(device)
+    model = FNNModel(in_channels).to(device)
     model.load_state_dict(torch.load(model_path, weights_only=True))  
     model.eval()
     return model

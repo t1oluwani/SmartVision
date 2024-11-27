@@ -6,7 +6,7 @@ from torchvision import transforms, datasets
 
 import os, sys
 sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
-from methods import CNN
+from methods import FNN
 
 torch.multiprocessing.set_sharing_strategy('file_system')
 
@@ -52,14 +52,14 @@ def main():
     start = timeit.default_timer() # start the timer
 
     # Run the logistic regression model
-    results = CNN(device) # triggers logistic regression function
+    results = FNN(device) # triggers logistic regression function
     model = results['model']
     if model is None:
         print('No Model was Trained')
         return
     else:
         print("Attempting to save the model")
-        torch.save(model.state_dict(), 'CNN_model.pth') # Saves only the model parameters
+        torch.save(model.state_dict(), 'FNN_model.pth') # Saves only the model parameters
         print("Model saved successfully")
         # torch.save(model, 'LR_model_full.pth') # Saves the full model
 

@@ -1,4 +1,4 @@
-import pbar
+# import pbar
 
 import torch
 from torchvision import datasets, transforms
@@ -9,10 +9,17 @@ import torch.nn.functional as F
 from torch.utils.data import random_split
 
 n_epochs = 10
-w_decay = 1e-05
-learning_rate = 1e-03
-batch_size_train = 200
+learning_rate = 1e-01
+batch_size_train = 128
 batch_size_test = 1000
+
+w_decay = 1e-05
+
+momentum = 0.5
+
+random_seed = 1
+torch.manual_seed(random_seed)
+
 
 # FNN Architecture for MNIST
 class FNNModel(nn.Module):
@@ -28,25 +35,27 @@ class FNNModel(nn.Module):
         x = x.view(x.size(0), -1)
         x = F.tanh(self.fc1(x))
         x = F.relu(self.fc2(x))
-        output =   self.fc3(x)
+        output = self.fc3(x)
 
         return output
-    
+
+
 def FNN(device):
     train_loader, validation_loader, test_loader = load_MNIST()
-    num_classes = 10 # 10 classes for MNIST
+    num_classes = 10  # 10 classes for MNIST
 
     # Define the model and optimizer
     fnn_model = FNNModel(num_classes).to(device)
-    optimizer = optim.Adam(
-        fnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
-    )
+    # optimizer = optim.Adam(
+    #     fnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
+    # )
+    optimizer = optim.SGD(fnn_model.parameters(), lr=learning_rate, momentum=momentum)
     one_hot = torch.nn.functional.one_hot
 
     # Training function
     def train(data_loader, model, optimizer):
         model.train()
-        
+
         # pbar = tqdm(data_loader, ncols=100, position=0, leave=True)
         # for batch_idx, (data, target) in enumerate(pbar):
         for batch_idx, (data, target) in enumerate(data_loader):
@@ -58,13 +67,13 @@ def FNN(device):
             loss = F.cross_entropy(output, target)
             loss.backward()
             optimizer.step()
-            
+
             # pbar.set_description("Loss: {:.4f}".format(loss.item()))
 
     # Evaluation function
     def eval(epoch, data_loader, model, dataset):
         model.eval()
-        
+
         correct = 0
         eval_loss = 0
         with torch.no_grad():
@@ -74,34 +83,36 @@ def FNN(device):
                 output = model(data)
                 pred = output.data.max(1, keepdim=True)[1]
                 correct += pred.eq(target.data.view_as(pred)).sum()
-                loss = F.nll_loss(output, target)
+                loss = F.cross_entropy(output, target)
                 eval_loss += loss.item()
         eval_loss /= len(data_loader.dataset)
 
         # Print the evaluation results in easily readable format
+        print("Epoch " + str(epoch) + ": ")
         print(
-            "Epoch "
-            + str(epoch)
-            + ": "
-            + dataset
-            + " Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.2f}%) |\n".format(
+            dataset,
+            "Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.2f}%) |\n".format(
                 eval_loss,
                 correct,
                 len(data_loader.dataset),
                 100.0 * correct / len(data_loader.dataset),
-            )
+            ),
         )
+        # # Print the evaluation results in easily readable format
+        # print("Epoch " + str(epoch) + ": ")
+        # print(dataset, "Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.2f}%) |\n".format(
+        #         eval_loss, correct, len(data_loader.dataset), 100.0 * correct / len(data_loader.dataset)))
 
     # Training the model
     for epoch in range(1, n_epochs + 1):
-        train(train_loader, cnn_model, optimizer)
-        eval(epoch, validation_loader, cnn_model, "Validation")
+        train(train_loader, fnn_model, optimizer)
+        eval(epoch, validation_loader, fnn_model, "Validation")
 
     # Testing the model
     # eval("T", test_loader, cnn_model, "Test")
 
     # Save the model
-    results = dict(model=cnn_model)
+    results = dict(model=fnn_model)
     return results
 
 
