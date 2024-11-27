@@ -1,3 +1,4 @@
+import os
 import timeit
 from collections import OrderedDict
 
@@ -60,7 +61,8 @@ def main():
     else:
         print("Attempting to save the model")
         torch.save(model.state_dict(), 'FNN_model.pth') # Saves only the model parameters
-        print("Model saved successfully")
+        if os.path.exists('FNN_model.pth'):
+            print("Model saved successfully")
         # torch.save(model, 'LR_model_full.pth') # Saves the full model
 
     # Compute the run time

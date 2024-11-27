@@ -1,4 +1,4 @@
-# import pbar
+from tqdm import tqdm
 
 import torch
 from torchvision import datasets, transforms
@@ -56,8 +56,6 @@ def FNN(device):
     def train(data_loader, model, optimizer):
         model.train()
 
-        # pbar = tqdm(data_loader, ncols=100, position=0, leave=True)
-        # for batch_idx, (data, target) in enumerate(pbar):
         for batch_idx, (data, target) in enumerate(data_loader):
             data = data.to(device)
             target = target.to(device)
@@ -68,16 +66,17 @@ def FNN(device):
             loss.backward()
             optimizer.step()
 
-            # pbar.set_description("Loss: {:.4f}".format(loss.item()))
 
     # Evaluation function
     def eval(epoch, data_loader, model, dataset):
         model.eval()
+        loading_bar = tqdm(data_loader, ncols=100, position=0, leave=True)
 
         correct = 0
         eval_loss = 0
         with torch.no_grad():
-            for data, target in data_loader:
+            # for data, target in data_loader:
+            for data, target in loading_bar:
                 data = data.to(device)
                 target = target.to(device)
                 output = model(data)
@@ -85,10 +84,10 @@ def FNN(device):
                 correct += pred.eq(target.data.view_as(pred)).sum()
                 loss = F.cross_entropy(output, target)
                 eval_loss += loss.item()
+                loading_bar.set_description("Epoch " + str(epoch) + ": ")
         eval_loss /= len(data_loader.dataset)
 
         # Print the evaluation results in easily readable format
-        print("Epoch " + str(epoch) + ": ")
         print(
             dataset,
             "Set: | Average Loss: ({:.4f}) | Accuracy Raw: ({}/{}) | Accuracy Percentage: ({:.2f}%) |\n".format(
