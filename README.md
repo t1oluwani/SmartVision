@@ -6,11 +6,13 @@ TODOs:
 - Requirements.txt file for virtual enviroment module prerequisites
 
 Feature TODOs (VR/ML Logic):
-- Feature1: Recognize Handwritten Digits (MNIST-10). Via Logistic Regression
+- Feature1: Recognize Handwritten Digits (MNIST-10). Via Logistic Regression (DONE)
  
-- Feature2: Recognize Handwritten Digits (MNIST-10). Via Neural Network and then Convolutional Neural Network
+- Feature2: Recognize Handwritten Digits (MNIST-10). Via Convulutional Neural Network (DONE)
 
-- Feature3: Recognize and Categorize fashion items (replace this with another dataset) with high accuracy. Via Vision Transformer
+- Feature3: Recognize Handwritten Digits (MNIST-10). Via Feedfoward Neural Network (DONE)
+
+- Feature4: Recognize and Categorize fashion items (replace this with another dataset) with high accuracy. Via Vision Transformer
 
 - Feature5: Create unique clothing items (replace with another dataset) based on chosen category (replace with another dataset). Via AI Model trained on FashionMNIST (replace)
 
