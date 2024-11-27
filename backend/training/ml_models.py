@@ -12,6 +12,7 @@ torch.manual_seed(random_seed)
 
 batch_size_train = 256
 batch_size_test = 1024
+image_dimension = 28 * 28
 
 # CNN Architecture for MNIST
 class CNNModel(nn.Module):
@@ -65,6 +66,30 @@ class FNNModel(nn.Module):
         output = self.fc3(x)
 
         return output
+    
+    # Logistic regression model
+class LogisticRegressionModel(nn.Module):
+    def __init__(self):
+        super(LogisticRegressionModel, self).__init__()
+        
+        # Logistic Regression Hyperparameters
+        self.n_epochs = 10
+        self.momentum = 0.9
+        self.random_seed = 1
+        self.w_decay = 1e-05
+        self.log_interval = 100
+        self.learning_rate = 1e-03
+        
+        # Logistic Regression Layer
+        self.fc = nn.Linear(image_dimension, 10)
+
+    def forward(self, x):
+        x = x.view(x.size(0), -1)
+        x = self.fc(x)
+        output = nn.functional.softmax(x, dim=1)
+        
+        return output
+
 
 
 def FNN(device):
