@@ -15,6 +15,30 @@ batch_size_train = 256
 batch_size_test = 1024
 image_dimension = 28 * 28
 
+# Load MNIST dataset
+def load_MNIST():
+    MNIST_data_set = datasets.MNIST("/MNIST_dataset/", train=True, download=True,
+        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307), (0.3081))])
+    )
+    MNIST_test_set = datasets.MNIST(
+        "/MNIST_dataset/", train=False, download=True,
+        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307), (0.3081))])
+    )
+    MNIST_training_set, MNIST_validation_set = random_split(MNIST_data_set, [48000, 12000])
+    
+    train_loader = torch.utils.data.DataLoader(
+        MNIST_training_set, batch_size=batch_size_train, shuffle=True
+    )
+    validation_loader = torch.utils.data.DataLoader(
+        MNIST_validation_set, batch_size=batch_size_train, shuffle=False
+    )
+    test_loader = torch.utils.data.DataLoader(
+        MNIST_test_set, batch_size=batch_size_test, shuffle=False
+    )
+    return train_loader, validation_loader, test_loader
+
+train_loader, validation_loader, test_loader = load_MNIST()
+
 # CNN Architecture for MNIST
 class CNNModel(nn.Module):
     def __init__(self):
@@ -91,20 +115,15 @@ class LogisticRegressionModel(nn.Module):
         
         return output
 
-
-
 def FNN(device):
-    
     fnn_model = FNNModel().to(device)
     fnn_optimizer = optim.SGD(fnn_model.parameters(), lr=fnn_model.learning_rate, momentum=fnn_model.momentum)
-    
-    train_loader, validation_loader, test_loader = load_MNIST()
 
     # Train the model
     for epoch in range(1, fnn_model.n_epochs + 1):
-        train(device, fnn_model, fnn_optimizer, train_loader, loss_type="ce", )
+        train(device, fnn_model, fnn_optimizer, train_loader, loss_type="ce")
         evaluate(device, fnn_model, validation_loader, epoch, loss_type="ce", dataset="Validation")
-        
+ 
     # Test the model
     evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
 
@@ -113,27 +132,22 @@ def FNN(device):
     return results
 
 def CNN(device):
-    train_loader, validation_loader, test_loader = load_MNIST()
-    in_channels = 1  # MNIST dataset has 1 channel
+    cnn_model = CNNModel().to(device)
+    cnn_optimizer = optim.Adam(cnn_model.parameters(), lr=cnn_model.learning_rate, weight_decay=cnn_model.w_decay)
 
-    # Define the model and optimizer
-    cnn_model = CNNModel(in_channels).to(device)
-    optimizer = optim.Adam(
-        cnn_model.parameters(), lr=learning_rate, weight_decay=w_decay
-    )
+    # Train the model
+    for epoch in range(1, cnn_model.n_epochs + 1):
+        train(device, cnn_model, cnn_optimizer, train_loader, loss_type="mse")
+        evaluate(device, cnn_model, validation_loader, epoch, loss_type="nll", dataset="Validation")
 
-    # Training the model
-    # eval("-", validation_loader, cnn_model, "Validation")
-    for epoch in range(1, n_epochs + 1):
-        train(train_loader, cnn_model, optimizer)
-        eval(epoch, validation_loader, cnn_model, "Validation")
-
-    # Testing the model
-    # eval("-", test_loader, cnn_model, "Test")
+    # Test the model
+    eval(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
 
     # Save the model
     results = dict(model=cnn_model)
     return results
+
+
 
 # HELPER FUNCTIONS: ====================================================================================================
 
@@ -189,28 +203,4 @@ def get_loss(loss_type, output, target):
         print("Invalid loss function")
         return None
         
-# Load MNIST dataset
-def load_MNIST():
-    MNIST_data_set = datasets.MNIST("/MNIST_dataset/", train=True, download=True,
-        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307), (0.3081))])
-    )
-    MNIST_test_set = datasets.MNIST(
-        "/MNIST_dataset/", train=False, download=True,
-        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307), (0.3081))])
-    )
-    MNIST_training_set, MNIST_validation_set = random_split(
-        MNIST_data_set, [48000, 12000]
-    )
 
-    # Data loaders
-    train_loader = torch.utils.data.DataLoader(
-        MNIST_training_set, batch_size=batch_size_train, shuffle=True
-    )
-    validation_loader = torch.utils.data.DataLoader(
-        MNIST_validation_set, batch_size=batch_size_train, shuffle=False
-    )
-    test_loader = torch.utils.data.DataLoader(
-        MNIST_test_set, batch_size=batch_size_test, shuffle=False
-    )
-
-    return train_loader, validation_loader, test_loader
