@@ -24,6 +24,7 @@
 .HN-Scope .left-container {
   flex: 1;
   border-radius: 10px;
+  transform: translateY(-50px);
   border: 3px solid darkslateblue;
   background-color: #fafafa;
   margin: 0 25px;
@@ -40,6 +41,7 @@
   display: flex;
   margin: 0 25px;
   flex-direction: column;
+  transform: translateY(-50px);
   gap: 30px
 }
 .HN-Scope .model-prediction {

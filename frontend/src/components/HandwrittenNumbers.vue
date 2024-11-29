@@ -71,7 +71,7 @@
           <h3>Model Predictions</h3>
           <p>The Model predicts the handwritten number to have a value of</p>
           <div class="predicted-value">
-            <strong>{{ modelPrediction }}</strong>
+            <strong>{{ modelPrediction ? modelPrediction : "?" }}</strong>
           </div>
         </div>
       </div>
