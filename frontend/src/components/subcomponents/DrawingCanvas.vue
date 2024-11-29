@@ -79,6 +79,7 @@ export default {
     }
     function changeToEraser() {
       isPen = false;
+      penSize = 75;
       penColor = "white";
     }
     function changeColor() {
@@ -105,28 +106,25 @@ export default {
 </script>
 
 <style scoped>
+
 #canvas-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 #canvas-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 #image-guideline {
   position: fixed; /* Overlaps with canvas */
   width: 280px;
   height: 420px;
   border-radius: 50%;
   border: dashed 6px rgba(128, 128, 128, 0.5);
-
 }
-
 canvas {
   width: 560px ;
   height: 560px;
@@ -144,7 +142,6 @@ canvas {
   border-radius: 5px;
   background-color: gray;
 }
-
 button, #colorpicker {
   width: 100px;
   height: 40px; 
@@ -158,12 +155,11 @@ button, #colorpicker {
   color: white;
   cursor: pointer;
 }
-
 button:hover, #colorpicker:hover {
   background-color: darkgray;  
 }
-
 button:active, #colorpicker:active {
   background-color: lightgray;
 }
+
 </style>
