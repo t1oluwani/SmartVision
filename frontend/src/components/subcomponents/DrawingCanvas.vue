@@ -35,12 +35,9 @@ export default {
     function loop() {
       // Draw a circle if mouseIsPressed
       if (mouseIsPressed) {
-        ctx.strokeStyle = penColor;
-        ctx.lineWidth = penSize;
-        ctx.beginPath();
-        ctx.moveTo(pmouseX, pmouseY);
-        ctx.lineTo(mouseX, mouseY);
-        ctx.stroke();
+        // Combining them leads to smoother strokes (don't ask me why it works, it just does :D)
+        drawViaLine();
+        drawViaCircle();
       }
       requestAnimationFrame(loop);
     }
@@ -87,7 +84,23 @@ export default {
     function changeColor() {
       penColor = document.querySelector("#colorpicker").value;
     }
-  },
+
+    // Drawing Functions
+    function drawViaLine() {
+      ctx.strokeStyle = penColor;
+      ctx.lineWidth = penSize;
+      ctx.beginPath();
+      ctx.moveTo(pmouseX, pmouseY);
+      ctx.lineTo(mouseX, mouseY);
+      ctx.stroke();
+    }
+    function drawViaCircle() {
+      ctx.fillStyle = penColor;
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, penSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 };
 </script>
 
