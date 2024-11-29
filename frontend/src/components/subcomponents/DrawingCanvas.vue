@@ -5,30 +5,29 @@
       <canvas id="drawingCanvas"></canvas>
     </div>
     <div id="buttons">
-      <button>Clear</button>
-      <button>Pen</button>
-      <input id="colorpicker" type="color">
-      <button>Eraser</button>
+      <button id="clearbtn">Clear</button>
+      <button id="penbtn">Pen</button>
+      <input  id="colorpicker" type="color">
+      <button id="eraserbtn">Eraser</button>
     </div>
   </div>
 </template>
 
 <script>
+import { is } from 'core-js/core/object';
+
 export default {
   mounted() {
     // Setup Canvas and Graphics Context
     let cnv = document.getElementById("drawingCanvas");
-    if (!cnv) {
-      console.error("Canvas element not found!");
-      return;
-    }
     let ctx = cnv.getContext("2d");
 
     // Global Variables
     let mouseIsPressed = false;
     let mouseX, mouseY, pmouseX, pmouseY;
-    let penSize = 55; // Proportionate to canvas size for MNIST Dataset
-    let penColor = "black"; // Default pen color
+    let isPen = true;
+    let penSize = 5; // change to 55
+    let penColor = "black"; 
 
     // Main Program Loop (60 FPS)
     requestAnimationFrame(loop);
@@ -51,23 +50,45 @@ export default {
     document.addEventListener("mouseup", mouseupHandler);
     document.addEventListener("mousemove", mousemoveHandler);
 
+    // Button Events
+    document.querySelector("#clearbtn").addEventListener("click", clearCanvas);
+    document.querySelector("#penbtn").addEventListener("click", changeToPen);
+    document.querySelector("#colorpicker").addEventListener("input", changeColor);
+    document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
+
+    // Mouse Event Functions
     function mousedownHandler() {
       mouseIsPressed = true;
     }
-
     function mouseupHandler() {
       mouseIsPressed = false;
     }
-
     function mousemoveHandler(event) {
-      // Save previous mouseX and mouseY
       pmouseX = mouseX;
       pmouseY = mouseY;
 
-      // Update mouseX and mouseY
-      let cnvRect = cnv.getBoundingClientRect();
-      mouseX = event.clientX - cnvRect.left;
-      mouseY = event.clientY - cnvRect.top;
+      let cnvRect = cnv.getBoundingClientRect()
+      mouseX = event.x - cnvRect.x;
+      mouseY = event.y - cnvRect.y;
+    }
+
+    // Button Event Functions
+    function clearCanvas() {
+      ctx.clearRect(0, 0, cnv.width, cnv.height);
+    }
+
+    function changeToPen() {
+      isPen = true;
+      penColor = document.querySelector("#colorpicker").value;
+    }
+
+    function changeColor() {
+      penColor = document.querySelector("#colorpicker").value;
+    }
+
+    function changeToEraser() {
+      isPen = false;
+      penColor = "white";
     }
   },
 };
