@@ -1,6 +1,6 @@
 <template>
   <div id="canvas_container">
-    <canvas id="drawingCanvas" width="500" height="500"></canvas>
+    <canvas id="drawingCanvas" width="560" height="560"></canvas>
     <div id="buttons">
       <button>Clear</button>
       <button>Pen</button>
