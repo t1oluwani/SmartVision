@@ -35,7 +35,7 @@ export default {
     function loop() {
       // Draw a circle if mouseIsPressed
       if (mouseIsPressed) {
-        // Combining them leads to smoother strokes (don't ask me why it works, it just does :D)
+        // Combining them leads to a smoother streak (don't ask me why it works, it just does :D)
         drawViaLine();
         drawViaCircle();
       }
@@ -120,8 +120,8 @@ export default {
 
 #image-guideline {
   position: fixed; /* Overlaps with canvas */
-  width: 300px;
-  height: 450px;
+  width: 280px;
+  height: 420px;
   border-radius: 50%;
   border: dotted 2px rgba(128, 128, 128, 0.5);
 
