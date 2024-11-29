@@ -160,4 +160,8 @@ button, #colorpicker {
 button:hover, #colorpicker:hover {
   background-color: darkgray;  
 }
+
+button:active, #colorpicker:active {
+  background-color: lightgray;
+}
 </style>
