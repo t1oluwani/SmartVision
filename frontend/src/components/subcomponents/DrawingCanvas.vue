@@ -33,8 +33,8 @@ export default {
     requestAnimationFrame(loop);
 
     function loop() {
-      // Draw a circle if mouseIsPressed
-      if (mouseIsPressed) {
+      // Draw only when mouse is pressed and inside the canvas
+      if (mouseIsPressed && mouseInCanvas()) {
         // Combining them leads to a smoother streak (don't ask me why it works, it just does :D)
         drawViaLine();
         drawViaCircle();
@@ -67,6 +67,9 @@ export default {
       let cnvRect = cnv.getBoundingClientRect()
       mouseX = event.clientX - cnvRect.left;
       mouseY = event.clientY - cnvRect.top;
+    }
+    function mouseInCanvas() {
+      return mouseX >= 0 && mouseX <= cnv.width && mouseY >= 0 && mouseY <= cnv.height;
     }
 
     // Button Event Functions
