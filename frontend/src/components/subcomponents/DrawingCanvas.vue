@@ -10,7 +10,7 @@
       <button id="penbtn">Pen</button>
       <input  id="colorpicker" type="color">
     </div>
-    <button id="savebtn">Save</button>
+    <button id="savebtn">Save</button> <!-- Test button, delete later -->
   </div>
 </template>
 
@@ -55,6 +55,8 @@ export default {
     document.querySelector("#penbtn").addEventListener("click", changeToPen);
     document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
     document.querySelector("#colorpicker").addEventListener("input", changeColor);
+    document.querySelector("#savebtn").addEventListener("click", saveCanvas); // Test button, delete later
+    // document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
 
     // Mouse Event Functions
     function mousedownHandler() {
@@ -109,9 +111,6 @@ export default {
     }
 
     // Save Canvas as Image
-    // document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
-    document.querySelector("#savebtn").addEventListener("click", saveCanvas);
-    
     function saveCanvas() {
       let link = document.createElement("a");
       link.download = "canvas.png";
