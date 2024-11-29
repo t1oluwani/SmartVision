@@ -114,7 +114,7 @@ export default {
     // Save Canvas as Image
     function saveCanvas() {
       let link = document.createElement("a");
-      link.download = "canvas.png";
+      link.download = "canvas_num_image.png";
       link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
       link.click();
     }
