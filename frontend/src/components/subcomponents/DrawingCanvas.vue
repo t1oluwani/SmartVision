@@ -18,7 +18,10 @@ export default {
   mounted() {
     // Setup Canvas and Graphics Context
     let cnv = document.getElementById("drawingCanvas");
+    cnv.width = 560;
+    cnv.height = 560; 
     let ctx = cnv.getContext("2d");
+
 
     // Global Variables
     let mouseIsPressed = false;
