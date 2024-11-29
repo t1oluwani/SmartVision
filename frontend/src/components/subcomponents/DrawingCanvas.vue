@@ -54,7 +54,7 @@ export default {
     document.querySelector("#penbtn").addEventListener("click", changeToPen);
     document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
     document.querySelector("#colorpicker").addEventListener("input", changeColor);
-    // document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
+    document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
 
     // Mouse Event Functions
     function mousedownHandler() {

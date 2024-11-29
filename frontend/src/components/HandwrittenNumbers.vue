@@ -13,7 +13,7 @@
           </select>
 
           <button id="identifybtn" @click="identify">Identify</button>
-          <h3>The handwritten number has a value of __ with __% confidence</h3>
+          <!-- <h3>The handwritten number has a value of __ with __% confidence</h3> -->
         </div>
 
         
