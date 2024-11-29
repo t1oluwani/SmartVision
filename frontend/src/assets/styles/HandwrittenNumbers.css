@@ -1,10 +1,44 @@
+.HN-Scope .tab-content {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.HN-Scope h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.HN-Scope p {
+  font-size: 16px;
+}
+.HN-Scope button {
+  font-size: 18px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
+}
+
+/* Left Side */
+.HN-Scope .left-container {
+  flex: 1;
+  border-radius: 10px;
+  border: 3px solid darkslateblue;
+  background-color: #fafafa;
+  margin: 0 25px;
+}
+/* Right Side */
+.HN-Scope .right-container {
+  flex: 1;
+  margin: 0 25px;
+}
+
+/* Middle Part */
 .HN-Scope .middle-container {
   display: flex;
   flex-direction: column;
   text-align: center;
   margin: 10px;
 }
-
 .HN-Scope .choose-model {
   margin: 10px;
   margin-bottom: 0;
@@ -28,11 +62,8 @@
   border-color:indigo;
   background-color: whitesmoke;
 }
-#identifybtn {
-  font-size: 18px;
-  margin-top: 10px;
-  border-radius: 10px;
-  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
-}
+
+
+
 
 
