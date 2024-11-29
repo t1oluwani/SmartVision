@@ -22,10 +22,10 @@
   border-radius: 5px;
   background-color: white;
   cursor: pointer;
-  width: 250px;
+  width: 300px;
 }
 .HN-Scope select:hover {
-  border-color:dodgerblue;
+  border-color:indigo;
   background-color: whitesmoke;
 }
 #identifybtn {
