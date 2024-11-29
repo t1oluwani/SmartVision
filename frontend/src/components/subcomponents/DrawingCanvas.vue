@@ -28,7 +28,7 @@ export default {
     let mouseIsPressed = false;
     let mouseX, mouseY, pmouseX, pmouseY;
     // let isPen = true;
-    let penSize = 55;
+    let penSize = 50;
     let penColor = "black";
 
     // Main Program Loop (60 FPS)
