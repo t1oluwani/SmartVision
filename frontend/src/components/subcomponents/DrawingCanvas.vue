@@ -123,14 +123,14 @@ export default {
   width: 280px;
   height: 420px;
   border-radius: 50%;
-  border: dotted 2px rgba(128, 128, 128, 0.5);
+  border: dashed 6px rgba(128, 128, 128, 0.5);
 
 }
 
 canvas {
   width: 560px ;
   height: 560px;
-  border: 2px solid black;
+  border: 4px solid black;
   background-color: white;
   /* cursor: url('pen-cursor.png'), auto; Replace 'pen-cursor.png' with your cursor image */
 }
@@ -138,7 +138,26 @@ canvas {
 #buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 10px;
   gap: 1rem;
+  border-radius: 5px;
+  background-color: gray;
+}
+
+button, #colorpicker {
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover, #colorpicker:hover {
+  background-color: darkgray;  
 }
 </style>
