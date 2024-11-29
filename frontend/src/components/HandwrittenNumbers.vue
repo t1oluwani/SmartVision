@@ -1,11 +1,8 @@
 <template>
   <div class="HN-Scope">
     <div class="tab-content">
-      <div class="canvas-container">
-        <div class="canvas-box">
-          <!-- Placeholder for canvas: White rectangle -->
-          <div class="canvas-placeholder">Canvas Area</div>
-        </div>
+      <div class="tab-container">
+        <DrawingCanvas />
 
         <div class="model-switch">
           <label for="model">Choose Model:</label>
@@ -15,16 +12,22 @@
             <option value="cneural-network">Convolutional Neural Network (CNN)</option>
           </select>
         </div>
+
         <button id="identifybtn" @click="identify">Identify</button>
-        
         <h3>The handwritten number has a value of __ with __% confidence</h3>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
+
 export default {
+  components: {
+    DrawingCanvas,
+  },
   data() {
     return {
       selectedModel: 'logistic-regression', // Default model

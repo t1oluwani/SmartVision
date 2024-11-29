@@ -8,9 +8,8 @@
       <button id="clearbtn">Clear</button>
       <button id="eraserbtn">Eraser</button>
       <button id="penbtn">Pen</button>
-      <input  id="colorpicker" type="color">
+      <input id="colorpicker" type="color">
     </div>
-    <button id="savebtn">Save</button> <!-- Test button, delete later -->
   </div>
 </template>
 
@@ -20,9 +19,9 @@ export default {
     // Setup Canvas and Graphics Context
     let cnv = document.getElementById("drawingCanvas");
     cnv.width = 560;
-    cnv.height = 560; 
+    cnv.height = 560;
     let ctx = cnv.getContext("2d");
-    ctx.fillStyle = "white";  
+    ctx.fillStyle = "white";
     ctx.fillRect(0, 0, cnv.width, cnv.height);
 
     // Global Variables
@@ -30,7 +29,7 @@ export default {
     let mouseX, mouseY, pmouseX, pmouseY;
     let isPen = true;
     let penSize = 55;
-    let penColor = "black"; 
+    let penColor = "black";
 
     // Main Program Loop (60 FPS)
     requestAnimationFrame(loop);
@@ -55,7 +54,6 @@ export default {
     document.querySelector("#penbtn").addEventListener("click", changeToPen);
     document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
     document.querySelector("#colorpicker").addEventListener("input", changeColor);
-    document.querySelector("#savebtn").addEventListener("click", saveCanvas); // Test button, delete later
     // document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
 
     // Mouse Event Functions
@@ -74,7 +72,10 @@ export default {
       mouseY = event.clientY - cnvRect.top;
     }
     function mouseInCanvas() {
-      return mouseX >= 0 && mouseX <= cnv.width && mouseY >= 0 && mouseY <= cnv.height;
+      return  mouseX >= 0 &&
+              mouseX <= cnv.width &&
+              mouseY >= 0 &&
+              mouseY <= cnv.height;
     }
 
     // Button Event Functions
@@ -122,27 +123,30 @@ export default {
 </script>
 
 <style scoped>
-
 #canvas-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 #canvas-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 #image-guideline {
-  position: fixed; /* Overlaps with canvas */
+  position: fixed;
+  /* Overlaps with canvas */
   width: 280px;
   height: 420px;
   border-radius: 50%;
   border: dashed 6px rgba(128, 128, 128, 0.5);
 }
+
 canvas {
-  width: 560px ;
+  width: 560px;
   height: 560px;
   border: 4px solid black;
   background-color: white;
@@ -158,11 +162,13 @@ canvas {
   border-radius: 5px;
   background-color: gray;
 }
-button, #colorpicker {
+
+button,
+#colorpicker {
   width: 100px;
-  height: 40px; 
+  height: 40px;
   font-size: 18px;
-  font-family:'Trebuchet MS', Arial, sans-serif;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
   border: none;
   border-radius: 5px;
   padding: 6px;
@@ -170,15 +176,18 @@ button, #colorpicker {
   background-color: transparent;
   cursor: pointer;
 }
-button:hover, #colorpicker:hover {
-  background-color: darkgray;  
+
+button:hover,
+#colorpicker:hover {
+  background-color: darkgray;
 }
-button:active, #colorpicker:active {
+
+button:active,
+#colorpicker:active {
   background-color: lightgray;
 }
 
 #savebtn {
   background-color: aquamarine;
 }
-
 </style>
