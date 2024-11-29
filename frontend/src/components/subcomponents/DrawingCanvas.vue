@@ -10,6 +10,7 @@
       <button id="penbtn">Pen</button>
       <input  id="colorpicker" type="color">
     </div>
+    <button id="savebtn">Save</button>
   </div>
 </template>
 
@@ -103,6 +104,17 @@ export default {
       ctx.beginPath();
       ctx.arc(mouseX, mouseY, penSize / 2, 0, Math.PI * 2);
       ctx.fill();
+    }
+
+    // Save Canvas as Image
+    // document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
+    document.querySelector("#savebtn").addEventListener("click", saveCanvas);
+    
+    function saveCanvas() {
+      let link = document.createElement("a");
+      link.download = "canvas.png";
+      link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      link.click();
     }
   }
 };

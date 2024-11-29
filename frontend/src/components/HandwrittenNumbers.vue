@@ -15,7 +15,7 @@
             <option value="cneural-network">Convolutional Neural Network (CNN)</option>
           </select>
         </div>
-        <button @click="identify">Identify</button>
+        <button id="identifybtn" @click="identify">Identify</button>
         
         <h3>The handwritten number has a value of __ with __% confidence</h3>
       </div>
