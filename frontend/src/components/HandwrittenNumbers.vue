@@ -4,17 +4,19 @@
       <div class="tab-container">
         <DrawingCanvas />
 
-        <div class="model-switch">
-          <label for="model">Choose Model:</label>
+        <div class="choose-model">
+          <label for="model">Choose Model: </label>
           <select v-model="selectedModel" id="model">
             <option value="logistic-regression">Logistic Regression</option>
             <option value="fneural-network">FeedFoward Neural Network (FNN)</option>
             <option value="cneural-network">Convolutional Neural Network (CNN)</option>
           </select>
+
+          <button id="identifybtn" @click="identify">Identify</button>
+          <h3>The handwritten number has a value of __ with __% confidence</h3>
         </div>
 
-        <button id="identifybtn" @click="identify">Identify</button>
-        <h3>The handwritten number has a value of __ with __% confidence</h3>
+        
 
       </div>
     </div>

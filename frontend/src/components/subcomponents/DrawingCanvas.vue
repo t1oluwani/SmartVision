@@ -137,8 +137,7 @@ export default {
 }
 
 #image-guideline {
-  position: fixed;
-  /* Overlaps with canvas */
+  position: absolute; /* Overlaps with canvas */
   width: 280px;
   height: 420px;
   border-radius: 50%;
