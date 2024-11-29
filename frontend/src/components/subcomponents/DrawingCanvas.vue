@@ -3,7 +3,6 @@
     <div id="canvas-box">
       <div id="image-guideline"></div>
       <canvas id="drawingCanvas"></canvas>
-      <!-- Brush stroke should be  -->
     </div>
     <div id="buttons">
       <button>Clear</button>
@@ -15,37 +14,22 @@
 </template>
 
 <script>
-// export default {
-//   mounted() {
-//     const canvas = document.getElementById('drawingCanvas');
-//     const ctx = canvas.getContext('2d');
-//     let isDrawing = false;
-//     let lastX = 0;
-//     let lastY = 0;
+  // Setup Canvas and Graphics Content
+  let cnv = document.getElementById("myCanvas");
+  let ctx = cnv.getContext("2d");
 
-//     canvas.addEventListener('mousedown', (e) => {
-//       isDrawing = true;
-//       [lastX, lastY] = [e.offsetX, e.offsetY];
-//     });
+  // Global Variables
+  let mouseIsPressed = false;
+  let mouseX, mouseY, pmouseX, pmouseY;
+  let penSize = 55; // Porportionate to canvas size for MNIST Dataset
+  let penColor = "black"; // Default pen color
+  let eraserSize = 75; 
+  let eraserColor = "white"; // Default eraser color
 
-//     canvas.addEventListener('mousemove', (e) => {
-//       if (!isDrawing) return;
-//       ctx.beginPath();
-//       ctx.moveTo(lastX, lastY);
-//       ctx.lineTo(e.offsetX, e.offsetY);
-//       ctx.stroke();
-//       [lastX, lastY] = [e.offsetX, e.offsetY];
-//     });
+  
 
-//     canvas.addEventListener('mouseup', () => {
-//       isDrawing = false;
-//     });
 
-//     canvas.addEventListener('mouseout', () => {
-//       isDrawing = false;
-//     });
-//   },
-// };
+
 </script>
 
 <style scoped>
