@@ -6,10 +6,33 @@
 }
 
 .HN-Scope .choose-model {
-  margin: 5px;
+  margin: 10px;
   margin-bottom: 0;
 }
-
-.HN-Scope button {
-  margin-top: 5px;
+.HN-Scope label {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
+  margin-right: 10px;
 }
+.HN-Scope select {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid darkgray;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  width: 250px;
+}
+.HN-Scope select:hover {
+  border-color:dodgerblue;
+  background-color: whitesmoke;
+}
+#identifybtn {
+  font-size: 18px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
+}
+
+
