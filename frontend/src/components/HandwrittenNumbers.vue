@@ -12,12 +12,27 @@
 
           <p v-if="selectedModel === 'logistic-regression'">
             Logistic Regression is a linear model used for binary classification tasks.
+            Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
           </p>
           <p v-if="selectedModel === 'fneural-network'">
             Feedforward Neural Networks (FNN) are deep learning models with fully connected layers for classification.
+            Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
           </p>
           <p v-if="selectedModel === 'cneural-network'">
             Convolutional Neural Networks (CNN) are a class of deep learning models commonly used for image recognition.
+            Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
           </p>
         </div>
       </div>
@@ -34,7 +49,6 @@
           </select>
 
           <button id="identifybtn" @click="identify">Identify</button>
-          <!-- <h3>The handwritten number has a value of __ with __% confidence</h3> -->
         </div>
       </div>
 
@@ -51,6 +65,14 @@
           <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
           <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
           <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+        </div>
+
+        <div class="model-prediction">
+          <h3>Model Predictions</h3>
+          <p>The Model predicts the handwritten number to have a value of</p>
+          <div class="predicted-value">
+            <strong>{{ modelPrediction }}</strong>
+          </div>
         </div>
       </div>
 
@@ -75,6 +97,7 @@ export default {
         testAccuracy: 0,
         trainingTime: 0,
       },
+      modelPrediction: 5,
     };
   },
   methods: {
