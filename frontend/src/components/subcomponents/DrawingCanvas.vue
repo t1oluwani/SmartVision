@@ -66,8 +66,8 @@ export default {
       pmouseY = mouseY;
 
       let cnvRect = cnv.getBoundingClientRect()
-      mouseX = event.x - cnvRect.x;
-      mouseY = event.y - cnvRect.y;
+      mouseX = event.clientX - cnvRect.left;
+      mouseY = event.clientY - cnvRect.top;
     }
 
     // Button Event Functions
