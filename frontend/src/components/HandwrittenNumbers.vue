@@ -1,7 +1,28 @@
 <template>
   <div class="HN-Scope">
     <div class="tab-content">
-      <div class="tab-container">
+
+      <div class="left-container">
+        <div class="model-info">
+          <h3>{{
+            selectedModel === 'logistic-regression' ? 'Logistic Regression' :
+              selectedModel === 'fneural-network' ? 'FeedForward Neural Network' :
+                'Convolutional Neural Network'
+          }}</h3>
+
+          <p v-if="selectedModel === 'logistic-regression'">
+            Logistic Regression is a linear model used for binary classification tasks.
+          </p>
+          <p v-if="selectedModel === 'fneural-network'">
+            Feedforward Neural Networks (FNN) are deep learning models with fully connected layers for classification.
+          </p>
+          <p v-if="selectedModel === 'cneural-network'">
+            Convolutional Neural Networks (CNN) are a class of deep learning models commonly used for image recognition.
+          </p>
+        </div>
+      </div>
+
+      <div class="middle-container">
         <DrawingCanvas />
 
         <div class="choose-model">
@@ -15,11 +36,26 @@
           <button id="identifybtn" @click="identify">Identify</button>
           <!-- <h3>The handwritten number has a value of __ with __% confidence</h3> -->
         </div>
-
-        
-
       </div>
+
+      <div class="right-container">
+        <div class="training-status">
+          <h3>Visual Recognition Model Status</h3>
+          <p>{{ modelTrained ? 'Model is trained' : 'Model not trained' }}</p>
+          <button @click="trainModel">Train / Retrain Model</button>
+        </div>
+
+        <div v-if="modelTrained" class="model-specs">
+          <h3>Model Specifications</h3>
+          <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
+          <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
+          <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
+          <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+        </div>
+      </div>
+
     </div>
+  </div>
   </div>
 </template>
 
@@ -33,12 +69,31 @@ export default {
   data() {
     return {
       selectedModel: 'logistic-regression', // Default model
+      modelTrained: false,
+      modelSpecs: {
+        avgLoss: 0,
+        trainAccuracy: 0,
+        testAccuracy: 0,
+        trainingTime: 0,
+      },
     };
   },
   methods: {
     identify() {
       // Placeholder for identify function (no logic)
       alert(`Identifying with ${this.selectedModel}`);
+    },
+    trainModel() {
+      // Placeholder for trainModel function (no logic)
+      alert('Training model');
+
+      // Simulate training process for testing
+      this.modelTrained = true;
+      this.modelSpecs = {
+        avgLoss: 0.3,
+        trainAccuracy: 92,
+        testAccuracy: 88,
+        trainingTime: 120, // in seconds
     },
   },
 };
