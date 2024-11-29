@@ -120,7 +120,7 @@ export default {
       let link = document.createElement("a");
       link.download = "canvas_num_image.png";
       link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      link.click();
+      // link.click();
     }
   }
 };
