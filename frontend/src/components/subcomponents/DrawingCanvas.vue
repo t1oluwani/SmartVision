@@ -22,6 +22,8 @@ export default {
     cnv.width = 560;
     cnv.height = 560; 
     let ctx = cnv.getContext("2d");
+    ctx.fillStyle = "white";  
+    ctx.fillRect(0, 0, cnv.width, cnv.height);
 
     // Global Variables
     let mouseIsPressed = false;
@@ -167,7 +169,6 @@ button, #colorpicker {
   padding: 6px;
   margin: 0;
   background-color: transparent;
-  color: white;
   cursor: pointer;
 }
 button:hover, #colorpicker:hover {
@@ -175,6 +176,10 @@ button:hover, #colorpicker:hover {
 }
 button:active, #colorpicker:active {
   background-color: lightgray;
+}
+
+#savebtn {
+  background-color: aquamarine;
 }
 
 </style>
