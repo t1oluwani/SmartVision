@@ -6,9 +6,9 @@
     </div>
     <div id="buttons">
       <button id="clearbtn">Clear</button>
-      <button id="penbtn">Pen</button>
-      <input  id="colorpicker" type="color">
       <button id="eraserbtn">Eraser</button>
+      <button id="penbtn">Pen</button>
+      <input id="colorpicker" type="color">
     </div>
   </div>
 </template>
@@ -19,22 +19,24 @@ export default {
     // Setup Canvas and Graphics Context
     let cnv = document.getElementById("drawingCanvas");
     cnv.width = 560;
-    cnv.height = 560; 
+    cnv.height = 560;
     let ctx = cnv.getContext("2d");
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, cnv.width, cnv.height);
 
     // Global Variables
     let mouseIsPressed = false;
     let mouseX, mouseY, pmouseX, pmouseY;
     let isPen = true;
     let penSize = 55;
-    let penColor = "black"; 
+    let penColor = "black";
 
     // Main Program Loop (60 FPS)
     requestAnimationFrame(loop);
 
     function loop() {
-      // Draw a circle if mouseIsPressed
-      if (mouseIsPressed) {
+      // Draw only when mouse is pressed and inside the canvas
+      if (mouseIsPressed && mouseInCanvas()) {
         // Combining them leads to a smoother streak (don't ask me why it works, it just does :D)
         drawViaLine();
         drawViaCircle();
@@ -52,6 +54,7 @@ export default {
     document.querySelector("#penbtn").addEventListener("click", changeToPen);
     document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
     document.querySelector("#colorpicker").addEventListener("input", changeColor);
+    document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
 
     // Mouse Event Functions
     function mousedownHandler() {
@@ -68,6 +71,12 @@ export default {
       mouseX = event.clientX - cnvRect.left;
       mouseY = event.clientY - cnvRect.top;
     }
+    function mouseInCanvas() {
+      return  mouseX >= 0 &&
+              mouseX <= cnv.width &&
+              mouseY >= 0 &&
+              mouseY <= cnv.height;
+    }
 
     // Button Event Functions
     function clearCanvas() {
@@ -79,6 +88,7 @@ export default {
     }
     function changeToEraser() {
       isPen = false;
+      penSize = 75;
       penColor = "white";
     }
     function changeColor() {
@@ -100,6 +110,14 @@ export default {
       ctx.arc(mouseX, mouseY, penSize / 2, 0, Math.PI * 2);
       ctx.fill();
     }
+
+    // Save Canvas as Image
+    function saveCanvas() {
+      let link = document.createElement("a");
+      link.download = "canvas_num_image.png";
+      link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      link.click();
+    }
   }
 };
 </script>
@@ -119,18 +137,17 @@ export default {
 }
 
 #image-guideline {
-  position: fixed; /* Overlaps with canvas */
+  position: absolute; /* Overlaps with canvas */
   width: 280px;
   height: 420px;
   border-radius: 50%;
-  border: dotted 2px rgba(128, 128, 128, 0.5);
-
+  border: dashed 6px rgba(128, 128, 128, 0.5);
 }
 
 canvas {
-  width: 560px ;
+  width: 560px;
   height: 560px;
-  border: 2px solid black;
+  border: 4px solid black;
   background-color: white;
   /* cursor: url('pen-cursor.png'), auto; Replace 'pen-cursor.png' with your cursor image */
 }
@@ -138,7 +155,38 @@ canvas {
 #buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 10px;
-  gap: 1rem;
+  gap: 2rem;
+  border-radius: 5px;
+  background-color: gray;
+}
+
+button,
+#colorpicker {
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  margin: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button:hover,
+#colorpicker:hover {
+  background-color: darkgray;
+}
+
+button:active,
+#colorpicker:active {
+  background-color: lightgray;
+}
+
+#savebtn {
+  background-color: aquamarine;
 }
 </style>

@@ -1,31 +1,38 @@
-.HN-Scope .canvas-container {
-  text-align: center;
-  margin: 20px;
-}
-
-.HN-Scope .canvas-box {
-  width: 400px;
-  height: 400px;
-  background-color: lightgray;
-  margin: 10px auto;
+.HN-Scope .tab-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.HN-Scope .canvas-placeholder {
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border: 2px dashed gray;
-  line-height: 400px;
+  flex-direction: column;
   text-align: center;
-}
-
-.HN-Scope .model-switch {
   margin: 10px;
 }
 
-.HN-Scope button {
-  margin-top: 10px;
+.HN-Scope .choose-model {
+  margin: 10px;
+  margin-bottom: 0;
 }
+.HN-Scope label {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
+  margin-right: 10px;
+}
+.HN-Scope select {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid darkgray;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  width: 300px;
+}
+.HN-Scope select:hover {
+  border-color:indigo;
+  background-color: whitesmoke;
+}
+#identifybtn {
+  font-size: 18px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
+}
+
+
