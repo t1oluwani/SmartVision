@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { is } from 'core-js/core/object';
-
 export default {
   mounted() {
     // Setup Canvas and Graphics Context
@@ -53,8 +51,8 @@ export default {
     // Button Events
     document.querySelector("#clearbtn").addEventListener("click", clearCanvas);
     document.querySelector("#penbtn").addEventListener("click", changeToPen);
-    document.querySelector("#colorpicker").addEventListener("input", changeColor);
     document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
+    document.querySelector("#colorpicker").addEventListener("input", changeColor);
 
     // Mouse Event Functions
     function mousedownHandler() {
@@ -76,24 +74,20 @@ export default {
     function clearCanvas() {
       ctx.clearRect(0, 0, cnv.width, cnv.height);
     }
-
     function changeToPen() {
       isPen = true;
       penColor = document.querySelector("#colorpicker").value;
     }
-
-    function changeColor() {
-      penColor = document.querySelector("#colorpicker").value;
-    }
-
     function changeToEraser() {
       isPen = false;
       penColor = "white";
     }
+    function changeColor() {
+      penColor = document.querySelector("#colorpicker").value;
+    }
   },
 };
 </script>
-
 
 <style scoped>
 #canvas-container {
