@@ -97,13 +97,16 @@ export default {
         testAccuracy: 0,
         trainingTime: 0,
       },
-      modelPrediction: 5,
+      modelPrediction: null,
     };
   },
   methods: {
     identify() {
       // Placeholder for identify function (no logic)
       alert(`Identifying with ${this.selectedModel}`);
+
+      // Simulate prediction process for testing
+      this.modelPrediction = Math.floor(Math.random() * 10);
     },
     trainModel() {
       // Placeholder for trainModel function (no logic)
