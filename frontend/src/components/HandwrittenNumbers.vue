@@ -56,7 +56,6 @@
 
     </div>
   </div>
-  </div>
 </template>
 
 <script>
@@ -94,7 +93,8 @@ export default {
         trainAccuracy: 92,
         testAccuracy: 88,
         trainingTime: 120, // in seconds
-    },
-  },
+      }
+    }
+  }
 };
 </script>

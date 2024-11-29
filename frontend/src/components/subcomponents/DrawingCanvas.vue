@@ -27,7 +27,7 @@ export default {
     // Global Variables
     let mouseIsPressed = false;
     let mouseX, mouseY, pmouseX, pmouseY;
-    let isPen = true;
+    // let isPen = true;
     let penSize = 55;
     let penColor = "black";
 
@@ -83,11 +83,11 @@ export default {
       ctx.clearRect(0, 0, cnv.width, cnv.height);
     }
     function changeToPen() {
-      isPen = true;
+      // isPen = true;
       penColor = document.querySelector("#colorpicker").value;
     }
     function changeToEraser() {
-      isPen = false;
+      // isPen = false;
       penSize = 75;
       penColor = "white";
     }
@@ -110,6 +110,10 @@ export default {
       ctx.arc(mouseX, mouseY, penSize / 2, 0, Math.PI * 2);
       ctx.fill();
     }
+
+    // TODO: Implement pen/eraser toggle functionality
+    // When isPen is true, clicker is a pen; when isPen is false, clicker is an eraser
+
 
     // Save Canvas as Image
     function saveCanvas() {
