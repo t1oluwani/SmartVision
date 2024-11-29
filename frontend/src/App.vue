@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="tabs">
+    <div id="tabs">
       <button @click="showTab('numbers')">Handwritten Numbers</button>
       <button @click="showTab('object')">Object Recognition</button>
     </div>

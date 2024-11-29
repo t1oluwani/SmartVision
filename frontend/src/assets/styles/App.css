@@ -1,4 +1,8 @@
-.tabs {
+body {
+  background-color: rgba(221, 160, 221, 0.2);
+}
+
+#tabs {
   display: flex;
   justify-content: center;
   margin: 20px;
