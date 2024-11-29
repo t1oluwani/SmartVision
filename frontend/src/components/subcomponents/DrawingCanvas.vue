@@ -22,12 +22,11 @@ export default {
     cnv.height = 560; 
     let ctx = cnv.getContext("2d");
 
-
     // Global Variables
     let mouseIsPressed = false;
     let mouseX, mouseY, pmouseX, pmouseY;
     let isPen = true;
-    let penSize = 5; // change to 55
+    let penSize = 55;
     let penColor = "black"; 
 
     // Main Program Loop (60 FPS)
@@ -108,8 +107,8 @@ export default {
 
 #image-guideline {
   position: fixed; /* Overlaps with canvas */
-  width: 280px;
-  height: 420px;
+  width: 300px;
+  height: 450px;
   border-radius: 50%;
   border: dotted 2px rgba(128, 128, 128, 0.5);
 
