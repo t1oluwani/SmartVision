@@ -6,9 +6,9 @@
     </div>
     <div id="buttons">
       <button id="clearbtn">Clear</button>
+      <button id="eraserbtn">Eraser</button>
       <button id="penbtn">Pen</button>
       <input  id="colorpicker" type="color">
-      <button id="eraserbtn">Eraser</button>
     </div>
   </div>
 </template>
@@ -140,18 +140,20 @@ canvas {
   justify-content: center;
   align-items: center;
   margin: 10px;
-  gap: 1rem;
+  gap: 2rem;
   border-radius: 5px;
   background-color: gray;
 }
 
 button, #colorpicker {
   width: 100px;
-  height: 40px;
+  height: 40px; 
   font-size: 18px;
+  font-family:'Trebuchet MS', Arial, sans-serif;
   border: none;
   border-radius: 5px;
   padding: 6px;
+  margin: 0;
   background-color: transparent;
   color: white;
   cursor: pointer;
