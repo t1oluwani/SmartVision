@@ -23,12 +23,11 @@
 /* Left Side */
 .HN-Scope .left-container {
   flex: 1;
-  border-radius: 10px;
-  transform: translateY(-50px);
-  border: 3px solid darkslateblue;
-  background-color: #fafafa;
+  display: flex;
   margin: 0 25px;
-  height: auto; 
+  flex-direction: column;
+  transform: translateY(-50px);
+  gap: 30px;
 }
 .HN-Scope .model-info {
   padding: 25px;
@@ -42,7 +41,7 @@
   margin: 0 25px;
   flex-direction: column;
   transform: translateY(-50px);
-  gap: 30px
+  gap: 30px;
 }
 .HN-Scope .model-prediction {
   display: flex;

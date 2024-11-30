@@ -1,13 +1,13 @@
 <template>
   <div class="OR-Scope">
     <div class="tab-content">
+      
       <div class="left-container">
         <div class="upload-box">
           <!-- Placeholder for image upload: White rectangle -->
           <div class="upload-placeholder">Upload Image Area</div>
         </div>
         <button @click="identify">Identify</button>
-
       </div>
 
       <div class="middle-container">

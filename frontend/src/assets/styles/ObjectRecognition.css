@@ -25,3 +25,33 @@
 .OR-Scope button {
   margin-top: 10px;
 }
+
+.OR-Scope .tab-content {
+  display: flex;
+}
+
+/* Left Side */
+.OR-Scope .left-container {
+  flex: 1;
+  display: flex;
+  margin: 0 25px;
+  flex-direction: column;
+  transform: translateY(-50px);
+  gap: 30px;
+}
+/* Middle Part */
+.OR-Scope .middle-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 10px;
+}
+/* Right Side */
+.OR-Scope .right-container {
+  flex: 1;
+  display: flex;
+  margin: 0 25px;
+  flex-direction: column;
+  transform: translateY(-50px);
+  gap: 30px;
+}
