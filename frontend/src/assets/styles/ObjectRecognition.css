@@ -41,6 +41,7 @@
   flex-direction: column;
   text-align: center;
   margin: 10px;
+  gap: 20px;
 }
 .OR-Scope .model-prediction {
   display: flex;

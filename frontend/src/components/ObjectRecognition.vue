@@ -7,7 +7,7 @@
           <!-- Placeholder for image upload: White rectangle -->
           <div class="upload-placeholder">Upload Image Area</div>
         </div>
-        <button @click="identify">Identify</button>
+        <button @click="identify">Identify Item</button>
       </div>
 
       <div class="middle-container">
