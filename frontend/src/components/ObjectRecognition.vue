@@ -1,7 +1,7 @@
 <template>
   <div class="OR-Scope">
     <div class="tab-content">
-      
+
       <div class="left-container">
         <div class="upload-box">
           <!-- Placeholder for image upload: White rectangle -->
@@ -63,6 +63,19 @@ export default {
     identify() {
       // Placeholder for identify function (no logic)
       alert(`Identifying image`);
+    },
+    trainModel() {
+      // Placeholder for trainModel function (no logic)
+      alert('Training model');
+
+      // Simulate training process for testing
+      this.modelTrained = true;
+      this.modelSpecs = {
+        avgLoss: 0.3,
+        trainAccuracy: 92,
+        testAccuracy: 88,
+        trainingTime: 120, // in seconds
+      }
     },
     generate() {
       // Placeholder for random item generation (no logic)
