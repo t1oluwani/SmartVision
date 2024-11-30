@@ -1,9 +1,8 @@
 .OR-Scope .tab-content {
   display: flex;
-}
-.OR-Scope .container {
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin: 20px;
 }
 .OR-Scope h3 {
   margin-bottom: 10px;
@@ -21,7 +20,14 @@
   font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
 }
 
-
+/* Left Side */
+.OR-Scope .left-container {
+  flex: 1;
+  display: flex;
+  margin: 0 25px;
+  flex-direction: column;
+  gap: 30px;
+}
 .OR-Scope .upload-box, .OR-Scope .generate-box {
   width: 400px;
   height: 400px;
@@ -30,26 +36,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.OR-Scope .upload-placeholder, .OR-Scope .generate-placeholder {
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border: 2px dashed gray;
-  line-height: 400px;
-  text-align: center;
-}
-
-
-/* Left Side */
-.OR-Scope .left-container {
-  flex: 1;
-  display: flex;
-  margin: 0 25px;
-  flex-direction: column;
-  transform: translateY(-50px);
-  gap: 30px;
 }
 /* Middle Part */
 .OR-Scope .middle-container {
@@ -73,12 +59,28 @@
   border: 5px solid darkslateblue;
   border-radius: 50%;
 }
+.OR-Scope .upload-box, .OR-Scope .generate-box {
+  width: 400px;
+  height: 400px;
+  background-color: lightgray;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* Right Side */
 .OR-Scope .right-container {
   flex: 1;
   display: flex;
   margin: 0 25px;
   flex-direction: column;
-  transform: translateY(-50px);
   gap: 30px;
+}
+.OR-Scope .upload-placeholder, .OR-Scope .generate-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 2px dashed gray;
+  line-height: 400px;
+  text-align: center;
 }
