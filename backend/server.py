@@ -41,6 +41,7 @@ def upload_and_preprocess():
     Endpoint to upload and preprocess an image.
     """
     try:
+        
         return jsonify({"message": "Image uploaded and preprocessed successfully!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
