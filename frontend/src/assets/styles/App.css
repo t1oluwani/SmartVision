@@ -1,9 +1,6 @@
 html {
   height: 100vh;
   width: 100vw;
-}
-
-body {
   background-color: rgba(221, 160, 221, 0.2);
 }
 
@@ -25,4 +22,40 @@ button {
 
 button:hover {
   background-color: darkorchid;
+}
+
+/* Main Container */
+#default {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(221, 160, 221, 0.2);
+  border-radius: 10px;
+  margin-top: 10vh;
+  /* margin: auto; */
+}
+
+/* Headings */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #9b86fc;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #c4b6ff;
+}
+
+/* Paragraphs */
+p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+p.cta {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #a085ff;
 }

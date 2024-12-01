@@ -6,12 +6,18 @@
     </div>
 
     <div id="default">
-      <h1>Welcome to SmartVision, a Visual Recognition Playground</h1>
+      <h1>Welcome to SmartVision</h1>
+      <h2>A Cutting-Edge Visual Recognition Playground</h2>
       <p>
         This site is a playground for visual recognition models. You can test
         different models on handwritten numbers and object recognition. This site
-        will teach you about each model, what they're best used for and give you the 
-        ability to see their abilities first hand.
+        will teach you about each model, what they are best used for and showcase 
+        their abilities in action through hands-on testing.
+      </p>
+      <p>
+        The models are trained using the MNIST dataset for handwritten numbers and
+        the FashionMNIST dataset for object recognition. The models are trained using
+        PyTorch and are run in the browser.
       </p>
       <p>
         Select a tab above to get started.
