@@ -5,13 +5,13 @@
       <button @click="showTab('object')">Object Recognition</button>
     </div>
 
-    <div id="default">
+    <div id="default" v-if="activeTab === 'default'">
       <h1>Welcome to SmartVision</h1>
       <h2>A Cutting-Edge Visual Recognition Playground</h2>
       <p>
         This site is a playground for visual recognition models. You can test
         different models on handwritten numbers and object recognition. This site
-        will teach you about each model, what they are best used for and showcase 
+        will teach you about each model, what they are best used for and showcase
         their abilities in action through hands-on testing.
       </p>
       <p>
@@ -20,7 +20,7 @@
         PyTorch and are run in the browser.
       </p>
       <p>
-        Select a tab above to get started.
+        <strong>Select a tab above to get started!</strong>
       </p>
     </div>
 

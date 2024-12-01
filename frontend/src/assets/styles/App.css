@@ -4,6 +4,10 @@ html {
   background-color: rgba(221, 160, 221, 0.2);
 }
 
+body {
+  background-color: rgba(221, 160, 221, 0.2);
+}
+
 #tabs {
   display: flex;
   justify-content: center;
@@ -24,38 +28,46 @@ button:hover {
   background-color: darkorchid;
 }
 
-/* Main Container */
 #default {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  padding: 2rem;
-  background-color: rgba(221, 160, 221, 0.2);
-  border-radius: 10px;
+  margin: auto;
   margin-top: 10vh;
-  /* margin: auto; */
+  width: 50%;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: rgba(221, 160, 221, 0.3);
 }
 
-/* Headings */
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #9b86fc;
+  color: darkviolet;
+  font-size: 45px;
+  margin-bottom: 0;
+  font-family: 'Lucida Sans', Verdana, sans-serif;
 }
 
 h2 {
-  font-size: 1.8rem;
-  margin-bottom: 2rem;
-  color: #c4b6ff;
+  color: indigo;
+  font-size: 30px;
+  font-family:  'Gill Sans', 'Trebuchet MS', sans-serif;
 }
 
-/* Paragraphs */
+h3 {
+  font-family: Cambria, Cochin, 'Times New Roman', serif;
+}
+
 p {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
+  font-family: 'Segoe UI', Verdana, sans-serif;
 }
 
-p.cta {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #a085ff;
+#default p {
+  font-size: 18px;
+  padding: 0 100px;
+  line-height: 28px;
+}
+
+p strong {
+  color: slateblue;
+  font-size: 25px;
 }
