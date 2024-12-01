@@ -8,6 +8,17 @@ body {
   background-color: rgba(221, 160, 221, 0.2);
 }
 
+#logo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rebeccapurple;
+}
+
 #tabs {
   display: flex;
   justify-content: center;

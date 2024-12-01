@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <span id="logo"></span> <!--Placeholder for logo-->
+
     <div id="tabs">
       <button @click="showTab('numbers')">Handwritten Numbers</button>
       <button @click="showTab('object')">Object Recognition</button>
