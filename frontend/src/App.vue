@@ -5,6 +5,19 @@
       <button @click="showTab('object')">Object Recognition</button>
     </div>
 
+    <div id="default">
+      <h1>Welcome to SmartVision, a Visual Recognition Playground</h1>
+      <p>
+        This site is a playground for visual recognition models. You can test
+        different models on handwritten numbers and object recognition. This site
+        will teach you about each model, what they're best used for and give you the 
+        ability to see their abilities first hand.
+      </p>
+      <p>
+        Select a tab above to get started.
+      </p>
+    </div>
+
     <div v-if="activeTab === 'numbers'">
       <HandwrittenNumbers />
     </div>
