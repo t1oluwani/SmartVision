@@ -81,11 +81,11 @@ def train_and_save():
         return jsonify({"error": str(e)}), 500
 
 
-# Route: Use a model to predict an image classification
+# Route: Use a model to predict an images classification
 @app.route('/predict/<model_type>', methods=['POST'])
 def preprocess_and_predict(model_type):
     """
-    Endpoint to predict the class of an uploaded image using the model.
+    Endpoint to predict the class of an uploaded image using selected model.
     """
     if not model_type: 
         return jsonify({"error": "Please provide a model type."}), 
