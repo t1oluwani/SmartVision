@@ -36,13 +36,14 @@ def test():
 
 # Route: Upload and preprocess an image
 @app.route('/upload', methods=['POST'])
-def upload_and_preprocess():
+def upload_image():
     """
-    Endpoint to upload and preprocess an image.
+    Endpoint to upload an image.
     """
     try:
+        # Upload the image
         
-        return jsonify({"message": "Image uploaded and preprocessed successfully!"}), 200
+        return jsonify({"message": "Image uploaded successfully!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -65,7 +66,7 @@ def train_and_save():
 
 # Route: Use model to predict an image class
 @app.route('/predict', methods=['POST'])
-def predict_image():
+def preprocess_and_predict():
     """
     Endpoint to predict the class of an uploaded image using the model.
     """
