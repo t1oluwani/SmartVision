@@ -18,3 +18,5 @@ backend\training\CNN\logic_testing\data
 backend\training\CNN\logic_testing\data\MNIST
 backend\training\CNN\logic_testing\data\MNIST\raw
 
+# Uploaded Canvas Images
+backend\canvas_images

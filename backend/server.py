@@ -43,6 +43,7 @@ def upload_image():
     try:
         # Upload the image
         
+        
         return jsonify({"message": "Image uploaded successfully!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
