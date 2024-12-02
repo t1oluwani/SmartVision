@@ -40,6 +40,10 @@ def upload_image():
     """
     Endpoint to upload an image.
     """
+    # Clear canvas_images directory
+    for file in os.listdir("canvas_images"):
+        os.remove(os.path.join("canvas_images", file))
+        
     try:
         # Upload the image
         
@@ -65,16 +69,16 @@ def train_and_save():
         return jsonify({"error": str(e)}), 500
 
 
-# Route: Use model to predict an image class
-@app.route('/predict', methods=['POST'])
-def preprocess_and_predict():
+# Route: Use a model to predict an image classification
+@app.route('/predict/<model_type>', methods=['GET'])
+def preprocess_and_predict(model_type):
     """
     Endpoint to predict the class of an uploaded image using the model.
     """
+    if model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid model type. Choose from CNN, FNN, or LR."}), 400
     try:
-        global model
-        if model is None:
-            return jsonify({"error": "Model not loaded. Train the model first."}), 400
+        
 
         return jsonify({"predicted_class"}), 200
     except Exception as e:
