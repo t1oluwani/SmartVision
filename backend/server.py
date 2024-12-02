@@ -25,6 +25,9 @@ UPLOAD_FOLDER = 'canvas_image'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# Device configuration
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 # Model placeholders (load your trained model here)
 CNN_model = None
 FNN_model = None
@@ -109,17 +112,14 @@ def preprocess_and_predict(model_type):
     
     processed_image = transform(test_unprocessed_image).unsqueeze(0).to(device)
     
-    
-    
-    
-    
     try:
         if model_type == "CNN":
-            pass
+            model_path = 'ml_models/CNN_model.pth'
+            
         elif model_type == "FNN":
-            pass
+            model_path = 'ml_models/FNN_model.pth'
         elif model_type == "LR":
-            pass
+            model_path = 'ml_models/LR_model.pth'
         else:
             return jsonify({"error": "Invalid model type. Choose from CNN, FNN, or LR."}), 400
         
@@ -129,11 +129,21 @@ def preprocess_and_predict(model_type):
         return jsonify({"error": str(e)}), 500
 
 # HELPER FUNCTION - Load the trained CNN model
-def load_cnn_model(model_path, device):
-    in_channels = 1
-    model = CNNModel(in_channels).to(device)
-    model.load_state_dict(torch.load(model_path, weights_only=True))  
-    model.eval()
+def load_models(model_path, model_type):
+    if model_type == "CNN":
+        model = CNNModel(1).to(device)
+        model.load_state_dict(torch.load(model_path, weights_only=True))
+    elif model_type == "FNN":
+        model = FNNModel(10).to(device)
+        model.load_state_dict(torch.load(model_path, weights_only=True))  
+        model.eval()
+    elif model_type == "LR":
+        model = LogisticRegressionModel().to(device)  
+        model.load_state_dict(torch.load(model_path, weights_only=True))  
+        model.eval()
+    else:
+        return jsonify({"error": "Invalid model type. Choose from CNN, FNN, or LR."}), 400
+    
     return model
 
 if __name__ == "__main__":
