@@ -60,7 +60,7 @@
         </div>
 
         <div v-if="selectedModel === 'cneural-network'">
-          <div v-if="modelTrained" class="model-specs">
+          <div v-if="model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
             <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
@@ -70,7 +70,7 @@
         </div>
 
         <div v-if="selectedModel === 'fneural-network'">
-          <div v-if="modelTrained" class="model-specs">
+          <div v-if="model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
             <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
@@ -80,7 +80,7 @@
         </div>
 
         <div v-if="selectedModel === 'logistic-regression'">
-          <div v-if="modelTrained" class="model-specs">
+          <div v-if="model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
             <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
@@ -112,41 +112,36 @@ export default {
   data() {
     return {
       selectedModel: 'logistic-regression', // Default model
-      models: [
-        {
-          name: "CNN",
-          modelTrained: false,
-          modelSpecs: {
-            avgLoss: 0,
-            trainAccuracy: 0,
-            testAccuracy: 0,
-            trainingTime: 0,
-          },
-          modelPrediction: null,
+      cnn_model: {
+        modelTrained: false,
+        modelSpecs: {
+          avgLoss: 0,
+          trainAccuracy: 0,
+          testAccuracy: 0,
+          trainingTime: 0,
         },
-        {
-          name: "FNN",
-          modelTrained: false,
-          modelSpecs: {
-            avgLoss: 0,
-            trainAccuracy: 0,
-            testAccuracy: 0,
-            trainingTime: 0,
-          },
-          modelPrediction: null,
+        modelPrediction: null,
+      },
+      fnn_model: {
+        modelTrained: false,
+        modelSpecs: {
+          avgLoss: 0,
+          trainAccuracy: 0,
+          testAccuracy: 0,
+          trainingTime: 0,
         },
-        {
-          name: "LR",
-          modelTrained: false,
-          modelSpecs: {
-            avgLoss: 0,
-            trainAccuracy: 0,
-            testAccuracy: 0,
-            trainingTime: 0,
-          },
-          modelPrediction: null,
+        modelPrediction: null,
+      },
+      lr_model: {
+        modelTrained: false,
+        modelSpecs: {
+          avgLoss: 0,
+          trainAccuracy: 0,
+          testAccuracy: 0,
+          trainingTime: 0,
         },
-      ],
+        modelPrediction: null,
+      },
     };
   },
   methods: {
