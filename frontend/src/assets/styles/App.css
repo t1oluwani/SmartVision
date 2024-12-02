@@ -49,6 +49,19 @@ button:hover {
   padding: 25px;
   border-radius: 10px;
   background-color: rgba(221, 160, 221, 0.3);
+  animation: bob 3s infinite ease-in-out;
+}
+
+@keyframes bob {
+  0% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
 }
 
 h1 {
