@@ -114,22 +114,27 @@ def preprocess_and_predict(model_type):
     
     try:
         if model_type == "CNN":
-            model_path = 'ml_models/CNN_model.pth'
-            
+            model_path = 'ml_models/CNN_model.pth'            
         elif model_type == "FNN":
             model_path = 'ml_models/FNN_model.pth'
         elif model_type == "LR":
             model_path = 'ml_models/LR_model.pth'
         else:
-            return jsonify({"error": "Invalid model type. Choose from CNN, FNN, or LR."}), 400
+            return jsonify({"error": "Invalid model type to predict. Choose from CNN, FNN, or LR."}), 400
         
+        model = load_model(model_path, model_type)
+        model.eval()
+        
+        with torch.no_grad():
+            output = model(processed_image)
+            predicted_class = torch.argmax(output, dim=1).item()
 
-        return jsonify({"predicted_class"}), 200
+        return jsonify({predicted_class}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# HELPER FUNCTION - Load the trained CNN model
-def load_models(model_path, model_type):
+# HELPER FUNCTION - Load the trained model
+def load_model(model_path, model_type):
     if model_type == "CNN":
         model = CNNModel(1).to(device)
         model.load_state_dict(torch.load(model_path, weights_only=True))
@@ -142,7 +147,7 @@ def load_models(model_path, model_type):
         model.load_state_dict(torch.load(model_path, weights_only=True))  
         model.eval()
     else:
-        return jsonify({"error": "Invalid model type. Choose from CNN, FNN, or LR."}), 400
+        return jsonify({"error": "Invalid model type to load. Choose from CNN, FNN, or LR."}), 400
     
     return model
 
