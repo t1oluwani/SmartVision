@@ -41,23 +41,23 @@ def test():
     """
     return jsonify({"message": "Server is up and running!"}), 200
 
-# Route: Upload and preprocess an image
-@app.route('/upload', methods=['POST'])
-def upload_image():
-    """
-    Endpoint to upload an image.
-    """
-    # Clear canvas_images directory
-    for file in os.listdir("canvas_image"):
-        os.remove(os.path.join("canvas_image", file))
+# # Route: Upload and preprocess an image
+# @app.route('/upload', methods=['POST'])
+# def upload_image():
+#     """
+#     Endpoint to upload an image.
+#     """
+#     # Clear canvas_images directory
+#     for file in os.listdir("canvas_image"):
+#         os.remove(os.path.join("canvas_image", file))
         
-    try:
-        # Upload the image
+#     try:
+#         # Upload the image
         
         
-        return jsonify({"message": "Image uploaded successfully!"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+#         return jsonify({"message": "Image uploaded successfully!"}), 200
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 # Route: Train or retrain the model
@@ -77,7 +77,7 @@ def train_and_save():
 
 
 # Route: Use a model to predict an image classification
-@app.route('/predict/<model_type>', methods=['GET'])
+@app.route('/predict/<model_type>', methods=['POST'])
 def preprocess_and_predict(model_type):
     """
     Endpoint to predict the class of an uploaded image using the model.
@@ -85,7 +85,8 @@ def preprocess_and_predict(model_type):
     if not model_type: 
         return jsonify({"error": "Please provide a model type."}), 
     
-    uploaded_image = "canvas_image/number_drawing.jpg"
+    if 'canvas_drawing' not in request.files:
+        return jsonify({"error": "No Image Found"}), 400
     
     
     
