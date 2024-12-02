@@ -41,8 +41,8 @@ def upload_image():
     Endpoint to upload an image.
     """
     # Clear canvas_images directory
-    for file in os.listdir("canvas_images"):
-        os.remove(os.path.join("canvas_images", file))
+    for file in os.listdir("canvas_image"):
+        os.remove(os.path.join("canvas_image", file))
         
     try:
         # Upload the image
