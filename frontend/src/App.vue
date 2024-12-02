@@ -22,7 +22,7 @@
         PyTorch and are run in the browser.
       </p>
       <p>
-        <strong>Select a tab above to get started!</strong>
+        <strong>Click a tab above to get started!</strong>
       </p>
     </div>
 
