@@ -18,8 +18,15 @@ CORS(app, resources={r"/api/*": {
     "supports_credentials": True
 }})
 
-# Model placeholder (load your trained model here)
-model = None
+# Directory to save uploaded images
+UPLOAD_FOLDER = 'canvas_image'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Model placeholders (load your trained model here)
+CNN_model = None
+FNN_model = None
+LR_model = None
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -75,8 +82,12 @@ def preprocess_and_predict(model_type):
     """
     Endpoint to predict the class of an uploaded image using the model.
     """
-    if not model_type:
-        return jsonify({"error": "Please provide a model type."}), 400
+    if not model_type: 
+        return jsonify({"error": "Please provide a model type."}), 
+    
+    uploaded_image = "canvas_image/number_drawing.jpg"
+    
+    
     
     try:
         if model_type == "CNN":
