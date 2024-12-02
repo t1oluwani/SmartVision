@@ -92,8 +92,14 @@
         <div class="model-prediction">
           <h3>Model Predictions</h3>
           <p>The Model predicts the handwritten number to have a value of</p>
-          <div class="predicted-value">
-            <strong>{{ modelPrediction ? modelPrediction : "?" }}</strong>
+          <div v-if="selectedModel === 'cneural-network'" class="predicted-value">
+            <strong>{{ cnn_model.modelPrediction ? cnn_model.modelPrediction : "?" }}</strong>
+          </div>
+          <div v-if="selectedModel === 'fneural-network'" class="predicted-value">
+            <strong>{{ fnn_model.modelPrediction ? fnn_model.modelPrediction : "?" }}</strong>
+          </div>
+          <div v-if="selectedModel === 'logistic-regression'" class="predicted-value">
+            <strong>{{ lr_model.modelPrediction ? lr_model.modelPrediction : "?" }}</strong>
           </div>
         </div>
       </div>
