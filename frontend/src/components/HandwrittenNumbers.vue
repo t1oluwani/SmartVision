@@ -59,12 +59,34 @@
           <button @click="trainModel">Train / Retrain Model</button>
         </div>
 
-        <div v-if="modelTrained" class="model-specs">
-          <h3>Model Specifications</h3>
-          <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
-          <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
-          <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
-          <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+        <div v-if="selectedModel === 'cneural-network'">
+          <div v-if="modelTrained" class="model-specs">
+            <h3>Model Specifications</h3>
+            <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
+            <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
+            <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
+            <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+          </div>
+        </div>
+
+        <div v-if="selectedModel === 'fneural-network'">
+          <div v-if="modelTrained" class="model-specs">
+            <h3>Model Specifications</h3>
+            <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
+            <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
+            <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
+            <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+          </div>
+        </div>
+
+        <div v-if="selectedModel === 'logistic-regression'">
+          <div v-if="modelTrained" class="model-specs">
+            <h3>Model Specifications</h3>
+            <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
+            <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
+            <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
+            <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+          </div>
         </div>
 
         <div class="model-prediction">
@@ -90,14 +112,41 @@ export default {
   data() {
     return {
       selectedModel: 'logistic-regression', // Default model
-      modelTrained: false,
-      modelSpecs: {
-        avgLoss: 0,
-        trainAccuracy: 0,
-        testAccuracy: 0,
-        trainingTime: 0,
-      },
-      modelPrediction: null,
+      models: [
+        {
+          name: "CNN",
+          modelTrained: false,
+          modelSpecs: {
+            avgLoss: 0,
+            trainAccuracy: 0,
+            testAccuracy: 0,
+            trainingTime: 0,
+          },
+          modelPrediction: null,
+        },
+        {
+          name: "FNN",
+          modelTrained: false,
+          modelSpecs: {
+            avgLoss: 0,
+            trainAccuracy: 0,
+            testAccuracy: 0,
+            trainingTime: 0,
+          },
+          modelPrediction: null,
+        },
+        {
+          name: "LR",
+          modelTrained: false,
+          modelSpecs: {
+            avgLoss: 0,
+            trainAccuracy: 0,
+            testAccuracy: 0,
+            trainingTime: 0,
+          },
+          modelPrediction: null,
+        },
+      ],
     };
   },
   methods: {
