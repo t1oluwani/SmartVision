@@ -150,15 +150,20 @@ export default {
       alert(`Identifying with ${this.selectedModel}`);
 
       // Simulate prediction process for testing
-      this.modelPrediction = Math.floor(Math.random() * 10);
+      if (this.selectedModel === 'cneural-network') {
+        this.cnn_model.modelPrediction = Math.floor(Math.random() * 10);
+      } else if (this.selectedModel === 'fneural-network') {
+        this.fnn_model.modelPrediction = Math.floor(Math.random() * 10);
+      } else {
+        this.lr_model.modelPrediction = Math.floor(Math.random() * 10);
+      }
     },
     trainModel() {
       // Placeholder for trainModel function (no logic)
       alert('Training model');
 
       // Simulate training process for testing
-
-      if this.selectedModel === 'cneural-network' {
+      if (this.selectedModel === 'cneural-network') {
         this.cnn_model.modelTrained = true;
         this.cnn_model.modelSpecs = {
           avgLoss: 0.3,
@@ -166,7 +171,7 @@ export default {
           testAccuracy: 88,
           trainingTime: 120, // in seconds
         }
-      } else if this.selectedModel === 'fneural-network' {
+      } else if (this.selectedModel === 'fneural-network') {
         this.fnn_model.modelTrained = true;
         this.fnn_model.modelSpecs = {
           avgLoss: 0.2,
