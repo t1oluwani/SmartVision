@@ -1,11 +1,10 @@
 html {
   height: 100vh;
-  width: 100vw;
-  background-color: rgba(221, 160, 221, 0.2);
 }
 
 body {
-  background-color: rgba(221, 160, 221, 0.2);
+  height: 95%;
+  background-color: rgba(221, 160, 221, 0.3);
 }
 
 #logo {
@@ -48,7 +47,7 @@ button:hover {
   width: 50%;
   padding: 25px;
   border-radius: 10px;
-  background-color: rgba(221, 160, 221, 0.3);
+  background-color: rgba(221, 160, 221, 0.2);
   animation: bob 3s infinite ease-in-out;
 }
 
