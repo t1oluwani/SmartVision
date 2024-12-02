@@ -60,32 +60,32 @@
         </div>
 
         <div v-if="selectedModel === 'cneural-network'">
-          <div v-if="model.modelTrained" class="model-specs">
+          <div v-if="cnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
-            <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+            <p><strong>Avg Loss:</strong> {{ cnn_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Training Accuracy:</strong> {{ cnn_model.modelSpecs.trainAccuracy }}%</p>
+            <p><strong>Test Accuracy:</strong> {{ cnn_model.modelSpecs.testAccuracy }}%</p>
+            <p><strong>Time Spent to Train:</strong> {{ cnn_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
         <div v-if="selectedModel === 'fneural-network'">
-          <div v-if="model.modelTrained" class="model-specs">
+          <div v-if="fnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
-            <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+            <p><strong>Avg Loss:</strong> {{ fnn_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Training Accuracy:</strong> {{ fnn_model.modelSpecs.trainAccuracy }}%</p>
+            <p><strong>Test Accuracy:</strong> {{ fnn_model.modelSpecs.testAccuracy }}%</p>
+            <p><strong>Time Spent to Train:</strong> {{ fnn_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
         <div v-if="selectedModel === 'logistic-regression'">
-          <div v-if="model.modelTrained" class="model-specs">
+          <div v-if="lr_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ modelSpecs.avgLoss }}</p>
-            <p><strong>Training Accuracy:</strong> {{ modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Test Accuracy:</strong> {{ modelSpecs.testAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ modelSpecs.trainingTime }}s</p>
+            <p><strong>Avg Loss:</strong> {{ lr_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Training Accuracy:</strong> {{ lr_model.modelSpecs.trainAccuracy }}%</p>
+            <p><strong>Test Accuracy:</strong> {{ lr_model.modelSpecs.testAccuracy }}%</p>
+            <p><strong>Time Spent to Train:</strong> {{ lr_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
@@ -157,12 +157,31 @@ export default {
       alert('Training model');
 
       // Simulate training process for testing
-      this.modelTrained = true;
-      this.modelSpecs = {
-        avgLoss: 0.3,
-        trainAccuracy: 92,
-        testAccuracy: 88,
-        trainingTime: 120, // in seconds
+
+      if this.selectedModel === 'cneural-network' {
+        this.cnn_model.modelTrained = true;
+        this.cnn_model.modelSpecs = {
+          avgLoss: 0.3,
+          trainAccuracy: 92,
+          testAccuracy: 88,
+          trainingTime: 120, // in seconds
+        }
+      } else if this.selectedModel === 'fneural-network' {
+        this.fnn_model.modelTrained = true;
+        this.fnn_model.modelSpecs = {
+          avgLoss: 0.2,
+          trainAccuracy: 94,
+          testAccuracy: 90,
+          trainingTime: 180, // in seconds
+        }
+      } else {
+        this.lr_model.modelTrained = true;
+        this.lr_model.modelSpecs = {
+          avgLoss: 0.1,
+          trainAccuracy: 96,
+          testAccuracy: 92,
+          trainingTime: 60, // in seconds
+        }
       }
     }
   }
