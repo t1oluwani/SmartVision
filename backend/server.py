@@ -7,6 +7,8 @@ from torchvision import transforms
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
+from models_util import CNNModel, FNNModel, LogisticRegressionModel
+
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -88,6 +90,27 @@ def preprocess_and_predict(model_type):
     if 'canvas_drawing' not in request.files:
         return jsonify({"error": "No Image Found"}), 400
     
+    # unprocessed_image = request.files['canvas_drawing']
+    
+    # For testing
+    file_path_to_image = os.path.join(app.config['UPLOAD_FOLDER'], 'number_drawing.jpg')
+    test_unprocessed_image = Image.open(file_path_to_image)
+    
+    # Preprocess the image for prediction
+    transform = transforms.Compose(
+        [
+            transforms.Grayscale(num_output_channels=1),    # Convert to grayscale
+            transforms.Resize((28, 28)),                    # Resize to 28x28
+            transforms.ToTensor(),                          # Convert to tensor
+            transforms.Lambda(lambda x: 1 - x),             # Invert colours (black background) 
+            transforms.Normalize((0.1307,), (0.3081,)),     # Normalize with MNIST stats
+        ]
+    )
+    
+    processed_image = transform(test_unprocessed_image).unsqueeze(0).to(device)
+    
+    
+    
     
     
     try:
@@ -104,6 +127,14 @@ def preprocess_and_predict(model_type):
         return jsonify({"predicted_class"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# HELPER FUNCTION - Load the trained CNN model
+def load_cnn_model(model_path, device):
+    in_channels = 1
+    model = CNNModel(in_channels).to(device)
+    model.load_state_dict(torch.load(model_path, weights_only=True))  
+    model.eval()
+    return model
 
 if __name__ == "__main__":
     app.run(debug=True)
