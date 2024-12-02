@@ -9,10 +9,10 @@ body {
 
 #logo {
   position: fixed;
-  top: 10px;
-  left: 10px;
-  width: 75px;
-  height: 75px;
+  top: 15px;
+  left: 15px;
+  width: 90px;
+  height: 90px;
   cursor: pointer;
   border-radius: 50%;
   background-color: rebeccapurple;
@@ -90,7 +90,7 @@ p {
   line-height: 28px;
 }
 
-p strong {
+#default strong {
   color: slateblue;
   font-size: 25px;
 }
