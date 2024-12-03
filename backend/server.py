@@ -237,14 +237,11 @@ def clear_model(model_type):
     Endpoint to clear the saved model by type.
     """
     if model_type == "CNN":
-        # os.remove("ml_models/CNN_model.pth")
-        os.remove("api_tests/test_models/CNN_model.pth")
+        os.remove("ml_models/CNN_model.pth")
     elif model_type == "FNN":
-        # os.remove("ml_models/FNN_model.pth")
-        os.remove("api_tests/test_models/FNN_model.pth")
+        os.remove("ml_models/FNN_model.pth")
     elif model_type == "LR":
-        # os.remove("ml_models/LR_model.pth")
-        os.remove("api_tests/test_models/LR_model.pth")
+        os.remove("ml_models/LR_model.pth")
 
     else:
         return (
