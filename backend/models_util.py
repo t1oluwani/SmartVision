@@ -220,7 +220,7 @@ def LogisticRegression(device):
 
 
 # Training function
-def train(device, model, optimizer, loss_type, data_loader):
+def train(device, model, optimizer, data_loader, loss_type):
     model.train()
 
     for data, target in enumerate(data_loader):
