@@ -117,7 +117,7 @@ def train_and_save(model_type):
         start_timer = timeit.default_timer()
         if model_type == "CNN":
             if Path("api_tests/test_models/CNN_model.pth").exists():
-                print("CNN model exists, clear it first if you want to retrain.")
+                print("CNN model already exists, clear it first if you want to retrain.")
             else:
                 training_results = CNN(device)
                 CNN_model = training_results["model"]
@@ -125,7 +125,7 @@ def train_and_save(model_type):
             
         elif model_type == "FNN":
             if Path("api_tests/test_models/FNN_model.pth").exists():
-                print("FNN model exists, clear it first if you want to retrain.")
+                print("FNN model already exists, clear it first if you want to retrain.")
             else:
                 training_results = FNN(device)
                 FNN_model = training_results["model"]
@@ -133,7 +133,7 @@ def train_and_save(model_type):
             
         elif model_type == "LR":
             if Path("api_tests/test_models/LR_model.pth").exists():
-                print("LR model exists, clear it first if you want to retrain.")
+                print("LR model already exists, clear it first if you want to retrain.")
             else:
                 training_results = LogisticRegression(device)
                 LR_model = training_results["model"]
