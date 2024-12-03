@@ -130,7 +130,7 @@ def train_and_save(model_type):
         )
     try:
         start_timer = timeit.default_timer()
-        model_path = f"api_tests/test_models/{model_type}_model.pth"
+        model_path = f"ml_models/{model_type}_model.pth"
 
         # Train the model
         if model_type == "CNN":

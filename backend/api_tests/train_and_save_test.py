@@ -29,8 +29,6 @@ cnn_results = OrderedDict(
     avg_loss=cnn_data["avg_loss"],
 )
 
-
-
 print("CNN Results:")
 for key in cnn_results:
     print(f"\t{key}: {cnn_results[key]}")
@@ -42,5 +40,3 @@ for key in fnn_results:
 print("LR Results:")
 for key in lr_results:
     print(f"\t{key}: {lr_results[key]}")
-
-
