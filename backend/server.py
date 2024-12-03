@@ -141,9 +141,9 @@ def train_and_save(model_type):
         stop_timer = timeit.default_timer()
         total_runtime = stop_timer - start_timer
         
-        accuracy = test_model(training_results["model"])
+        test_accuracy = test_model(training_results["model"])
         
-        return jsonify({"accuracy": accuracy, "run_time": total_runtime}), 200
+        return jsonify({"test_accuracy": test_accuracy, "run_time": total_runtime}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
