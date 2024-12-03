@@ -223,7 +223,7 @@ def LogisticRegression(device):
 def train(device, model, optimizer, data_loader, loss_type):
     model.train()
 
-    for data, target in enumerate(data_loader):
+    for batch_idx, (data, target) in enumerate(data_loader):
         data = data.to(device)
         target = target.to(device)
         optimizer.zero_grad()
