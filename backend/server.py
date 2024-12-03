@@ -1,12 +1,15 @@
 import os
+import timeit
 from PIL import Image
 
+# 
 import torch
 from torchvision import transforms, datasets
 
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
+from models_util import CNN, FNN, LogisticRegression
 from models_util import CNNModel, FNNModel, LogisticRegressionModel
 
 # Initialize Flask app
@@ -105,17 +108,42 @@ def test():
 
 
 # Route: Train or retrain the model
-@app.route("/train", methods=["POST"])
-def train_and_save():
+@app.route("/train/<model_type>", methods=["POST"])
+def train_and_save(model_type):
     """
-    Endpoint to train or retrain the model.
-    """
-    try:
-        # Example training code (replace with your training logic)
-        global model
-        # Call your model training function here and return status
-        # Example: `model = train_function()`
-        return jsonify({"message": "Model trained/retrained successfully!"}), 200
+    Endpoint to train and save selected model.
+    """ 
+    try: 
+        start_timer = timeit.default_timer()
+        if model_type == "CNN":
+            training_results = CNN(device)
+            CNN_model = training_results["model"]
+            torch.save(CNN_model.state_dict(), "ml_models/CNN_model.pth")
+            
+        elif model_type == "FNN":
+            training_results = FNN(device)
+            FNN_model = training_results["model"]
+            torch.save(FNN_model.state_dict(), "ml_models/FNN_model.pth")
+            
+        elif model_type == "LR":
+            training_results = LogisticRegression(device)
+            LR_model = training_results["model"]
+            torch.save(LR_model.state_dict(), "ml_models/LR_model.pth")
+        else:
+            return (
+                jsonify(
+                    {
+                        "error": "Invalid model type to train. Choose from CNN, FNN, or LR."
+                    }
+                ),
+                400,
+            )
+        stop_timer = timeit.default_timer()
+        total_runtime = stop_timer - start_timer
+        
+        accuracy = test_model(training_results["model"])
+        
+        return jsonify({"accuracy": accuracy, "run_time": total_runtime}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
