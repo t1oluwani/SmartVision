@@ -2,19 +2,8 @@
 smartvenv/
 
 # Raw Model Data
-**/logic_testing/data/
-**/logic_testing/data/*
-!**/logic_testing/data/.gitkeep
+backend/data
+backend/api_tests/test_models
 
-backend\training\logistic_regression\logic_testing\data
-backend\training\decision_tree\logic_testing\data\MNIST
-backend\training\decision_tree\logic_testing\data\MNIST\raw
-
-backend\training\FNN\logic_testing\data
-backend\training\FNN\logic_testing\data\MNIST
-backend\training\FNN\logic_testing\data\MNIST\raw
-
-backend\training\CNN\logic_testing\data
-backend\training\CNN\logic_testing\data\MNIST
-backend\training\CNN\logic_testing\data\MNIST\raw
-
+# Uploaded Canvas Images
+backend\canvas_images
