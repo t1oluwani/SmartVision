@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 from PIL import Image
 
 import torch
@@ -68,25 +67,6 @@ def test():
     """
     return jsonify({"message": "Server is up and running!"}), 200
 
-# # Route: Upload and preprocess an image
-# @app.route('/upload', methods=['POST'])
-# def upload_image():
-#     """
-#     Endpoint to upload an image.
-#     """
-#     # Clear canvas_images directory
-#     for file in os.listdir("canvas_image"):
-#         os.remove(os.path.join("canvas_image", file))
-        
-#     try:
-#         # Upload the image
-        
-        
-#         return jsonify({"message": "Image uploaded successfully!"}), 200
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-
-
 # Route: Train or retrain the model
 @app.route('/train', methods=['POST'])
 def train_and_save():
@@ -113,7 +93,7 @@ def preprocess_and_predict(model_type):
         return jsonify({"error": "Please provide a model type."}), 
     
     if 'canvas_drawing' not in request.files:
-        return jsonify({"error": "No Image Found"}), 400
+        return jsonify({"error": "No Image Found with Request"}), 400
     
     # Preprocess the image for prediction
     unprocessed_image = request.files['canvas_drawing']
@@ -151,9 +131,26 @@ def preprocess_and_predict(model_type):
         return jsonify({"predicted_class": predicted_class}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
-
+    
+# Route: Clear saved model by type
+@app.route('/clear/<model_type>', methods=['GET'])
+def clear_model(model_type):
+    """
+    Endpoint to clear the saved model by type.
+    """
+    if model_type == "CNN":
+        CNN_model = None
+        os.remove('ml_models/CNN_model.pth')
+    elif model_type == "FNN":
+        FNN_model = None
+        os.remove('ml_models/FNN_model.pth')
+    elif model_type == "LR":
+        LR_model = None
+        os.remove('ml_models/LR_model.pth')
+    else:
+        return jsonify({"error": "Invalid model type to clear. Choose from CNN, FNN, or LR."}), 400
+    
+    return jsonify({"message": f"{model_type} model cleared successfully!"}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)

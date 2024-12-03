@@ -1,5 +1,4 @@
 import requests
-import os
 
 cnn_score = 0
 fnn_score = 0
