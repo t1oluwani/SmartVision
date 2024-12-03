@@ -186,7 +186,7 @@ def CNN(device):
     return results
 
 
-def logistic_regression(device):
+def LogisticRegression(device):
     logistic_model = LogisticRegressionModel().to(device)
     logistic_optimizer = optim.Adam(
         logistic_model.parameters(),
