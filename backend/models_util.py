@@ -222,7 +222,7 @@ def LogisticRegression(device):
 def train(device, model, optimizer, data_loader, loss_type):
     model.train()
 
-    for data, target in enumerate(data_loader):
+    for batch_idx, (data, target) in enumerate(data_loader):
         data = data.to(device)
         target = target.to(device)
         optimizer.zero_grad()
@@ -242,7 +242,7 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
     correct = 0
     eval_loss = 0
     with torch.no_grad():
-        for batch_idx, (data, target) in loading_bar:
+        for data, target in loading_bar:
             data = data.to(device)
             target = target.to(device)
             output = model(data)
