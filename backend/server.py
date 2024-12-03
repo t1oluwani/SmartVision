@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from PIL import Image
 
 import torch
@@ -37,6 +38,25 @@ LR_model = None
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device Availale: ", device)
 
+# HELPER FUNCTIONS
+
+# Loads the model according to the model type
+def load_model(model_path, model_type):
+    if model_type == "CNN":
+        model = CNNModel().to(device)
+        model.load_state_dict(torch.load(model_path, weights_only=True))
+    elif model_type == "FNN":
+        model = FNNModel().to(device)
+        model.load_state_dict(torch.load(model_path, weights_only=True))  
+        model.eval()
+    elif model_type == "LR":
+        model = LogisticRegressionModel().to(device)  
+        model.load_state_dict(torch.load(model_path, weights_only=True))  
+        model.eval()
+    else:
+        return jsonify({"error": "Invalid model type to load. Choose from CNN, FNN, or LR."}), 400
+    
+    return model
 
 # Test Route
 @app.route('/', methods=['GET'])
@@ -90,13 +110,13 @@ def preprocess_and_predict(model_type):
     if not model_type: 
         return jsonify({"error": "Please provide a model type."}), 
     
-    if 'canvas_drawing' not in request.files:
-        return jsonify({"error": "No Image Found"}), 400
+    # if 'canvas_drawing' not in request.files:
+    #     return jsonify({"error": "No Image Found"}), 400
     
     # unprocessed_image = request.files['canvas_drawing']
     
     # For testing
-    file_path_to_image = os.path.join(app.config['UPLOAD_FOLDER'], 'number_drawing.jpg')
+    file_path_to_image = Path("canvas_image/number_drawing.png")
     test_unprocessed_image = Image.open(file_path_to_image)
     
     # Preprocess the image for prediction
@@ -129,27 +149,12 @@ def preprocess_and_predict(model_type):
             output = model(processed_image)
             predicted_class = torch.argmax(output, dim=1).item()
 
-        return jsonify({predicted_class}), 200
+        return jsonify({"predicted_class": predicted_class}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# HELPER FUNCTION - Load the trained model
-def load_model(model_path, model_type):
-    if model_type == "CNN":
-        model = CNNModel(1).to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))
-    elif model_type == "FNN":
-        model = FNNModel(10).to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))  
-        model.eval()
-    elif model_type == "LR":
-        model = LogisticRegressionModel().to(device)  
-        model.load_state_dict(torch.load(model_path, weights_only=True))  
-        model.eval()
-    else:
-        return jsonify({"error": "Invalid model type to load. Choose from CNN, FNN, or LR."}), 400
-    
-    return model
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
