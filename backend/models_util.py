@@ -152,10 +152,14 @@ def FNN(device):
         )
 
     # Test the model
-    evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
-
+    eval_loss, accuracy_percentage = evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    
     # Save the model
-    results = dict(model=fnn_model)
+    results = dict(
+        model=fnn_model,
+        avg_loss=eval_loss,
+        accuracy_percentage=accuracy_percentage
+    )
     return results
 
 
@@ -181,8 +185,8 @@ def CNN(device):
 
     # Test the model
     eval_loss, accuracy_percentage = evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    
     # Save the model
-    # results = dict(model=cnn_model)
     results = dict(
         model=cnn_model,
         avg_loss=eval_loss,
@@ -212,15 +216,17 @@ def LogisticRegression(device):
         )
 
     # Test the model
-    evaluate(device, logistic_model, test_loader, epoch="T", loss_type="mse", dataset="Test")
-
+    eval_loss, accuracy_percentage = evaluate(device, logistic_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    
     # Save the model
-    results = dict(model=logistic_model)
+    results = dict(
+        model=logistic_model,
+        avg_loss=eval_loss,
+        accuracy_percentage=accuracy_percentage
+    )
     return results
 
-
 # HELPER FUNCTIONS: ====================================================================================================
-
 
 # Training function
 def train(device, model, optimizer, data_loader, loss_type):
