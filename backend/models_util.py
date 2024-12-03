@@ -266,7 +266,6 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
         ),
     )
 
-
 # Loss function
 def get_loss(loss_type, output, target):
     if loss_type == "ce":

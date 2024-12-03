@@ -5,7 +5,9 @@ cnn_response = requests.post("http://localhost:5000/train/CNN")
 cnn_data = cnn_response.json()
 
 print(cnn_data)
-exit()
+print("CNN Results:")
+print(cnn_data["test_accuracy"])
+print(cnn_data["run_time"])
 
 cnn_results = OrderedDict(
     test_accuracy=cnn_data["test_accuracy"],
