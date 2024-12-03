@@ -5,12 +5,12 @@
       <div class="left-container">
         <div class="model-info">
           <h3>{{
-            selectedModel === 'Logistic-Regression' ? 'Logistic Regression' :
-              selectedModel === 'Feedfoward-Neural-Network' ? 'FeedForward Neural Network' :
+            selectedModel === 'LR' ? 'Logistic Regression' :
+              selectedModel === 'FNN' ? 'FeedForward Neural Network' :
                 'Convolutional Neural Network'
           }}</h3>
 
-          <p v-if="selectedModel === 'Logistic-Regression'">
+          <p v-if="selectedModel === 'LR'">
             Logistic Regression is a linear model used for binary classification tasks.
             Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
             blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
@@ -18,7 +18,7 @@
             blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
             blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
           </p>
-          <p v-if="selectedModel === 'Feedfoward-Neural-Network'">
+          <p v-if="selectedModel === 'FNN'">
             Feedforward Neural Networks (FNN) are deep learning models with fully connected layers for classification.
             Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
             blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
@@ -26,7 +26,7 @@
             blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
             blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
           </p>
-          <p v-if="selectedModel === 'Convolutional-Neural-Network'">
+          <p v-if="selectedModel === 'CNN'">
             Convolutional Neural Networks (CNN) are a class of deep learning models commonly used for image recognition.
             Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
             blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
@@ -43,9 +43,9 @@
         <div class="choose-model">
           <label for="model">Choose Model: </label>
           <select v-model="selectedModel" id="model">
-            <option value="Logistic-Regression">Logistic Regression</option>
-            <option value="Feedfoward-Neural-Network">FeedFoward Neural Network (FNN)</option>
-            <option value="Convolutional-Neural-Network">Convolutional Neural Network (CNN)</option>
+            <option value="LR">Logistic Regression</option>
+            <option value="FNN">FeedFoward Neural Network (FNN)</option>
+            <option value="CNN">Convolutional Neural Network (CNN)</option>
           </select>
 
           <button id="identifybtn" @click="identify">Identify</button>
@@ -55,19 +55,20 @@
       <div class="right-container">
         <div class="training-status">
           <h3>Visual Recognition Model Status</h3>
-          <p v-if="cnn_model.modelTrained">{{ cnn_model.modelTrained ? 'CNN Model' : 'No Model is Trained' }}</p>
-          <p v-if="fnn_model.modelTrained">{{ fnn_model.modelTrained ? 'FNN Model' : 'No Model is Trained' }}</p>
-          <p v-if="lr_model.modelTrained">{{ lr_model.modelTrained ? 'LR Model' : 'No Model is Trained' }}</p>
-          
-          <button v-if="!cnn_model.modelTrained" @click="trainModel">Train {{ selectedModel }} Model</button>
-          <button v-if="cnn_model.modelTrained" @click="clearModel">Clear Model</button>
-          <button v-if="!fnn_model.modelTrained" @click="trainModel">Train {{ selectedModel }} Model</button>
-          <button v-if="fnn_model.modelTrained" @click="clearModel">Clear Model</button>
-          <button v-if="!lr_model.modelTrained" @click="trainModel">Train {{ selectedModel }} Model</button>
-          <button v-if="lr_model.modelTrained" @click="clearModel">Clear Model</button>
+          <p v-if="selectedModel === 'CNN'">{{ cnn_model.modelTrained ? 'CNN Model is trained' : 'No CNN Model is trained' }}</p>
+          <p v-if="selectedModel === 'FNN'">{{ fnn_model.modelTrained ? 'FNN Model is trained' : 'No FNN Model is trained' }}</p>
+          <p v-if="selectedModel === 'LR'">{{ lr_model.modelTrained ? 'LR Model is trained' : 'No LR Model is trained' }}</p>
+
+          <button v-if="!cnn_model.modelTrained && selectedModel === 'CNN'" @click="trainModel">Train CNN Model</button>
+          <button v-if="cnn_model.modelTrained && selectedModel === 'CNN'" @click="clearModel">Clear CNN Model</button>
+          <button v-if="!fnn_model.modelTrained && selectedModel === 'FNN'" @click="trainModel">Train FNN Model</button>
+          <button v-if="fnn_model.modelTrained && selectedModel === 'FNN'" @click="clearModel">Clear FNN Model</button>
+          <button v-if="!lr_model.modelTrained && selectedModel === 'LR'" @click="trainModel">Train LR Model</button>
+          <button v-if="lr_model.modelTrained && selectedModel === 'LR'" @click="clearModel">Clear LR Model</button>
         </div>
 
-        <div v-if="selectedModel === 'Convolutional-Neural-Network'">
+
+        <div v-if="selectedModel === 'CNN'">
           <div v-if="cnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
             <p><strong>Avg Loss:</strong> {{ cnn_model.modelSpecs.avgLoss }}</p>
@@ -77,7 +78,7 @@
           </div>
         </div>
 
-        <div v-if="selectedModel === 'Feedfoward-Neural-Network'">
+        <div v-if="selectedModel === 'FNN'">
           <div v-if="fnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
             <p><strong>Avg Loss:</strong> {{ fnn_model.modelSpecs.avgLoss }}</p>
@@ -87,7 +88,7 @@
           </div>
         </div>
 
-        <div v-if="selectedModel === 'Logistic-Regression'">
+        <div v-if="selectedModel === 'LR'">
           <div v-if="lr_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
             <p><strong>Avg Loss:</strong> {{ lr_model.modelSpecs.avgLoss }}</p>
@@ -100,13 +101,13 @@
         <div class="model-prediction">
           <h3>Model Predictions</h3>
           <p>The Model predicts the handwritten number to have a value of</p>
-          <div v-if="selectedModel === 'Convolutional-Neural-Network'" class="predicted-value">
+          <div v-if="selectedModel === 'CNN'" class="predicted-value">
             <strong>{{ cnn_model.modelPrediction ? cnn_model.modelPrediction : "?" }}</strong>
           </div>
-          <div v-if="selectedModel === 'Feedfoward-Neural-Network'" class="predicted-value">
+          <div v-if="selectedModel === 'FNN'" class="predicted-value">
             <strong>{{ fnn_model.modelPrediction ? fnn_model.modelPrediction : "?" }}</strong>
           </div>
-          <div v-if="selectedModel === 'Logistic-Regression'" class="predicted-value">
+          <div v-if="selectedModel === 'LR'" class="predicted-value">
             <strong>{{ lr_model.modelPrediction ? lr_model.modelPrediction : "?" }}</strong>
           </div>
         </div>
@@ -125,7 +126,7 @@ export default {
   },
   data() {
     return {
-      selectedModel: 'Logistic-Regression', // Default model
+      selectedModel: 'LR', // Default model
       cnn_model: {
         modelTrained: false,
         modelSpecs: {
@@ -164,9 +165,9 @@ export default {
       alert(`Identifying with ${this.selectedModel}`);
 
       // Simulate prediction process for testing
-      if (this.selectedModel === 'Convolutional-Neural-Network') {
+      if (this.selectedModel === 'CNN') {
         this.cnn_model.modelPrediction = Math.floor(Math.random() * 10);
-      } else if (this.selectedModel === 'Feedfoward-Neural-Network') {
+      } else if (this.selectedModel === 'FNN') {
         this.fnn_model.modelPrediction = Math.floor(Math.random() * 10);
       } else {
         this.lr_model.modelPrediction = Math.floor(Math.random() * 10);
@@ -177,7 +178,7 @@ export default {
       alert('Training model');
 
       // Simulate training process for testing
-      if (this.selectedModel === 'Convolutional-Neural-Network') {
+      if (this.selectedModel === 'CNN') {
         this.cnn_model.modelTrained = true;
         this.cnn_model.modelSpecs = {
           avgLoss: 0.3,
@@ -185,7 +186,7 @@ export default {
           testAccuracy: 88,
           trainingTime: 120, // in seconds
         }
-      } else if (this.selectedModel === 'Feedfoward-Neural-Network') {
+      } else if (this.selectedModel === 'FNN') {
         this.fnn_model.modelTrained = true;
         this.fnn_model.modelSpecs = {
           avgLoss: 0.2,
@@ -208,9 +209,9 @@ export default {
       alert('Clearing model');
 
       // Simulate clearing process for testing
-      if (this.selectedModel === 'Convolutional-Neural-Network') {
+      if (this.selectedModel === 'CNN') {
         this.cnn_model.modelTrained = false;
-      } else if (this.selectedModel === 'Feedfoward-Neural-Network') {
+      } else if (this.selectedModel === 'FNN') {
         this.fnn_model.modelTrained = false;
       } else {
         this.lr_model.modelTrained = false;
