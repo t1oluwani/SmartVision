@@ -32,13 +32,7 @@ CORS(
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 torch.multiprocessing.set_sharing_strategy("file_system")
 
-# Model variables
-CNN_model = None
-FNN_model = None
-LR_model = None
-
 # HELPER FUNCTIONS
-
 
 # Loads the model according to the model type
 def load_model(model_path, model_type):
@@ -243,14 +237,15 @@ def clear_model(model_type):
     Endpoint to clear the saved model by type.
     """
     if model_type == "CNN":
-        CNN_model = None
-        os.remove("ml_models/CNN_model.pth")
+        # os.remove("ml_models/CNN_model.pth")
+        os.remove("api_tests/test_models/CNN_model.pth")
     elif model_type == "FNN":
-        FNN_model = None
-        os.remove("ml_models/FNN_model.pth")
+        # os.remove("ml_models/FNN_model.pth")
+        os.remove("api_tests/test_models/FNN_model.pth")
     elif model_type == "LR":
-        LR_model = None
-        os.remove("ml_models/LR_model.pth")
+        # os.remove("ml_models/LR_model.pth")
+        os.remove("api_tests/test_models/LR_model.pth")
+
     else:
         return (
             jsonify(
