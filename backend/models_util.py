@@ -242,7 +242,7 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
     correct = 0
     eval_loss = 0
     with torch.no_grad():
-        for data, target in loading_bar:
+        for batch_idx, (data, target) in loading_bar:
             data = data.to(device)
             target = target.to(device)
             output = model(data)
