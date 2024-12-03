@@ -2,7 +2,7 @@ import os
 import timeit
 from PIL import Image
 from pathlib import Path
- 
+
 import torch
 from torchvision import transforms, datasets
 
@@ -39,6 +39,7 @@ LR_model = None
 
 # HELPER FUNCTIONS
 
+
 # Loads the model according to the model type
 def load_model(model_path, model_type):
     if model_type == "CNN":
@@ -62,6 +63,7 @@ def load_model(model_path, model_type):
 
     return model
 
+
 # Tests accuracy of models
 def test_model(model):
     # Load the test dataset
@@ -75,10 +77,10 @@ def test_model(model):
     )
     # Create a test dataloader
     test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1, shuffle=True)
-    
+
     # Set the model to evaluation mode
     model.eval()
-    
+
     total = 0
     num_correct = 0
     # Iterate over the test data and generate predictions
@@ -98,6 +100,7 @@ def test_model(model):
 
 # ROUTES AND ENDPOINTS
 
+
 # Test Route
 @app.route("/", methods=["GET"])
 def test():
@@ -112,18 +115,23 @@ def test():
 def train_and_save(model_type):
     """
     Endpoint to train and save selected model.
-    """ 
+    """
     # Check if model type is provided
     if not model_type:
         return jsonify({"error": "Please provide a model type."}), 400
-    
+
     # Check if model type is valid
     if model_type not in ["CNN", "FNN", "LR"]:
-        return jsonify({"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}), 400
+        return (
+            jsonify(
+                {"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}
+            ),
+            400,
+        )
     try:
         start_timer = timeit.default_timer()
         model_path = f"api_tests/test_models/{model_type}_model.pth"
-        
+
         # Train the model
         if model_type == "CNN":
             training_results = CNN(device)
@@ -131,24 +139,34 @@ def train_and_save(model_type):
             training_results = FNN(device)
         elif model_type == "LR":
             training_results = LogisticRegression(device)
-        
+
         # Save the trained model
         trained_model = training_results["model"]
-        
+        training_accuracy = training_results["accuracy_percentage"]
+        average_loss = training_results["avg_loss"]
+
         torch.save(trained_model.state_dict(), model_path)
-         
+
         # Test accuracy of the model
         test_accuracy = test_model(trained_model)
-        
+
         stop_timer = timeit.default_timer()
         total_runtime = stop_timer - start_timer
-        
-        return jsonify({"test_accuracy": test_accuracy, "run_time": total_runtime}), 200
-    
+
+        return (
+            jsonify(
+                {
+                    "test_accuracy": test_accuracy,
+                    "run_time": total_runtime,
+                    "train_accuracy": training_accuracy,
+                    "avg_loss": average_loss,
+                }
+            ),
+            200,
+        )
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
 
 # Route: Use a model to predict an images classification
 @app.route("/predict/<model_type>", methods=["POST"])
@@ -159,10 +177,15 @@ def preprocess_and_predict(model_type):
     # Check if model type is provided
     if not model_type:
         return jsonify({"error": "Please provide a model type."}), 400
-    
+
     # Check if model type is valid
     if model_type not in ["CNN", "FNN", "LR"]:
-        return jsonify({"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}), 400
+        return (
+            jsonify(
+                {"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}
+            ),
+            400,
+        )
 
     # Check if image is provided
     if "canvas_drawing" not in request.files:

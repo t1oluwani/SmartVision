@@ -162,7 +162,6 @@ def FNN(device):
     )
     return results
 
-
 def CNN(device):
     cnn_model = CNNModel().to(device)
     cnn_optimizer = optim.Adam(
@@ -182,7 +181,7 @@ def CNN(device):
             loss_type="nll",
             dataset="Validation",
         )
-
+    
     # Test the model
     eval_loss, accuracy_percentage = evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
     
@@ -190,7 +189,7 @@ def CNN(device):
     results = dict(
         model=cnn_model,
         avg_loss=eval_loss,
-        accuracy_percentage=accuracy_percentage
+        accuracy_percentage=accuracy_percentage,
     )
     return results
 
@@ -265,7 +264,8 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
 
             loading_bar.set_description("Epoch " + str(epoch) + ": ")
     eval_loss /= len(data_loader.dataset)
-    accuracy_percentage = 100.0 * correct / len(data_loader.dataset)
+    acc_percentage = 100.0 * correct / len(data_loader.dataset)
+    acc_percentage = acc_percentage.item() # detach tensor
 
     print(
         dataset,
@@ -273,11 +273,11 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
             eval_loss,
             correct,
             len(data_loader.dataset),
-            accuracy_percentage,
+            acc_percentage,
         ),
     )
     
-    return eval_loss, accuracy_percentage 
+    return eval_loss, acc_percentage 
 
 # Loss function
 def get_loss(loss_type, output, target):
