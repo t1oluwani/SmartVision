@@ -120,15 +120,12 @@ def train_and_save(model_type):
     # Check if model type is valid
     if model_type not in ["CNN", "FNN", "LR"]:
         return jsonify({"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}), 400
-        
     try:
         start_timer = timeit.default_timer()
         model_path = f"api_tests/test_models/{model_type}_model.pth"
-        
         # Check if model already exists
         if Path(model_path).exists():
             return jsonify({"message": f"{model_type} model already exists. Clear it first if you want to retrain."}), 200
-        
         # Train the model
         if model_type == "CNN":
             training_results = CNN(device)

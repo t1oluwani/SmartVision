@@ -6,7 +6,7 @@ from torchvision import transforms, datasets
 
 import os, sys
 sys.path.append(os.path.abspath('../')) # add the path to the directory with methods
-from methods import CNN
+from models_util import CNN
 
 torch.multiprocessing.set_sharing_strategy('file_system')
 
