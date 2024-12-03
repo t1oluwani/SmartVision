@@ -3,7 +3,9 @@ from collections import OrderedDict
 
 cnn_response = requests.post("http://localhost:5000/train/CNN")
 cnn_data = cnn_response.json()
+
 print(cnn_data)
+
 cnn_results = OrderedDict(
     test_accuracy=cnn_data["test_accuracy"],
     run_time=cnn_data["run_time"],

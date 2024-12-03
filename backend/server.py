@@ -113,48 +113,45 @@ def train_and_save(model_type):
     """
     Endpoint to train and save selected model.
     """ 
-    try: 
+    # Check if model type is provided
+    if not model_type:
+        return jsonify({"error": "Please provide a model type."}), 400
+    
+    # Check if model type is valid
+    if model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}), 400
+        
+    try:
         start_timer = timeit.default_timer()
+        model_path = f"api_tests/test_models/{model_type}_model.pth"
+        
+        # Check if model already exists
+        if Path(model_path).exists():
+            return jsonify({"message": f"{model_type} model already exists. Clear it first if you want to retrain."}), 200
+        
+        # Train the model
         if model_type == "CNN":
-            if Path("api_tests/test_models/CNN_model.pth").exists():
-                print("CNN model already exists, clear it first if you want to retrain.")
-            else:
-                training_results = CNN(device)
-                CNN_model = training_results["model"]
-                torch.save(CNN_model.state_dict(), "api_tests/test_models/CNN_model.pth")
-            
+            training_results = CNN(device)
         elif model_type == "FNN":
-            if Path("api_tests/test_models/FNN_model.pth").exists():
-                print("FNN model already exists, clear it first if you want to retrain.")
-            else:
-                training_results = FNN(device)
-                FNN_model = training_results["model"]
-                torch.save(FNN_model.state_dict(), "api_tests/test_models/FNN_model.pth")
-            
+            training_results = FNN(device)
         elif model_type == "LR":
-            if Path("api_tests/test_models/LR_model.pth").exists():
-                print("LR model already exists, clear it first if you want to retrain.")
-            else:
-                training_results = LogisticRegression(device)
-                LR_model = training_results["model"]
-                torch.save(LR_model.state_dict(), "api_tests/test_models/LR_model.pth")
-        else:
-            return (
-                jsonify(
-                    {
-                        "error": "Invalid model type to train. Choose from CNN, FNN, or LR."
-                    }
-                ),
-                400,
-            )
+            training_results = LogisticRegression(device)
+        
+        # Save the trained model
+        trained_model = training_results["model"]
+        torch.save(trained_model.state_dict(), model_path)
+        
+        # Test accuracy of the model
+        test_accuracy = test_model(trained_model)
+        
         stop_timer = timeit.default_timer()
         total_runtime = stop_timer - start_timer
         
-        test_accuracy = test_model(training_results["model"])
-        
         return jsonify({"test_accuracy": test_accuracy, "run_time": total_runtime}), 200
+    
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 
 # Route: Use a model to predict an images classification
@@ -163,9 +160,15 @@ def preprocess_and_predict(model_type):
     """
     Endpoint to predict the class of an uploaded image using selected model.
     """
+    # Check if model type is provided
     if not model_type:
-        return (jsonify({"error": "Please provide a model type."}),)
+        return jsonify({"error": "Please provide a model type."}), 400
+    
+    # Check if model type is valid
+    if model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}), 400
 
+    # Check if image is provided
     if "canvas_drawing" not in request.files:
         return jsonify({"error": "No Image Found with Request"}), 400
 
