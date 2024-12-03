@@ -118,17 +118,17 @@ def train_and_save(model_type):
         if model_type == "CNN":
             training_results = CNN(device)
             CNN_model = training_results["model"]
-            torch.save(CNN_model.state_dict(), "ml_models/CNN_model.pth")
+            torch.save(CNN_model.state_dict(), "api_tests/test_models/CNN_model.pth")
             
         elif model_type == "FNN":
             training_results = FNN(device)
             FNN_model = training_results["model"]
-            torch.save(FNN_model.state_dict(), "ml_models/FNN_model.pth")
+            torch.save(FNN_model.state_dict(), "api_tests/test_models/FNN_model.pth")
             
         elif model_type == "LR":
             training_results = LogisticRegression(device)
             LR_model = training_results["model"]
-            torch.save(LR_model.state_dict(), "ml_models/LR_model.pth")
+            torch.save(LR_model.state_dict(), "api_tests/test_models/LR_model.pth")
         else:
             return (
                 jsonify(
