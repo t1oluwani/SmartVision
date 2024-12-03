@@ -58,6 +58,8 @@ def load_model(model_path, model_type):
     
     return model
 
+# ROUTES AND ENDPOINTS
+
 # Test Route
 @app.route('/', methods=['GET'])
 def test():
@@ -110,16 +112,13 @@ def preprocess_and_predict(model_type):
     if not model_type: 
         return jsonify({"error": "Please provide a model type."}), 
     
-    # if 'canvas_drawing' not in request.files:
-    #     return jsonify({"error": "No Image Found"}), 400
-    
-    # unprocessed_image = request.files['canvas_drawing']
-    
-    # For testing
-    file_path_to_image = Path("canvas_image/number_drawing.png")
-    test_unprocessed_image = Image.open(file_path_to_image)
+    if 'canvas_drawing' not in request.files:
+        return jsonify({"error": "No Image Found"}), 400
     
     # Preprocess the image for prediction
+    unprocessed_image = request.files['canvas_drawing']
+    unprocessed_image = Image.open(unprocessed_image)
+    
     transform = transforms.Compose(
         [
             transforms.Grayscale(num_output_channels=1),    # Convert to grayscale
@@ -129,8 +128,7 @@ def preprocess_and_predict(model_type):
             transforms.Normalize((0.1307,), (0.3081,)),     # Normalize with MNIST stats
         ]
     )
-    
-    processed_image = transform(test_unprocessed_image).unsqueeze(0).to(device)
+    processed_image = transform(unprocessed_image).unsqueeze(0).to(device)
     
     try:
         if model_type == "CNN":
@@ -145,6 +143,7 @@ def preprocess_and_predict(model_type):
         model = load_model(model_path, model_type)
         model.eval()
         
+        # Make a prediction
         with torch.no_grad():
             output = model(processed_image)
             predicted_class = torch.argmax(output, dim=1).item()
