@@ -55,16 +55,16 @@
       <div class="right-container">
         <div class="training-status">
           <h3>Visual Recognition Model Status</h3>
-          <p v-if="selectedModel === 'CNN'">{{ cnn_model.modelTrained ? 'CNN Model is trained' : 'No CNN Model is trained' }}</p>
-          <p v-if="selectedModel === 'FNN'">{{ fnn_model.modelTrained ? 'FNN Model is trained' : 'No FNN Model is trained' }}</p>
-          <p v-if="selectedModel === 'LR'">{{ lr_model.modelTrained ? 'LR Model is trained' : 'No LR Model is trained' }}</p>
+          <p v-if="selectedModel === 'CNN'">{{ cnn_model.modelTrained ? 'CNN Model' : 'No Model is trained' }}</p>
+          <p v-if="selectedModel === 'FNN'">{{ fnn_model.modelTrained ? 'FNN Model' : 'No Model is trained' }}</p>
+          <p v-if="selectedModel === 'LR'">{{ lr_model.modelTrained ? 'LR Model' : 'No Model is trained' }}</p>
 
-          <button v-if="!cnn_model.modelTrained && selectedModel === 'CNN'" @click="trainModel">Train CNN Model</button>
-          <button v-if="cnn_model.modelTrained && selectedModel === 'CNN'" @click="clearModel">Clear CNN Model</button>
-          <button v-if="!fnn_model.modelTrained && selectedModel === 'FNN'" @click="trainModel">Train FNN Model</button>
-          <button v-if="fnn_model.modelTrained && selectedModel === 'FNN'" @click="clearModel">Clear FNN Model</button>
-          <button v-if="!lr_model.modelTrained && selectedModel === 'LR'" @click="trainModel">Train LR Model</button>
-          <button v-if="lr_model.modelTrained && selectedModel === 'LR'" @click="clearModel">Clear LR Model</button>
+          <button v-if="!cnn_model.modelTrained && selectedModel === 'CNN'" @click="trainModel">Train Convolutional-Neural-Network Model</button>
+          <button v-if="cnn_model.modelTrained && selectedModel === 'CNN'" @click="clearModel">Clear Model</button>
+          <button v-if="!fnn_model.modelTrained && selectedModel === 'FNN'" @click="trainModel">Train Feedfoward-Neural-Network Model</button>
+          <button v-if="fnn_model.modelTrained && selectedModel === 'FNN'" @click="clearModel">Clear Model</button>
+          <button v-if="!lr_model.modelTrained && selectedModel === 'LR'" @click="trainModel">Train Logistic-Regression Model</button>
+          <button v-if="lr_model.modelTrained && selectedModel === 'LR'" @click="clearModel">Clear Model</button>
         </div>
 
 
