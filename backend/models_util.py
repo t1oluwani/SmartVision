@@ -15,6 +15,7 @@ batch_size_train = 256
 batch_size_test = 1024
 image_dimension = 28 * 28
 
+
 def load_MNIST():
     MNIST_data_set = datasets.MNIST(
         "/MNIST_dataset/",
@@ -179,7 +180,7 @@ def CNN(device):
         )
 
     # Test the model
-    eval(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
 
     # Save the model
     results = dict(model=cnn_model)
@@ -207,9 +208,7 @@ def LogisticRegression(device):
         )
 
     # Test the model
-    evaluate(
-        device, logistic_model, test_loader, epoch="T", loss_type="mse", dataset="Test"
-    )
+    evaluate(device, logistic_model, test_loader, epoch="T", loss_type="mse", dataset="Test")
 
     # Save the model
     results = dict(model=logistic_model)
