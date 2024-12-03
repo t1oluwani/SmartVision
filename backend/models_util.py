@@ -180,10 +180,14 @@ def CNN(device):
         )
 
     # Test the model
-    evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
-
+    eval_loss, accuracy_percentage = evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
     # Save the model
-    results = dict(model=cnn_model)
+    # results = dict(model=cnn_model)
+    results = dict(
+        model=cnn_model,
+        avg_loss=eval_loss,
+        accuracy_percentage=accuracy_percentage
+    )
     return results
 
 
@@ -255,6 +259,7 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
 
             loading_bar.set_description("Epoch " + str(epoch) + ": ")
     eval_loss /= len(data_loader.dataset)
+    accuracy_percentage = 100.0 * correct / len(data_loader.dataset)
 
     print(
         dataset,
@@ -262,9 +267,11 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
             eval_loss,
             correct,
             len(data_loader.dataset),
-            100.0 * correct / len(data_loader.dataset),
+            accuracy_percentage,
         ),
     )
+    
+    return eval_loss, accuracy_percentage 
 
 # Loss function
 def get_loss(loss_type, output, target):

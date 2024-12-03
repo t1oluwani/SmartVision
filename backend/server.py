@@ -82,7 +82,7 @@ def test_model(model):
     total = 0
     num_correct = 0
     # Iterate over the test data and generate predictions
-    for (data, targets) in enumerate(test_loader):
+    for batch_idx, (data, targets) in enumerate(test_loader):
         data = data.to(device)
         targets = targets.to(device)
         with torch.no_grad():
@@ -134,8 +134,9 @@ def train_and_save(model_type):
         
         # Save the trained model
         trained_model = training_results["model"]
-        torch.save(trained_model.state_dict(), model_path)
         
+        torch.save(trained_model.state_dict(), model_path)
+         
         # Test accuracy of the model
         test_accuracy = test_model(trained_model)
         
