@@ -12,8 +12,9 @@ async function clearModel(model_type) {
   return response.data;
 }
 
-async function predict(model_type) {
-  const response = await axios.post(`${API_URL}/...`, data);
+async function modelPredict(model_type, img_data) {
+  const response = await axios.post(`${API_URL}/...`, img_data);
   return response.data;
 }
 
+export { trainModel, clearModel, modelPredict };

@@ -118,6 +118,7 @@
 
 <script>
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
+import { trainModel, clearModel, modelPredict } from '@/service/MLModelClient'; 
 
 export default {
   components: {
