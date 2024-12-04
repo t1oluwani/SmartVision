@@ -121,7 +121,8 @@
 
 <script>
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
-import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
+// import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
+import { modelClear } from '@/service/MLModelClient';
 
 export default {
   components: {
@@ -211,8 +212,8 @@ export default {
       // Placeholder for clearModel function (no logic)
       alert('Clearing model');
 
-      clearStatus = modelClear(this.selectedModel);
-      print(clearStatus);
+      let clearStatus = modelClear(this.selectedModel);
+      console.log("clearStatus", clearStatus);
 
       if (clearStatus == 200) {
         if (this.selectedModel === 'CNN') {
