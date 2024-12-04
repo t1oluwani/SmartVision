@@ -74,18 +74,10 @@ def train_and_save(model_type):
     """
     Endpoint to train and save selected model.
     """
-    # Check if model type is provided
-    if not model_type:
-        return jsonify({"error": "Please provide a model type."}), 400
-
-    # Check if model type is valid
-    if model_type not in ["CNN", "FNN", "LR"]:
-        return (
-            jsonify(
-                {"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
+    # Check if model type is provided and valid
+    if not model_type or model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid Model Type."}), 400
+    
     try:
         start_timer = timeit.default_timer()
         model_path = f"ml_models/{model_type}_model.pth"
@@ -133,7 +125,7 @@ def preprocess_and_predict(model_type):
     Endpoint to predict the class of an uploaded image using selected model.
     """
     print("Predicting image class...")
-    # Check if model type is provided
+    # Check if model type is provided and valid
     if not model_type or model_type not in ["CNN", "FNN", "LR"]:
         return jsonify({"error": "Invalid Model Type."}), 400
 
@@ -157,21 +149,13 @@ def preprocess_and_predict(model_type):
     processed_image = transform(unprocessed_image).unsqueeze(0).to(device)
 
     try:
+        # Load the model
         if model_type == "CNN":
             model_path = "ml_models/CNN_model.pth"
         elif model_type == "FNN":
             model_path = "ml_models/FNN_model.pth"
         elif model_type == "LR":
             model_path = "ml_models/LR_model.pth"
-        else:
-            return (
-                jsonify(
-                    {
-                        "error": "Invalid model type to predict. Choose from CNN, FNN, or LR."
-                    }
-                ),
-                400,
-            )
 
         model = load_model(model_path, model_type)
         model.eval()
@@ -193,20 +177,16 @@ def clear_model(model_type):
     """
     Endpoint to clear the saved model by type.
     """
+    # Check if model type is provided and valid
+    if not model_type or model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid Model Type."}), 400
+    
     if model_type == "CNN":
         os.remove("ml_models/CNN_model.pth")
     elif model_type == "FNN":
         os.remove("ml_models/FNN_model.pth")
     elif model_type == "LR":
         os.remove("ml_models/LR_model.pth")
-
-    else:
-        return (
-            jsonify(
-                {"error": "Invalid model type to clear. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
 
     return jsonify({"message": f"{model_type} model cleared successfully!"}), 200
 
