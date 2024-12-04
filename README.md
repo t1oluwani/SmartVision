@@ -1,6 +1,7 @@
 TODOs:
 - Make predict functional
 - Fill in model information on left
+- Loading functionalities
 - First Deploy, new desc + save old descs
 - Complete VR/ML Logic (3 and 5)
 - Connect 3 & 5 Logic to rest of app
