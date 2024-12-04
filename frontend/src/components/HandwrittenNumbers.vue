@@ -121,8 +121,7 @@
 
 <script>
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
-// import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
-import { modelClear } from '@/service/MLModelClient';
+import { modelTrain, modelClear } from '@/service/MLModelClient';
 
 export default {
   components: {
@@ -181,15 +180,18 @@ export default {
       // Placeholder for trainModel function (no logic)
       alert('Training model');
 
-      modelResponse = await modelTrain(this.selectedModel);
-      print(modelResponse);
+      let modelResponse = await modelTrain(this.selectedModel);
+      console.log(modelResponse);
 
-      modelSpecs = {
-        avgLoss: 0.3,
-        trainAccuracy: 92,
-        testAccuracy: 88,
-        trainingTime: 120,
+      // Add Loading State and Spinner here
+
+      let modelSpecs = {
+        avgLoss: modelResponse.avg_loss,
+        trainAccuracy: modelResponse.train_accuracy,
+        testAccuracy: modelResponse.test_accuracy,
+        trainingTime: modelResponse.run_time,
       }
+      console.log(modelSpecs);
 
       // Simulate training process for testing
       if (this.selectedModel === 'CNN') {
@@ -199,7 +201,7 @@ export default {
       } else if (this.selectedModel === 'FNN') {
         this.fnn_model.modelTrained = true;
         this.fnn_model.modelSpecs = modelSpecs;
-        
+
       } else {
         this.lr_model.modelTrained = true;
         this.lr_model.modelSpecs = modelSpecs;
