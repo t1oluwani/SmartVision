@@ -1,8 +1,11 @@
 TODOs:
-- Complete VR/ML Logic 
-- Connect Backend to Frontend
-- Style Frontend properly and test
-- Proper READme
+- Make predict functional
+- Fill in model information on left
+- First Deploy, new desc + save old descs
+- Complete VR/ML Logic (3 and 5)
+- Connect 3 & 5 Logic to rest of app
+- Final Frontend Styling
+- Proper READme and Documentations (api/docs)
 - Requirements.txt file for virtual enviroment module prerequisites
 
 Feature TODOs (VR/ML Logic):
