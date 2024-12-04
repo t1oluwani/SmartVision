@@ -142,7 +142,7 @@ def FNN(device):
     # Train the model
     for epoch in range(1, fnn_model.n_epochs + 1):
         train(device, fnn_model, fnn_optimizer, train_loader, loss_type="ce")
-        evaluate(
+        _, accuracy_percentage = evaluate(
             device,
             fnn_model,
             validation_loader,
@@ -152,7 +152,7 @@ def FNN(device):
         )
 
     # Test the model
-    eval_loss, accuracy_percentage = evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    eval_loss, _ = evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
     
     # Save the model
     results = dict(
@@ -173,7 +173,7 @@ def CNN(device):
     # Train the model
     for epoch in range(1, cnn_model.n_epochs + 1):
         train(device, cnn_model, cnn_optimizer, train_loader, loss_type="mse")
-        evaluate(
+        _, accuracy_percentage = evaluate(
             device,
             cnn_model,
             validation_loader,
@@ -183,7 +183,7 @@ def CNN(device):
         )
     
     # Test the model
-    eval_loss, accuracy_percentage = evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    eval_loss, _ = evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
     
     # Save the model
     results = dict(
@@ -205,7 +205,7 @@ def LogisticRegression(device):
     # Train the model
     for epoch in range(1, logistic_model.n_epochs + 1):
         train(device, logistic_model, logistic_optimizer, train_loader, loss_type="mse")
-        evaluate(
+        _, accuracy_percentage = evaluate(
             device,
             logistic_model,
             validation_loader,
@@ -215,7 +215,7 @@ def LogisticRegression(device):
         )
 
     # Test the model
-    eval_loss, accuracy_percentage = evaluate(device, logistic_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    eval_loss, _ = evaluate(device, logistic_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
     
     # Save the model
     results = dict(
