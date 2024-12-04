@@ -209,11 +209,10 @@ export default {
       }
     },
     async clearModel() {
-      // Placeholder for clearModel function (no logic)
-      alert('Clearing model');
-
       let clearStatus = await modelClear(this.selectedModel);
       console.log("clearStatus", clearStatus);
+
+      // Add Loading State and Spinner here
 
       if (clearStatus == 200) {
         if (this.selectedModel === 'CNN') {
