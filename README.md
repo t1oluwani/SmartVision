@@ -34,3 +34,7 @@ PyTorch Website
 - https://pytorch.org/tutorials/beginner/introyt/
 
 UofA CMPUT 328 Visual Recognition Class Notes
+
+Getting a <Canvas> as a Blob:
+https://stackoverflow.com/questions/42458849/access-blob-value-outside-of-canvas-toblob-async-function
+

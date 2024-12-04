@@ -18,13 +18,9 @@ export default {
   methods: {
     getCanvasImageAsBlob() {
       let cnv = document.getElementById("drawingCanvas");
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         cnv.toBlob(blob => {
-          if (blob) {
-            resolve(blob);  // Resolve the promise with the blob
-          } else {
-            reject("Failed to create blob from canvas");
-          }
+            resolve(blob);  
         });
       });
     }

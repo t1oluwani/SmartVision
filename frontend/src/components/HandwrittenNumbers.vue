@@ -120,7 +120,6 @@
 </template>
 
 <script>
-import testImage from '@/components/image_5.jpg';
 import FormData from 'form-data';
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
 import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
