@@ -75,8 +75,8 @@
             <h3>Model Specifications</h3>
             <p><strong>Average Loss:</strong> {{ cnn_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ cnn_model.modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ cnn_model.modelSpecs.trainingTime }}s</p>
             <p><strong>Test Accuracy:</strong> {{ cnn_model.modelSpecs.testAccuracy }}%</p>
+            <p><strong>Training and Testing Time:</strong> {{ cnn_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
@@ -85,8 +85,8 @@
             <h3>Model Specifications</h3>
             <p><strong>Average Loss:</strong> {{ fnn_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ fnn_model.modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ fnn_model.modelSpecs.trainingTime }}s</p>
             <p><strong>Test Accuracy:</strong> {{ fnn_model.modelSpecs.testAccuracy }}%</p>
+            <p><strong>Training and Testing Time:</strong> {{ fnn_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
@@ -95,8 +95,8 @@
             <h3>Model Specifications</h3>
             <p><strong>Average Loss:</strong> {{ lr_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ lr_model.modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ lr_model.modelSpecs.trainingTime }}s</p>
             <p><strong>Test Accuracy:</strong> {{ lr_model.modelSpecs.testAccuracy }}%</p>
+            <p><strong>Training and Testing Time:</strong> {{ lr_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
