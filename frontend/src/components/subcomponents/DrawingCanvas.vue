@@ -16,10 +16,19 @@
 <script>
 export default {
   methods: {
-    getCanvasDataAsImage() {
+    getCanvasImageAsBlob() {
       let cnv = document.getElementById("drawingCanvas");
-      return cnv.toDataURL("image/png");
+      return new Promise((resolve, reject) => {
+        cnv.toBlob(blob => {
+          if (blob) {
+            resolve(blob);  // Resolve the promise with the blob
+          } else {
+            reject("Failed to create blob from canvas");
+          }
+        });
+      });
     }
+
   },
   mounted() {
     // Setup Canvas and Graphics Context
@@ -78,10 +87,10 @@ export default {
       mouseY = event.clientY - cnvRect.top;
     }
     function mouseInCanvas() {
-      return  mouseX >= 0 &&
-              mouseX <= cnv.width &&
-              mouseY >= 0 &&
-              mouseY <= cnv.height;
+      return mouseX >= 0 &&
+        mouseX <= cnv.width &&
+        mouseY >= 0 &&
+        mouseY <= cnv.height;
     }
 
     // Button Event Functions
@@ -146,7 +155,8 @@ export default {
 }
 
 #image-guideline {
-  position: absolute; /* Overlaps with canvas */
+  position: absolute;
+  /* Overlaps with canvas */
   width: 280px;
   height: 420px;
   border-radius: 50%;

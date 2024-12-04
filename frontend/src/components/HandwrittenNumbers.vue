@@ -173,22 +173,10 @@ export default {
       //   this.modelPredict();
       // }
 
-      // Get the image data from the DrawingCanvas component
-
-      // const imgData = this.$refs.drawingCanvas.getCanvasDataAsImage();
+      // Get the image data from the canvas
       const imgData = new FormData();
-
-      // Fetch the image from the URL imported
-      const response = await fetch(testImage);
-      const blob = await response.blob();
-
-      console.log("Response:", response);
-      console.log("Blob:", blob);
-
-      // Append the image to FormData as a 'File' object
-      imgData.append("canvas_drawing", blob, "image_5.jpg");
-
-      console.log("Image Data:", imgData);
+      const imgAsBlob = await this.$refs.drawingCanvas.getCanvasImageAsBlob();
+      imgData.append("canvas_drawing", imgAsBlob);
 
       const predictionResponse = await modelPredict(this.selectedModel, imgData);
       console.log("Prediction Response:", predictionResponse);

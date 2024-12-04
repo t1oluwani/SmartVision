@@ -124,7 +124,6 @@ def preprocess_and_predict(model_type):
     """
     Endpoint to predict the class of an uploaded image using selected model.
     """
-    print("Predicting image class...")
     # Check if model type is provided and valid
     if not model_type or model_type not in ["CNN", "FNN", "LR"]:
         return jsonify({"error": "Invalid Model Type."}), 400
