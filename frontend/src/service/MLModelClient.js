@@ -16,9 +16,8 @@ async function modelTrain(model_type) {
     return formatted_data;
 
   } catch (error) {
-    alert("Error: Model Training Failed.");
-    console.error(error);
-  }
+    console.error("Model training failed:", error);
+    alert("Error: Model Training Failed.");  }
 }
 
 async function modelClear(model_type) {
@@ -27,8 +26,8 @@ async function modelClear(model_type) {
     return response.status;
 
   } catch (error) {
+    console.error("Model clearing failed:", error);
     alert("Error: Model Clearing Failed.");
-    console.error(error);
   }
 }
 
@@ -40,8 +39,8 @@ async function modelPredict(model_type, img_data) {
     return response.data;
 
   } catch (error) {
+    console.error("Model prediction failed:", error);
     alert("Error: Model Prediction Failed.");
-    console.error(error);
   }
 }
 

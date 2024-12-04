@@ -1,10 +1,14 @@
 TODOs:
 - Make predict functional
+- Turn if cases to switch
+
 - Fill in model information on left
 - Loading functionalities
 - First Deploy, new desc + save old descs
+
 - Complete VR/ML Logic (3 and 5)
 - Connect 3 & 5 Logic to rest of app
+- Pen eraser toggle functionality
 - Final Frontend Styling
 - Proper READme and Documentations (api/docs)
 - Requirements.txt file for virtual enviroment module prerequisites

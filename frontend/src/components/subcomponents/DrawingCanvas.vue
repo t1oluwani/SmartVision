@@ -15,6 +15,12 @@
 
 <script>
 export default {
+  methods: {
+    getCanvasDataAsImage() {
+      let cnv = document.getElementById("drawingCanvas");
+      return cnv.toDataURL("image/png");
+    }
+  },
   mounted() {
     // Setup Canvas and Graphics Context
     let cnv = document.getElementById("drawingCanvas");
@@ -54,7 +60,7 @@ export default {
     document.querySelector("#penbtn").addEventListener("click", changeToPen);
     document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
     document.querySelector("#colorpicker").addEventListener("input", changeColor);
-    document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
+    // document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
 
     // Mouse Event Functions
     function mousedownHandler() {
@@ -114,14 +120,13 @@ export default {
     // TODO: Implement pen/eraser toggle functionality
     // When isPen is true, clicker is a pen; when isPen is false, clicker is an eraser
 
-
     // Save Canvas as Image
-    function saveCanvas() {
-      let link = document.createElement("a");
-      link.download = "canvas_drawing.png";
-      link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      // link.click();
-    }
+    // function saveCanvas() {
+    //   let link = document.createElement("a");
+    //   link.download = "canvas_drawing.png";
+    //   link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    //   // link.click();
+    // }
   }
 };
 </script>

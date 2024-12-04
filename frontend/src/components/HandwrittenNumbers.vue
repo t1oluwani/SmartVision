@@ -185,6 +185,7 @@ export default {
         this.lr_model.modelPrediction = predictionResponse.predicted_class;
       }
     },
+
     async trainModel() {
       let modelResponse = await modelTrain(this.selectedModel);
       console.log(modelResponse);
@@ -213,8 +214,10 @@ export default {
         this.lr_model.modelSpecs = modelSpecs;
       }
     },
+
     async clearModel() {
       let clearStatus = await modelClear(this.selectedModel);
+      console.log(clearStatus);
 
       // Add Loading State and Spinner here
 
