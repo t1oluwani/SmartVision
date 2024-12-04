@@ -163,24 +163,33 @@ export default {
     };
   },
   methods: {
-    identify() {
+    async identify() {
       // Placeholder for identify function (no logic)
       alert(`Identifying with ${this.selectedModel}`);
 
-      // Simulate prediction process for testing
+      // if (this.selectedModel.modelTrained) {
+      //   this.predictModel();
+      // }
+
+      let predictionResponse = await this.predictModel(this.selectedModel);
+      console.log(predictionResponse);
+      
+      // Add Loading State and Spinner here
+
+      // Update model prediction
       if (this.selectedModel === 'CNN') {
-        this.cnn_model.modelPrediction = Math.floor(Math.random() * 10);
+        this.cnn_model.modelPrediction = predictionResponse.predicted_class;
       } else if (this.selectedModel === 'FNN') {
-        this.fnn_model.modelPrediction = Math.floor(Math.random() * 10);
+        this.fnn_model.modelPrediction = predictionResponse.predicted_class;
       } else {
-        this.lr_model.modelPrediction = Math.floor(Math.random() * 10);
+        this.lr_model.modelPrediction = predictionResponse.predicted_class;
       }
     },
     async trainModel() {
       let modelResponse = await modelTrain(this.selectedModel);
       console.log(modelResponse);
 
-      // Add Loading State and Spinner here
+      // Add Loading State and Spinner here (take about 5-6 mins for CNN, 2-3 mins for FNN, and 3-4 mins for LR)
 
       let modelSpecs = {
         trainAccuracy: modelResponse.train_accuracy,
@@ -190,7 +199,7 @@ export default {
       }
       console.log(modelSpecs);
 
-      // Simulate training process for testing
+      // Update model status and specs
       if (this.selectedModel === 'CNN') {
         this.cnn_model.modelTrained = true;
         this.cnn_model.modelSpecs = modelSpecs;
