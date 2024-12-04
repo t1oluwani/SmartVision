@@ -1,7 +1,6 @@
 import os
 import timeit
 from PIL import Image
-from pathlib import Path
 
 import torch
 from torchvision import transforms, datasets
@@ -20,7 +19,7 @@ CORS(
     app,
     resources={
         r"/api/*": {
-            "origins": ["http://localhost:8080"],
+            "origins": ["http://localhost:8080"], # Frontend URL
             "methods": ["GET", "POST"],
             "allow_headers": ["Content-Type", "Authorization"],
             "supports_credentials": True,
