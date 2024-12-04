@@ -5,7 +5,15 @@ const API_URL = "http://localhost:5000"; // Backend URL
 async function modelTrain(model_type) {
   try {
     const response = await axios.post(`${API_URL}/train/${model_type}`);
-    return response.data;
+
+    const formatted_data = {
+      test_accuracy: (response.data.test_accuracy * 100).toFixed(2), 
+      run_time: response.data.run_time.toFixed(1),
+      train_accuracy: response.data.train_accuracy.toFixed(2),
+      avg_loss: response.data.avg_loss.toFixed(4)
+    };
+
+    return formatted_data;
 
   } catch (error) {
     alert("Error: Model Training Failed.");

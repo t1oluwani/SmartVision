@@ -177,9 +177,6 @@ export default {
       }
     },
     async trainModel() {
-      // Placeholder for trainModel function (no logic)
-      alert('Training model');
-
       let modelResponse = await modelTrain(this.selectedModel);
       console.log(modelResponse);
 
