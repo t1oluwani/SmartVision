@@ -14,7 +14,7 @@ async function modelTrain(model_type) {
     };
 
     if (response && response.data) {
-      console.log("Model training result:", formatted);
+      console.log("Model training result:", formatted_data);
       return formatted_data;
     }
 
@@ -39,11 +39,8 @@ async function modelClear(model_type) {
 }
 
 async function modelPredict(model_type, img_data) {
-  const formData = new FormData();
-  formData.append("canvas_drawing", img_data);
-
   try {
-    const response = await axios.post(`${API_URL}/predict/${model_type}`, formData,
+    const response = await axios.post(`${API_URL}/predict/${model_type}`, img_data,
       {
         headers: { 'Content-Type': 'multipart/form-data' }
       });

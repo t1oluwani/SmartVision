@@ -120,6 +120,8 @@
 </template>
 
 <script>
+import testImage from '@/components/image_5.jpg';
+import FormData from 'form-data';
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
 import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
 
@@ -172,10 +174,24 @@ export default {
       // }
 
       // Get the image data from the DrawingCanvas component
-      const imgData = this.$refs.drawingCanvas.getCanvasDataAsImage();
+
+      // const imgData = this.$refs.drawingCanvas.getCanvasDataAsImage();
+      const imgData = new FormData();
+
+      // Fetch the image from the URL imported
+      const response = await fetch(testImage);
+      const blob = await response.blob();
+
+      console.log("Response:", response);
+      console.log("Blob:", blob);
+
+      // Append the image to FormData as a 'File' object
+      imgData.append("canvas_drawing", blob, "image_5.jpg");
+
+      console.log("Image Data:", imgData);
 
       const predictionResponse = await modelPredict(this.selectedModel, imgData);
-      console.log(predictionResponse);
+      console.log("Prediction Response:", predictionResponse);
       
       // Add Loading State and Spinner here
 
