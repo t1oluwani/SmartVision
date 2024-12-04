@@ -208,11 +208,11 @@ export default {
         }
       }
     },
-    clearModel() {
+    async clearModel() {
       // Placeholder for clearModel function (no logic)
       alert('Clearing model');
 
-      let clearStatus = modelClear(this.selectedModel);
+      let clearStatus = await modelClear(this.selectedModel);
       console.log("clearStatus", clearStatus);
 
       if (clearStatus == 200) {
