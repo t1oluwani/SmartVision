@@ -177,40 +177,36 @@ export default {
         this.lr_model.modelPrediction = Math.floor(Math.random() * 10);
       }
     },
-    trainModel() {
+    async trainModel() {
       // Placeholder for trainModel function (no logic)
       alert('Training model');
+
+      modelResponse = await modelTrain(this.selectedModel);
+      print(modelResponse);
+
+      modelSpecs = {
+        avgLoss: 0.3,
+        trainAccuracy: 92,
+        testAccuracy: 88,
+        trainingTime: 120,
+      }
 
       // Simulate training process for testing
       if (this.selectedModel === 'CNN') {
         this.cnn_model.modelTrained = true;
-        this.cnn_model.modelSpecs = {
-          avgLoss: 0.3,
-          trainAccuracy: 92,
-          testAccuracy: 88,
-          trainingTime: 120, // in seconds
-        }
+        this.cnn_model.modelSpecs = modelSpecs;
+
       } else if (this.selectedModel === 'FNN') {
         this.fnn_model.modelTrained = true;
-        this.fnn_model.modelSpecs = {
-          avgLoss: 0.2,
-          trainAccuracy: 94,
-          testAccuracy: 90,
-          trainingTime: 180, // in seconds
-        }
+        this.fnn_model.modelSpecs = modelSpecs;
+        
       } else {
         this.lr_model.modelTrained = true;
-        this.lr_model.modelSpecs = {
-          avgLoss: 0.1,
-          trainAccuracy: 96,
-          testAccuracy: 92,
-          trainingTime: 60, // in seconds
-        }
+        this.lr_model.modelSpecs = modelSpecs;
       }
     },
     async clearModel() {
       let clearStatus = await modelClear(this.selectedModel);
-      console.log("clearStatus", clearStatus);
 
       // Add Loading State and Spinner here
 
