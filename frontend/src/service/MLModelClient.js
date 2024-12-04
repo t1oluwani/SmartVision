@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000"; // Backend URL
 
-async function trainModel(model_type) {
+async function modelTrain(model_type) {
   try {
     const response = await axios.post(`${API_URL}/train/${model_type}`);
     return response.data;
@@ -13,9 +13,10 @@ async function trainModel(model_type) {
   }
 }
 
-async function clearModel(model_type) {
+async function modelClear(model_type) {
   try {
-    const response = await axios.post(`${API_URL}/clear/${model_type}`);
+    const response = await axios.get(`${API_URL}/clear/${model_type}`);
+    return response.status;
 
   } catch (error) {
     alert("Error: Model Clearing Failed.");
@@ -36,4 +37,4 @@ async function modelPredict(model_type, img_data) {
   }
 }
 
-export { trainModel, clearModel, modelPredict };
+export { modelTrain, modelClear, modelPredict };

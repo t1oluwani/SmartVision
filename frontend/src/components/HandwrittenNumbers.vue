@@ -59,11 +59,14 @@
           <p v-if="selectedModel === 'FNN'">{{ fnn_model.modelTrained ? 'FNN Model' : 'No Model is trained' }}</p>
           <p v-if="selectedModel === 'LR'">{{ lr_model.modelTrained ? 'LR Model' : 'No Model is trained' }}</p>
 
-          <button v-if="!cnn_model.modelTrained && selectedModel === 'CNN'" @click="trainModel">Train Convolutional-NN Model</button>
+          <button v-if="!cnn_model.modelTrained && selectedModel === 'CNN'" @click="trainModel">Train Convolutional-NN
+            Model</button>
           <button v-if="cnn_model.modelTrained && selectedModel === 'CNN'" @click="clearModel">Clear Model</button>
-          <button v-if="!fnn_model.modelTrained && selectedModel === 'FNN'" @click="trainModel">Train Feedfoward-NN Model</button>
+          <button v-if="!fnn_model.modelTrained && selectedModel === 'FNN'" @click="trainModel">Train Feedfoward-NN
+            Model</button>
           <button v-if="fnn_model.modelTrained && selectedModel === 'FNN'" @click="clearModel">Clear Model</button>
-          <button v-if="!lr_model.modelTrained && selectedModel === 'LR'" @click="trainModel">Train Logistic-Regression Model</button>
+          <button v-if="!lr_model.modelTrained && selectedModel === 'LR'" @click="trainModel">Train Logistic-Regression
+            Model</button>
           <button v-if="lr_model.modelTrained && selectedModel === 'LR'" @click="clearModel">Clear Model</button>
         </div>
 
@@ -118,7 +121,7 @@
 
 <script>
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
-import { trainModel, clearModel, modelPredict } from '@/service/MLModelClient'; 
+import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
 
 export default {
   components: {
@@ -208,13 +211,17 @@ export default {
       // Placeholder for clearModel function (no logic)
       alert('Clearing model');
 
-      // Simulate clearing process for testing
-      if (this.selectedModel === 'CNN') {
-        this.cnn_model.modelTrained = false;
-      } else if (this.selectedModel === 'FNN') {
-        this.fnn_model.modelTrained = false;
-      } else {
-        this.lr_model.modelTrained = false;
+      clearStatus = modelClear(this.selectedModel);
+      print(clearStatus);
+
+      if (clearStatus == 200) {
+        if (this.selectedModel === 'CNN') {
+          this.cnn_model.modelTrained = false;
+        } else if (this.selectedModel === 'FNN') {
+          this.fnn_model.modelTrained = false;
+        } else {
+          this.lr_model.modelTrained = false;
+        }
       }
     },
   }
