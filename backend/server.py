@@ -56,41 +56,6 @@ def load_model(model_path, model_type):
 
     return model
 
-
-# Tests accuracy of models
-def test_model(model):
-    # Load the test dataset
-    test_dataset = datasets.MNIST(
-        root="./data",
-        train=False,
-        download=True,
-        transform=transforms.Compose(
-            [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
-        ),
-    )
-    # Create a test dataloader
-    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1, shuffle=True)
-
-    # Set the model to evaluation mode
-    model.eval()
-
-    total = 0
-    num_correct = 0
-    # Iterate over the test data and generate predictions
-    for batch_idx, (data, targets) in enumerate(test_loader):
-        data = data.to(device)
-        targets = targets.to(device)
-        with torch.no_grad():
-            output = model(data)
-            predicted = torch.argmax(output, dim=1)
-            total += targets.size(0)
-            num_correct += (predicted == targets).sum().item()
-
-    # Compute model accuracy (for MNIST test dataset)
-    acc = float(num_correct) / total
-    return acc
-
-
 # ROUTES AND ENDPOINTS
 
 
@@ -133,26 +98,26 @@ def train_and_save(model_type):
         elif model_type == "LR":
             training_results = LogisticRegression(device)
 
-        # Save the trained model
+        # Save the model and stats
         trained_model = training_results["model"]
-        training_accuracy = training_results["accuracy_percentage"]
         average_loss = training_results["avg_loss"]
-
+        test_accuracy = training_results["test_accuracy"]
+        training_accuracy = training_results["validation_accuracy"]
+        
+        # Save trained model to disk
         torch.save(trained_model.state_dict(), model_path)
 
-        # Test accuracy of the model
-        test_accuracy = test_model(trained_model)
-
+        # Calculate total runtime
         stop_timer = timeit.default_timer()
         total_runtime = stop_timer - start_timer
 
         return (
             jsonify(
                 {
-                    "test_accuracy": test_accuracy,
-                    "run_time": total_runtime,
                     "train_accuracy": training_accuracy,
-                    "avg_loss": average_loss,
+                    "test_accuracy": test_accuracy,
+                    "average_loss": average_loss,
+                    "run_time": total_runtime,
                 }
             ),
             200,

@@ -7,10 +7,10 @@ async function modelTrain(model_type) {
     const response = await axios.post(`${API_URL}/train/${model_type}`);
 
     const formatted_data = {
-      test_accuracy: (response.data.test_accuracy * 100).toFixed(2), 
-      run_time: response.data.run_time.toFixed(1),
+      test_accuracy: (response.data.test_accuracy * 100).toFixed(2),
       train_accuracy: response.data.train_accuracy.toFixed(2),
-      avg_loss: response.data.avg_loss.toFixed(4)
+      average_loss: response.data.average_loss.toFixed(4),
+      run_time: response.data.run_time.toFixed(1),
     };
 
     return formatted_data;

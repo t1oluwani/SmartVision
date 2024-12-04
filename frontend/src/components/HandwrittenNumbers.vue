@@ -133,7 +133,7 @@ export default {
       cnn_model: {
         modelTrained: false,
         modelSpecs: {
-          avgLoss: 0,
+          averageLoss: 0,
           trainAccuracy: 0,
           testAccuracy: 0,
           trainingTime: 0,
@@ -143,7 +143,7 @@ export default {
       fnn_model: {
         modelTrained: false,
         modelSpecs: {
-          avgLoss: 0,
+          averageLoss: 0,
           trainAccuracy: 0,
           testAccuracy: 0,
           trainingTime: 0,
@@ -153,7 +153,7 @@ export default {
       lr_model: {
         modelTrained: false,
         modelSpecs: {
-          avgLoss: 0,
+          averageLoss: 0,
           trainAccuracy: 0,
           testAccuracy: 0,
           trainingTime: 0,
@@ -183,9 +183,9 @@ export default {
       // Add Loading State and Spinner here
 
       let modelSpecs = {
-        avgLoss: modelResponse.avg_loss,
         trainAccuracy: modelResponse.train_accuracy,
         testAccuracy: modelResponse.test_accuracy,
+        averageLoss: modelResponse.average_loss,
         trainingTime: modelResponse.run_time,
       }
       console.log(modelSpecs);
