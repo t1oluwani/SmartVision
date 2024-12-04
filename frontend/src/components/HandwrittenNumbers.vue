@@ -73,30 +73,30 @@
         <div v-if="selectedModel === 'CNN'">
           <div v-if="cnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ cnn_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Average Loss:</strong> {{ cnn_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ cnn_model.modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Test Accuracy:</strong> {{ cnn_model.modelSpecs.testAccuracy }}%</p>
             <p><strong>Time Spent to Train:</strong> {{ cnn_model.modelSpecs.trainingTime }}s</p>
+            <p><strong>Test Accuracy:</strong> {{ cnn_model.modelSpecs.testAccuracy }}%</p>
           </div>
         </div>
 
         <div v-if="selectedModel === 'FNN'">
           <div v-if="fnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ fnn_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Average Loss:</strong> {{ fnn_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ fnn_model.modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Test Accuracy:</strong> {{ fnn_model.modelSpecs.testAccuracy }}%</p>
             <p><strong>Time Spent to Train:</strong> {{ fnn_model.modelSpecs.trainingTime }}s</p>
+            <p><strong>Test Accuracy:</strong> {{ fnn_model.modelSpecs.testAccuracy }}%</p>
           </div>
         </div>
 
         <div v-if="selectedModel === 'LR'">
           <div v-if="lr_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ lr_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Average Loss:</strong> {{ lr_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ lr_model.modelSpecs.trainAccuracy }}%</p>
-            <p><strong>Test Accuracy:</strong> {{ lr_model.modelSpecs.testAccuracy }}%</p>
             <p><strong>Time Spent to Train:</strong> {{ lr_model.modelSpecs.trainingTime }}s</p>
+            <p><strong>Test Accuracy:</strong> {{ lr_model.modelSpecs.testAccuracy }}%</p>
           </div>
         </div>
 
