@@ -132,18 +132,10 @@ def preprocess_and_predict(model_type):
     """
     Endpoint to predict the class of an uploaded image using selected model.
     """
+    print("Predicting image class...")
     # Check if model type is provided
-    if not model_type:
-        return jsonify({"error": "Please provide a model type."}), 400
-
-    # Check if model type is valid
-    if model_type not in ["CNN", "FNN", "LR"]:
-        return (
-            jsonify(
-                {"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
+    if not model_type or model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid Model Type."}), 400
 
     # Check if image is provided
     if "canvas_drawing" not in request.files:
@@ -191,6 +183,7 @@ def preprocess_and_predict(model_type):
 
         return jsonify({"predicted_class": predicted_class}), 200
     except Exception as e:
+        print("Failed to predict image class.")
         return jsonify({"error": str(e)}), 500
 
 

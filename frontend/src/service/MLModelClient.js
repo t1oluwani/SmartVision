@@ -13,17 +13,24 @@ async function modelTrain(model_type) {
       run_time: response.data.run_time.toFixed(1),
     };
 
-    return formatted_data;
+    if (response && response.data) {
+      console.log("Model training result:", formatted);
+      return formatted_data;
+    }
 
   } catch (error) {
     console.error("Model training failed:", error);
-    alert("Error: Model Training Failed.");  }
+    alert("Error: Model Training Failed.");
+  }
 }
 
 async function modelClear(model_type) {
   try {
     const response = await axios.get(`${API_URL}/clear/${model_type}`);
-    return response.status;
+
+    if (response) {
+      return response.status;
+    }
 
   } catch (error) {
     console.error("Model clearing failed:", error);
@@ -32,11 +39,19 @@ async function modelClear(model_type) {
 }
 
 async function modelPredict(model_type, img_data) {
+  const formData = new FormData();
+  formData.append("canvas_drawing", img_data);
+
   try {
-    const response = await axios.post(`${API_URL}/predict/${model_type}`, {
-      img_data: img_data,
-    });
-    return response.data;
+    const response = await axios.post(`${API_URL}/predict/${model_type}`, formData,
+      {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+    if (response && response.data) {
+      console.log("Model prediction result:", response.data);
+      return response.data;
+    }
 
   } catch (error) {
     console.error("Model prediction failed:", error);

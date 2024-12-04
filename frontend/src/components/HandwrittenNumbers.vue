@@ -172,9 +172,9 @@ export default {
       // }
 
       // Get the image data from the DrawingCanvas component
-      const imgData = this.$refs.drawingCanvas.getCanvasDataAsImg();
+      const imgData = this.$refs.drawingCanvas.getCanvasDataAsImage();
 
-      const predictionResponse = await this.modelPredict(this.selectedModel, imgData);
+      const predictionResponse = await modelPredict(this.selectedModel, imgData);
       console.log(predictionResponse);
       
       // Add Loading State and Spinner here

@@ -8,6 +8,7 @@ for num in range(10):
     image_path = f"./test_images/image_{num}.jpg"
 
     with open(image_path, "rb") as image_file:
+        print("Image file:", image_file)
         cnn_response = requests.post(
             f"http://localhost:5000/predict/CNN", files={"canvas_drawing": image_file}
         )
