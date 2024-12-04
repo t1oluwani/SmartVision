@@ -132,36 +132,6 @@ class LogisticRegressionModel(nn.Module):
 
         return output
 
-
-def FNN(device):
-    fnn_model = FNNModel().to(device)
-    fnn_optimizer = optim.SGD(
-        fnn_model.parameters(), lr=fnn_model.learning_rate, momentum=fnn_model.momentum
-    )
-
-    # Train the model
-    for epoch in range(1, fnn_model.n_epochs + 1):
-        train(device, fnn_model, fnn_optimizer, train_loader, loss_type="ce")
-        _, accuracy_percentage = evaluate(
-            device,
-            fnn_model,
-            validation_loader,
-            epoch,
-            loss_type="ce",
-            dataset="Validation",
-        )
-
-    # Test the model
-    eval_loss, _ = evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
-    
-    # Save the model
-    results = dict(
-        model=fnn_model,
-        avg_loss=eval_loss,
-        accuracy_percentage=accuracy_percentage
-    )
-    return results
-
 def CNN(device):
     cnn_model = CNNModel().to(device)
     cnn_optimizer = optim.Adam(
@@ -173,7 +143,7 @@ def CNN(device):
     # Train the model
     for epoch in range(1, cnn_model.n_epochs + 1):
         train(device, cnn_model, cnn_optimizer, train_loader, loss_type="mse")
-        _, accuracy_percentage = evaluate(
+        _, validation_accuracy = evaluate(
             device,
             cnn_model,
             validation_loader,
@@ -183,16 +153,46 @@ def CNN(device):
         )
     
     # Test the model
-    eval_loss, _ = evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    evaluation_loss, test_accuracy = evaluate(device, cnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
     
     # Save the model
     results = dict(
         model=cnn_model,
-        avg_loss=eval_loss,
-        accuracy_percentage=accuracy_percentage,
+        avg_loss=evaluation_loss,
+        test_accuracy=test_accuracy,
+        validation_accuracy=validation_accuracy,
     )
     return results
 
+def FNN(device):
+    fnn_model = FNNModel().to(device)
+    fnn_optimizer = optim.SGD(
+        fnn_model.parameters(), lr=fnn_model.learning_rate, momentum=fnn_model.momentum
+    )
+
+    # Train the model
+    for epoch in range(1, fnn_model.n_epochs + 1):
+        train(device, fnn_model, fnn_optimizer, train_loader, loss_type="ce")
+        _, validation_accuracy = evaluate(
+            device,
+            fnn_model,
+            validation_loader,
+            epoch,
+            loss_type="ce",
+            dataset="Validation",
+        )
+
+    # Test the model
+    evaluation_loss, test_accuracy = evaluate(device, fnn_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    
+    # Save the model
+    results = dict(
+        model=fnn_model,
+        avg_loss=evaluation_loss,
+        test_accuracy=test_accuracy,
+        validation_accuracy=validation_accuracy,
+    )
+    return results
 
 def LogisticRegression(device):
     logistic_model = LogisticRegressionModel().to(device)
@@ -205,7 +205,7 @@ def LogisticRegression(device):
     # Train the model
     for epoch in range(1, logistic_model.n_epochs + 1):
         train(device, logistic_model, logistic_optimizer, train_loader, loss_type="mse")
-        _, accuracy_percentage = evaluate(
+        _, validation_accuracy = evaluate(
             device,
             logistic_model,
             validation_loader,
@@ -215,13 +215,14 @@ def LogisticRegression(device):
         )
 
     # Test the model
-    eval_loss, _ = evaluate(device, logistic_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
+    evaluation_loss, test_accuracy = evaluate(device, logistic_model, test_loader, epoch="T", loss_type="ce", dataset="Test")
     
     # Save the model
     results = dict(
         model=logistic_model,
-        avg_loss=eval_loss,
-        accuracy_percentage=accuracy_percentage
+        avg_loss=evaluation_loss,
+        test_accuracy=test_accuracy,
+        validation_accuracy=validation_accuracy,
     )
     return results
 
