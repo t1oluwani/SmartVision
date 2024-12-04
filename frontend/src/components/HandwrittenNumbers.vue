@@ -38,7 +38,7 @@
       </div>
 
       <div class="middle-container">
-        <DrawingCanvas />
+        <DrawingCanvas ref="drawingCanvas"/>
 
         <div class="choose-model">
           <label for="model">Choose Model: </label>
@@ -121,7 +121,7 @@
 
 <script>
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
-import { modelTrain, modelClear } from '@/service/MLModelClient';
+import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
 
 export default {
   components: {
@@ -168,10 +168,13 @@ export default {
       alert(`Identifying with ${this.selectedModel}`);
 
       // if (this.selectedModel.modelTrained) {
-      //   this.predictModel();
+      //   this.modelPredict();
       // }
 
-      let predictionResponse = await this.predictModel(this.selectedModel);
+      // Get the image data from the DrawingCanvas component
+      const imgData = this.$refs.drawingCanvas.getCanvasDataAsImg();
+
+      const predictionResponse = await this.modelPredict(this.selectedModel, imgData);
       console.log(predictionResponse);
       
       // Add Loading State and Spinner here
