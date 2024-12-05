@@ -1,8 +1,11 @@
 TODOs:
-- Complete VR/ML Logic 
-- Connect Backend to Frontend
-- Style Frontend properly and test
-- Proper READme
+- First Deploy, new desc + save old descs
+
+- Complete VR/ML Logic (3 and 5)
+- Connect 3 & 5 Logic to rest of app
+- Pen eraser toggle functionality
+- Final Frontend Styling
+- Proper READme and Documentations (api/docs)
 - Requirements.txt file for virtual enviroment module prerequisites
 
 Feature TODOs (VR/ML Logic):
@@ -24,4 +27,12 @@ PyTorch Website
 - https://pytorch.org/tutorials/beginner/basics/
 - https://pytorch.org/tutorials/beginner/introyt/
 
+Understanding of Logistic Regression, FNN and CNN:
 UofA CMPUT 328 Visual Recognition Class Notes
+
+CSS Loading Loaders:
+https://css-loaders.com/
+
+Getting a <Canvas> as a Blob:
+https://stackoverflow.com/questions/42458849/access-blob-value-outside-of-canvas-toblob-async-function
+

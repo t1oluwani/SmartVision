@@ -15,6 +15,16 @@
 
 <script>
 export default {
+  methods: {
+    getCanvasImageAsBlob() {
+      let cnv = document.getElementById("drawingCanvas");
+      return new Promise((resolve) => {
+        cnv.toBlob(blob => {
+            resolve(blob);  
+        });
+      });
+    }
+  },
   mounted() {
     // Setup Canvas and Graphics Context
     let cnv = document.getElementById("drawingCanvas");
@@ -28,7 +38,7 @@ export default {
     let mouseIsPressed = false;
     let mouseX, mouseY, pmouseX, pmouseY;
     // let isPen = true;
-    let penSize = 50;
+    let penSize = 45;
     let penColor = "black";
 
     // Main Program Loop (60 FPS)
@@ -54,7 +64,7 @@ export default {
     document.querySelector("#penbtn").addEventListener("click", changeToPen);
     document.querySelector("#eraserbtn").addEventListener("click", changeToEraser);
     document.querySelector("#colorpicker").addEventListener("input", changeColor);
-    document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
+    // document.querySelector("#identifybtn").addEventListener("click", saveCanvas);
 
     // Mouse Event Functions
     function mousedownHandler() {
@@ -72,23 +82,26 @@ export default {
       mouseY = event.clientY - cnvRect.top;
     }
     function mouseInCanvas() {
-      return  mouseX >= 0 &&
-              mouseX <= cnv.width &&
-              mouseY >= 0 &&
-              mouseY <= cnv.height;
+      return mouseX >= 0 &&
+        mouseX <= cnv.width &&
+        mouseY >= 0 &&
+        mouseY <= cnv.height;
     }
 
     // Button Event Functions
     function clearCanvas() {
       ctx.clearRect(0, 0, cnv.width, cnv.height);
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, cnv.width, cnv.height);
     }
     function changeToPen() {
       // isPen = true;
+      penSize = 45;
       penColor = document.querySelector("#colorpicker").value;
     }
     function changeToEraser() {
       // isPen = false;
-      penSize = 75;
+      penSize = 90;
       penColor = "white";
     }
     function changeColor() {
@@ -114,14 +127,13 @@ export default {
     // TODO: Implement pen/eraser toggle functionality
     // When isPen is true, clicker is a pen; when isPen is false, clicker is an eraser
 
-
     // Save Canvas as Image
-    function saveCanvas() {
-      let link = document.createElement("a");
-      link.download = "canvas_drawing.png";
-      link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      // link.click();
-    }
+    // function saveCanvas() {
+    //   let link = document.createElement("a");
+    //   link.download = "canvas_drawing.png";
+    //   link.href = cnv.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    //   // link.click();
+    // }
   }
 };
 </script>
@@ -141,8 +153,9 @@ export default {
 }
 
 #image-guideline {
-  position: absolute; /* Overlaps with canvas */
-  width: 280px;
+  position: absolute;
+  /* Overlaps with canvas */
+  width: 320px;
   height: 420px;
   border-radius: 50%;
   border: dashed 6px rgba(128, 128, 128, 0.5);

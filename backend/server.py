@@ -1,7 +1,6 @@
 import os
 import timeit
 from PIL import Image
-from pathlib import Path
 
 import torch
 from torchvision import transforms, datasets
@@ -19,8 +18,8 @@ app = Flask(__name__)
 CORS(
     app,
     resources={
-        r"/api/*": {
-            "origins": ["http://localhost:8080"],
+        r"/*": {
+            "origins": ["http://localhost:8080"], # Frontend URL
             "methods": ["GET", "POST"],
             "allow_headers": ["Content-Type", "Authorization"],
             "supports_credentials": True,
@@ -36,61 +35,22 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 
 # Loads the model according to the model type
 def load_model(model_path, model_type):
-    if model_type == "CNN":
-        model = CNNModel().to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))
-    elif model_type == "FNN":
-        model = FNNModel().to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))
-        model.eval()
-    elif model_type == "LR":
-        model = LogisticRegressionModel().to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))
-        model.eval()
-    else:
-        return (
-            jsonify(
-                {"error": "Invalid model type to load. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
+    match model_type:
+        case "CNN":
+            model = CNNModel().to(device)
+            model.load_state_dict(torch.load(model_path, weights_only=True))
+        case "FNN":
+            model = FNNModel().to(device)
+            model.load_state_dict(torch.load(model_path, weights_only=True))
+            model.eval()
+        case "LR":
+            model = LogisticRegressionModel().to(device)
+            model.load_state_dict(torch.load(model_path, weights_only=True))
+            model.eval()
+        case _:
+            print("Invalid model type to load.")
 
     return model
-
-
-# Tests accuracy of models
-def test_model(model):
-    # Load the test dataset
-    test_dataset = datasets.MNIST(
-        root="./data",
-        train=False,
-        download=True,
-        transform=transforms.Compose(
-            [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
-        ),
-    )
-    # Create a test dataloader
-    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1, shuffle=True)
-
-    # Set the model to evaluation mode
-    model.eval()
-
-    total = 0
-    num_correct = 0
-    # Iterate over the test data and generate predictions
-    for batch_idx, (data, targets) in enumerate(test_loader):
-        data = data.to(device)
-        targets = targets.to(device)
-        with torch.no_grad():
-            output = model(data)
-            predicted = torch.argmax(output, dim=1)
-            total += targets.size(0)
-            num_correct += (predicted == targets).sum().item()
-
-    # Compute model accuracy (for MNIST test dataset)
-    acc = float(num_correct) / total
-    return acc
-
 
 # ROUTES AND ENDPOINTS
 
@@ -110,50 +70,45 @@ def train_and_save(model_type):
     """
     Endpoint to train and save selected model.
     """
-    # Check if model type is provided
-    if not model_type:
-        return jsonify({"error": "Please provide a model type."}), 400
-
-    # Check if model type is valid
-    if model_type not in ["CNN", "FNN", "LR"]:
-        return (
-            jsonify(
-                {"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
+    # Check if model type is provided and valid
+    if not model_type or model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid Model Type."}), 400
+    
     try:
         start_timer = timeit.default_timer()
         model_path = f"ml_models/{model_type}_model.pth"
 
         # Train the model
-        if model_type == "CNN":
-            training_results = CNN(device)
-        elif model_type == "FNN":
-            training_results = FNN(device)
-        elif model_type == "LR":
-            training_results = LogisticRegression(device)
+        match model_type:
+            case "CNN":
+                training_results = CNN(device)
+            case "FNN":
+                training_results = FNN(device)
+            case "LR":
+                training_results = LogisticRegression(device)
+            case _:
+                print("Invalid model type to train.")
 
-        # Save the trained model
+        # Save the model and stats
         trained_model = training_results["model"]
-        training_accuracy = training_results["accuracy_percentage"]
         average_loss = training_results["avg_loss"]
-
+        test_accuracy = training_results["test_accuracy"]
+        training_accuracy = training_results["validation_accuracy"]
+        
+        # Save trained model to disk
         torch.save(trained_model.state_dict(), model_path)
 
-        # Test accuracy of the model
-        test_accuracy = test_model(trained_model)
-
+        # Calculate total runtime
         stop_timer = timeit.default_timer()
         total_runtime = stop_timer - start_timer
 
         return (
             jsonify(
                 {
-                    "test_accuracy": test_accuracy,
-                    "run_time": total_runtime,
                     "train_accuracy": training_accuracy,
-                    "avg_loss": average_loss,
+                    "test_accuracy": test_accuracy,
+                    "average_loss": average_loss,
+                    "run_time": total_runtime,
                 }
             ),
             200,
@@ -168,18 +123,9 @@ def preprocess_and_predict(model_type):
     """
     Endpoint to predict the class of an uploaded image using selected model.
     """
-    # Check if model type is provided
-    if not model_type:
-        return jsonify({"error": "Please provide a model type."}), 400
-
-    # Check if model type is valid
-    if model_type not in ["CNN", "FNN", "LR"]:
-        return (
-            jsonify(
-                {"error": "Invalid model type to train. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
+    # Check if model type is provided and valid
+    if not model_type or model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid Model Type."}), 400
 
     # Check if image is provided
     if "canvas_drawing" not in request.files:
@@ -201,21 +147,8 @@ def preprocess_and_predict(model_type):
     processed_image = transform(unprocessed_image).unsqueeze(0).to(device)
 
     try:
-        if model_type == "CNN":
-            model_path = "ml_models/CNN_model.pth"
-        elif model_type == "FNN":
-            model_path = "ml_models/FNN_model.pth"
-        elif model_type == "LR":
-            model_path = "ml_models/LR_model.pth"
-        else:
-            return (
-                jsonify(
-                    {
-                        "error": "Invalid model type to predict. Choose from CNN, FNN, or LR."
-                    }
-                ),
-                400,
-            )
+        # Load the model
+        model_path = f"ml_models/{model_type}_model.pth"
 
         model = load_model(model_path, model_type)
         model.eval()
@@ -227,6 +160,7 @@ def preprocess_and_predict(model_type):
 
         return jsonify({"predicted_class": predicted_class}), 200
     except Exception as e:
+        print("Failed to predict image class.")
         return jsonify({"error": str(e)}), 500
 
 
@@ -236,23 +170,22 @@ def clear_model(model_type):
     """
     Endpoint to clear the saved model by type.
     """
-    if model_type == "CNN":
-        os.remove("ml_models/CNN_model.pth")
-    elif model_type == "FNN":
-        os.remove("ml_models/FNN_model.pth")
-    elif model_type == "LR":
-        os.remove("ml_models/LR_model.pth")
-
-    else:
-        return (
-            jsonify(
-                {"error": "Invalid model type to clear. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
+    # Check if model type is provided and valid
+    if not model_type or model_type not in ["CNN", "FNN", "LR"]:
+        return jsonify({"error": "Invalid Model Type."}), 400
+    
+    match model_type:
+        case "CNN":
+            os.remove("ml_models/CNN_model.pth")
+        case "FNN":
+            os.remove("ml_models/FNN_model.pth")
+        case "LR":
+            os.remove("ml_models/LR_model.pth")
+        case _:
+            print("Invalid model type to clear.")
 
     return jsonify({"message": f"{model_type} model cleared successfully!"}), 200
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5000, debug=True)

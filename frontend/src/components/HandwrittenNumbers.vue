@@ -10,35 +10,64 @@
                 'Convolutional Neural Network'
           }}</h3>
 
-          <p v-if="selectedModel === 'LR'">
-            Logistic Regression is a linear model used for binary classification tasks.
-            Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-          </p>
-          <p v-if="selectedModel === 'FNN'">
-            Feedforward Neural Networks (FNN) are deep learning models with fully connected layers for classification.
-            Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-          </p>
           <p v-if="selectedModel === 'CNN'">
-            Convolutional Neural Networks (CNN) are a class of deep learning models commonly used for image recognition.
-            Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+            Convolutional Neural Networks (CNNs) are a type of deep learning computer models designed to work with images. 
+            They are great at recognizing objects, identifying faces, video analysis and Image segmentation.<br><br> </p>
+          <p v-if="selectedModel === 'CNN'">
+            <strong>Pros:</strong>
+          <ul>
+            <li>Good at detecting complex patterns.</li>
+            <li>Handles high-dimensional input well.</li>
+            <li>Excellent for images and spatial data.</li>
+          </ul>
+          <strong>Cons:</strong>
+          <ul>
+            <li>Requires strong computation.</li>
+            <li>Longer training than simpler models.</li>
+            <li>Potential overfitting without proper regularization.</li>
+          </ul>
+          </p>
+
+          <p v-if="selectedModel === 'FNN'">
+            Feedforward Neural Networks (FNNs) are a type of deep learning models that have fully connected layers. They are flexible 
+            and often used for tasks involving organized data, like spreadsheets, where relationships between features are prioritized.<br><br></p>
+          <p v-if="selectedModel === 'FNN'">
+            <strong>Pros:</strong>
+          <ul>
+            <li>Simpler architecture, trains quick.</li>
+            <li>Versatile & suitable for various tasks.</li>
+            <li>Good for patterns and structured data</li>
+          </ul>
+          <strong>Cons:</strong>
+          <ul>
+            <li>Bad for images/unstructured data.</li>
+            <li>Efficiiency suffers on complex datasets.</li>
+            <li>Requires feature engineering for optimal results.</li>
+          </ul>
+          </p>
+
+          <p v-if="selectedModel === 'LR'">
+            Logistic Regression is a simple model used for tasks where outcomes only have two choices (eg. yes/no). It works by 
+            analyzing the relationship between input data and the outcome, predicting the likelihood of each possibility.<br><br></p>
+          <p v-if="selectedModel === 'LR'">
+            <strong>Pros:</strong>
+          <ul>
+            <li>Efficient and quick to train.</li>
+            <li>Easy to interpret and implement.</li>
+            <li>Great for small/medium datasets.</li>
+          </ul>
+          <strong>Cons:</strong>
+          <ul>
+            <li>Limited to linear boundaries.</li>
+            <li>Does not handle non-linear or complex patterns well.</li>
+            <li>Sensitive to outliers in the data.</li>
+          </ul>
           </p>
         </div>
       </div>
 
       <div class="middle-container">
-        <DrawingCanvas />
+        <DrawingCanvas ref="drawingCanvas" />
 
         <div class="choose-model">
           <label for="model">Choose Model: </label>
@@ -59,41 +88,44 @@
           <p v-if="selectedModel === 'FNN'">{{ fnn_model.modelTrained ? 'FNN Model' : 'No Model is trained' }}</p>
           <p v-if="selectedModel === 'LR'">{{ lr_model.modelTrained ? 'LR Model' : 'No Model is trained' }}</p>
 
-          <button v-if="!cnn_model.modelTrained && selectedModel === 'CNN'" @click="trainModel">Train Convolutional-NN Model</button>
+          <button v-if="!cnn_model.modelTrained && selectedModel === 'CNN'" @click="trainModel">Train Convolutional-NN
+            Model</button>
           <button v-if="cnn_model.modelTrained && selectedModel === 'CNN'" @click="clearModel">Clear Model</button>
-          <button v-if="!fnn_model.modelTrained && selectedModel === 'FNN'" @click="trainModel">Train Feedfoward-NN Model</button>
+          <button v-if="!fnn_model.modelTrained && selectedModel === 'FNN'" @click="trainModel">Train Feedfoward-NN
+            Model</button>
           <button v-if="fnn_model.modelTrained && selectedModel === 'FNN'" @click="clearModel">Clear Model</button>
-          <button v-if="!lr_model.modelTrained && selectedModel === 'LR'" @click="trainModel">Train Logistic-Regression Model</button>
+          <button v-if="!lr_model.modelTrained && selectedModel === 'LR'" @click="trainModel">Train Logistic-Regression
+            Model</button>
           <button v-if="lr_model.modelTrained && selectedModel === 'LR'" @click="clearModel">Clear Model</button>
         </div>
 
         <div v-if="selectedModel === 'CNN'">
           <div v-if="cnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ cnn_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Average Loss:</strong> {{ cnn_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ cnn_model.modelSpecs.trainAccuracy }}%</p>
             <p><strong>Test Accuracy:</strong> {{ cnn_model.modelSpecs.testAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ cnn_model.modelSpecs.trainingTime }}s</p>
+            <p><strong>Training and Testing Time:</strong> {{ cnn_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
         <div v-if="selectedModel === 'FNN'">
           <div v-if="fnn_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ fnn_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Average Loss:</strong> {{ fnn_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ fnn_model.modelSpecs.trainAccuracy }}%</p>
             <p><strong>Test Accuracy:</strong> {{ fnn_model.modelSpecs.testAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ fnn_model.modelSpecs.trainingTime }}s</p>
+            <p><strong>Training and Testing Time:</strong> {{ fnn_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
         <div v-if="selectedModel === 'LR'">
           <div v-if="lr_model.modelTrained" class="model-specs">
             <h3>Model Specifications</h3>
-            <p><strong>Avg Loss:</strong> {{ lr_model.modelSpecs.avgLoss }}</p>
+            <p><strong>Average Loss:</strong> {{ lr_model.modelSpecs.averageLoss }}</p>
             <p><strong>Training Accuracy:</strong> {{ lr_model.modelSpecs.trainAccuracy }}%</p>
             <p><strong>Test Accuracy:</strong> {{ lr_model.modelSpecs.testAccuracy }}%</p>
-            <p><strong>Time Spent to Train:</strong> {{ lr_model.modelSpecs.trainingTime }}s</p>
+            <p><strong>Training and Testing Time:</strong> {{ lr_model.modelSpecs.trainingTime }}s</p>
           </div>
         </div>
 
@@ -112,24 +144,44 @@
         </div>
       </div>
 
+      <div v-if="loadingState" class="loading-overlay">
+        <div class="loading-content">
+          <div class="loader"></div>
+          <div class="loading-text">
+            <p v-if="selectedModel === 'CNN'">Training Convolutional Neural Network Model...</p>
+            <p v-if="selectedModel === 'CNN'">(Estimated time to train: 5-6 minutes)</p>
+
+            <p v-if="selectedModel === 'FNN'">Training Feedforward Neural Network Model...</p>
+            <p v-if="selectedModel === 'FNN'">(Estimated time to train: 2-3 minutes)</p>
+
+            <p v-if="selectedModel === 'LR'">Training Logistic Regression Model...</p>
+            <p v-if="selectedModel === 'LR'">(Estimated time to train: 3-4 minutes)</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
+import FormData from 'form-data';
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
+import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
 
 export default {
   components: {
     DrawingCanvas,
   },
+
   data() {
     return {
+      loadingState: false,
       selectedModel: 'LR', // Default model
       cnn_model: {
         modelTrained: false,
         modelSpecs: {
-          avgLoss: 0,
+          averageLoss: 0,
           trainAccuracy: 0,
           testAccuracy: 0,
           trainingTime: 0,
@@ -139,7 +191,7 @@ export default {
       fnn_model: {
         modelTrained: false,
         modelSpecs: {
-          avgLoss: 0,
+          averageLoss: 0,
           trainAccuracy: 0,
           testAccuracy: 0,
           trainingTime: 0,
@@ -149,7 +201,7 @@ export default {
       lr_model: {
         modelTrained: false,
         modelSpecs: {
-          avgLoss: 0,
+          averageLoss: 0,
           trainAccuracy: 0,
           testAccuracy: 0,
           trainingTime: 0,
@@ -158,64 +210,104 @@ export default {
       },
     };
   },
+
   methods: {
-    identify() {
-      // Placeholder for identify function (no logic)
-      alert(`Identifying with ${this.selectedModel}`);
+    async identify() {
+      const modelTrained = this.modelIsTrained();
+      if (modelTrained) {
 
-      // Simulate prediction process for testing
-      if (this.selectedModel === 'CNN') {
-        this.cnn_model.modelPrediction = Math.floor(Math.random() * 10);
-      } else if (this.selectedModel === 'FNN') {
-        this.fnn_model.modelPrediction = Math.floor(Math.random() * 10);
-      } else {
-        this.lr_model.modelPrediction = Math.floor(Math.random() * 10);
-      }
-    },
-    trainModel() {
-      // Placeholder for trainModel function (no logic)
-      alert('Training model');
+        // Get the image data from the canvas
+        const imgData = new FormData();
+        const imgAsBlob = await this.$refs.drawingCanvas.getCanvasImageAsBlob();
+        imgData.append("canvas_drawing", imgAsBlob);
 
-      // Simulate training process for testing
-      if (this.selectedModel === 'CNN') {
-        this.cnn_model.modelTrained = true;
-        this.cnn_model.modelSpecs = {
-          avgLoss: 0.3,
-          trainAccuracy: 92,
-          testAccuracy: 88,
-          trainingTime: 120, // in seconds
-        }
-      } else if (this.selectedModel === 'FNN') {
-        this.fnn_model.modelTrained = true;
-        this.fnn_model.modelSpecs = {
-          avgLoss: 0.2,
-          trainAccuracy: 94,
-          testAccuracy: 90,
-          trainingTime: 180, // in seconds
+        // Make a prediction request to the model
+        const predictionResponse = await modelPredict(this.selectedModel, imgData);
+
+        // Update model prediction
+        switch (this.selectedModel) {
+          case 'CNN':
+            this.cnn_model.modelPrediction = predictionResponse.predicted_class;
+            break;
+          case 'FNN':
+            this.fnn_model.modelPrediction = predictionResponse.predicted_class;
+            break;
+          default: // LR
+            this.lr_model.modelPrediction = predictionResponse.predicted_class;
+            break;
         }
       } else {
-        this.lr_model.modelTrained = true;
-        this.lr_model.modelSpecs = {
-          avgLoss: 0.1,
-          trainAccuracy: 96,
-          testAccuracy: 92,
-          trainingTime: 60, // in seconds
+        alert("Please train the model first before making a prediction.");
+      }
+    },
+
+    async trainModel() {
+      this.loadingState = true;
+      try {
+        // Make a training request to the model
+        const modelResponse = await modelTrain(this.selectedModel);
+        console.log(modelResponse);
+
+        // Get model specs from training response
+        const modelSpecs = {
+          trainAccuracy: modelResponse.train_accuracy,
+          testAccuracy: modelResponse.test_accuracy,
+          averageLoss: modelResponse.average_loss,
+          trainingTime: modelResponse.run_time,
+        }
+        console.log(modelSpecs);
+
+        // Update model status and specs
+        switch (this.selectedModel) {
+          case 'CNN':
+            this.cnn_model.modelTrained = true;
+            this.cnn_model.modelSpecs = modelSpecs;
+            break;
+          case 'FNN':
+            this.fnn_model.modelTrained = true;
+            this.fnn_model.modelSpecs = modelSpecs;
+            break;
+          default: // LR
+            this.lr_model.modelTrained = true;
+            this.lr_model.modelSpecs = modelSpecs;
+            break;
+        }
+      } finally {
+        this.loadingState = false;
+      }
+    },
+
+    async clearModel() {
+      // Make a request to clear the model
+      const clearStatus = await modelClear(this.selectedModel);
+      console.log(clearStatus);
+
+      // Update model status to not trained
+      if (clearStatus == 200) {
+        switch (this.selectedModel) {
+          case 'CNN':
+            this.cnn_model.modelTrained = false;
+            break;
+          case 'FNN':
+            this.fnn_model.modelTrained = false;
+            break;
+          default: // LR
+            this.lr_model.modelTrained = false;
+            break;
         }
       }
     },
-    clearModel() {
-      // Placeholder for clearModel function (no logic)
-      alert('Clearing model');
 
-      // Simulate clearing process for testing
-      if (this.selectedModel === 'CNN') {
-        this.cnn_model.modelTrained = false;
-      } else if (this.selectedModel === 'FNN') {
-        this.fnn_model.modelTrained = false;
-      } else {
-        this.lr_model.modelTrained = false;
+    modelIsTrained() {
+      switch (this.selectedModel) {
+        case 'CNN':
+          return this.cnn_model.modelTrained;
+        case 'FNN':
+          return this.fnn_model.modelTrained;
+        default: // LR
+          return this.lr_model.modelTrained;
       }
-    },
+    }
   }
 };
 </script>

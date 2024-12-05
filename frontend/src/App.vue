@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <span id="logo" @click="showTab('default')"></span> <!--Placeholder for logo-->
+      <img id="logo" @click="showTab('default')" src="smartvision_logo.png" alt="SmartVision Logo" />
 
     <div id="tabs">
       <button @click="showTab('numbers')">Handwritten Numbers</button>
@@ -36,9 +36,12 @@
 </template>
 
 <script>
+
 import './assets/styles/App.css';
 import './assets/styles/HandwrittenNumbers.css';
 import './assets/styles/ObjectRecognition.css';
+
+// import SVLogo from ;
 
 import HandwrittenNumbers from './components/HandwrittenNumbers.vue';
 import ObjectRecognition from './components/ObjectRecognition.vue';
