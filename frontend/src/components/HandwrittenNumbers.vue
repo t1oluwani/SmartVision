@@ -193,12 +193,12 @@ export default {
     },
 
     async trainModel() {
-      let modelResponse = await modelTrain(this.selectedModel);
+      const modelResponse = await modelTrain(this.selectedModel);
       console.log(modelResponse);
 
       // Add Loading State and Spinner here (take about 5-6 mins for CNN, 2-3 mins for FNN, and 3-4 mins for LR)
 
-      let modelSpecs = {
+      const modelSpecs = {
         trainAccuracy: modelResponse.train_accuracy,
         testAccuracy: modelResponse.test_accuracy,
         averageLoss: modelResponse.average_loss,
@@ -224,7 +224,7 @@ export default {
     },
 
     async clearModel() {
-      let clearStatus = await modelClear(this.selectedModel);
+      const clearStatus = await modelClear(this.selectedModel);
       console.log(clearStatus);
 
       // Add Loading State and Spinner here

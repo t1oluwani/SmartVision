@@ -1,5 +1,4 @@
 TODOs:
-- Turn if cases to switch
 - change lets to const
 
 - Fill in model information on left
