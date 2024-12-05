@@ -282,12 +282,13 @@ def evaluate(device, model, data_loader, epoch, loss_type, dataset):
 
 # Loss function
 def get_loss(loss_type, output, target):
-    if loss_type == "ce":
-        return F.cross_entropy(output, target)
-    elif loss_type == "mse":
-        return F.mse_loss(output, one_hot(target, num_classes=10).float())
-    elif loss_type == "nll":
-        return F.nll_loss(output, target)
-    else:
-        print("Invalid loss function")
-        return None
+    match loss_type:
+        case "ce":
+            return F.cross_entropy(output, target)
+        case "mse":
+            return F.mse_loss(output, one_hot(target, num_classes=10).float())
+        case "nll":
+            return F.nll_loss(output, target)
+        case _:
+            print("Invalid loss function")
+            return None
