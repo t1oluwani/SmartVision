@@ -115,6 +115,16 @@
         </div>
       </div>
 
+      <div v-if="loadingState" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p v-if="selectedModel === 'CNN'">Training Convolutional Neural Network Model...</p>
+        <p v-if="selectedModel === 'CNN'">(Estimated time to train: 5-6 minutes)</p>
+        <p v-if="selectedModel === 'FNN'">Training Feedforward Neural Network Model...</p>
+        <p v-if="selectedModel === 'FNN'">(Estimated time to train: 2-3 minutes)</p>
+        <p v-if="selectedModel === 'LR'">Training Logistic Regression Model...</p>
+        <p v-if="selectedModel === 'LR'">(Estimated time to train: 3-4 minutes)</p>
+      </div>
+
     </div>
   </div>
 </template>
@@ -128,8 +138,10 @@ export default {
   components: {
     DrawingCanvas,
   },
+
   data() {
     return {
+      loadingState: false,
       selectedModel: 'LR', // Default model
       cnn_model: {
         modelTrained: false,
@@ -163,6 +175,7 @@ export default {
       },
     };
   },
+
   methods: {
     async identify() {
       if (!this.selectedModel.modelTrained) {
@@ -172,10 +185,8 @@ export default {
         const imgAsBlob = await this.$refs.drawingCanvas.getCanvasImageAsBlob();
         imgData.append("canvas_drawing", imgAsBlob);
 
+        // Make a prediction request to the model
         const predictionResponse = await modelPredict(this.selectedModel, imgData);
-        // console.log("Prediction Response:", predictionResponse);
-
-        // Add Loading State and Spinner here
 
         // Update model prediction
         switch (this.selectedModel) {
@@ -193,42 +204,47 @@ export default {
     },
 
     async trainModel() {
-      const modelResponse = await modelTrain(this.selectedModel);
-      console.log(modelResponse);
+      this.loadingState = true;
+      try {
+        // Make a training request to the model
+        const modelResponse = await modelTrain(this.selectedModel);
+        console.log(modelResponse);
 
-      // Add Loading State and Spinner here (take about 5-6 mins for CNN, 2-3 mins for FNN, and 3-4 mins for LR)
+        // Get model specs from training response
+        const modelSpecs = {
+          trainAccuracy: modelResponse.train_accuracy,
+          testAccuracy: modelResponse.test_accuracy,
+          averageLoss: modelResponse.average_loss,
+          trainingTime: modelResponse.run_time,
+        }
+        console.log(modelSpecs);
 
-      const modelSpecs = {
-        trainAccuracy: modelResponse.train_accuracy,
-        testAccuracy: modelResponse.test_accuracy,
-        averageLoss: modelResponse.average_loss,
-        trainingTime: modelResponse.run_time,
-      }
-      console.log(modelSpecs);
-
-      // Update model status and specs
-      switch (this.selectedModel) {
-        case 'CNN':
-          this.cnn_model.modelTrained = true;
-          this.cnn_model.modelSpecs = modelSpecs;
-          break;
-        case 'FNN':
-          this.fnn_model.modelTrained = true;
-          this.fnn_model.modelSpecs = modelSpecs;
-          break;
-        default: // LR
-          this.lr_model.modelTrained = true;
-          this.lr_model.modelSpecs = modelSpecs;
-          break;
+        // Update model status and specs
+        switch (this.selectedModel) {
+          case 'CNN':
+            this.cnn_model.modelTrained = true;
+            this.cnn_model.modelSpecs = modelSpecs;
+            break;
+          case 'FNN':
+            this.fnn_model.modelTrained = true;
+            this.fnn_model.modelSpecs = modelSpecs;
+            break;
+          default: // LR
+            this.lr_model.modelTrained = true;
+            this.lr_model.modelSpecs = modelSpecs;
+            break;
+        }
+      } finally {
+        this.loadingState = false;
       }
     },
 
     async clearModel() {
+      // Make a request to clear the model
       const clearStatus = await modelClear(this.selectedModel);
       console.log(clearStatus);
 
-      // Add Loading State and Spinner here
-
+      // Update model status to not trained
       if (clearStatus == 200) {
         switch (this.selectedModel) {
           case 'CNN':

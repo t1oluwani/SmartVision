@@ -1,6 +1,4 @@
 TODOs:
-- change lets to const
-
 - Fill in model information on left
 - Loading functionalities
 - First Deploy, new desc + save old descs
