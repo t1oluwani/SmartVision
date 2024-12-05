@@ -167,7 +167,7 @@
 <script>
 import FormData from 'form-data';
 import DrawingCanvas from './subcomponents/DrawingCanvas.vue';
-import { modelTrain, modelClear, modelPredict } from '@/service/MLModelClient';
+import { modelTrain, modelClear, modelPredict } from '../services/MLModelClient';
 
 export default {
   components: {
