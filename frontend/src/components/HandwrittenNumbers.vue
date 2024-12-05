@@ -178,12 +178,16 @@ export default {
         // Add Loading State and Spinner here
 
         // Update model prediction
-        if (this.selectedModel === 'CNN') {
-          this.cnn_model.modelPrediction = predictionResponse.predicted_class;
-        } else if (this.selectedModel === 'FNN') {
-          this.fnn_model.modelPrediction = predictionResponse.predicted_class;
-        } else {
-          this.lr_model.modelPrediction = predictionResponse.predicted_class;
+        switch (this.selectedModel) {
+          case 'CNN':
+            this.cnn_model.modelPrediction = predictionResponse.predicted_class;
+            break;
+          case 'FNN':
+            this.fnn_model.modelPrediction = predictionResponse.predicted_class;
+            break;
+          default: // LR
+            this.lr_model.modelPrediction = predictionResponse.predicted_class;
+            break;
         }
       }
     },
@@ -203,17 +207,19 @@ export default {
       console.log(modelSpecs);
 
       // Update model status and specs
-      if (this.selectedModel === 'CNN') {
-        this.cnn_model.modelTrained = true;
-        this.cnn_model.modelSpecs = modelSpecs;
-
-      } else if (this.selectedModel === 'FNN') {
-        this.fnn_model.modelTrained = true;
-        this.fnn_model.modelSpecs = modelSpecs;
-
-      } else {
-        this.lr_model.modelTrained = true;
-        this.lr_model.modelSpecs = modelSpecs;
+      switch (this.selectedModel) {
+        case 'CNN':
+          this.cnn_model.modelTrained = true;
+          this.cnn_model.modelSpecs = modelSpecs;
+          break;
+        case 'FNN':
+          this.fnn_model.modelTrained = true;
+          this.fnn_model.modelSpecs = modelSpecs;
+          break;
+        default: // LR
+          this.lr_model.modelTrained = true;
+          this.lr_model.modelSpecs = modelSpecs;
+          break;
       }
     },
 
@@ -224,12 +230,16 @@ export default {
       // Add Loading State and Spinner here
 
       if (clearStatus == 200) {
-        if (this.selectedModel === 'CNN') {
-          this.cnn_model.modelTrained = false;
-        } else if (this.selectedModel === 'FNN') {
-          this.fnn_model.modelTrained = false;
-        } else {
-          this.lr_model.modelTrained = false;
+        switch (this.selectedModel) {
+          case 'CNN':
+            this.cnn_model.modelTrained = false;
+            break;
+          case 'FNN':
+            this.fnn_model.modelTrained = false;
+            break;
+          default: // LR
+            this.lr_model.modelTrained = false;
+            break;
         }
       }
     },
