@@ -94,6 +94,7 @@ export default {
     }
     function changeToPen() {
       // isPen = true;
+      penSize = 50;
       penColor = document.querySelector("#colorpicker").value;
     }
     function changeToEraser() {

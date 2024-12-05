@@ -44,7 +44,7 @@ async function modelPredict(model_type, img_data) {
       {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-    console.log(response.data);
+      
     if (response && response.data) {
       console.log("Model prediction result:", response.data);
       return response.data;

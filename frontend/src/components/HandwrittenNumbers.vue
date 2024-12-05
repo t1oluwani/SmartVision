@@ -165,8 +165,7 @@ export default {
   },
   methods: {
     async identify() {
-      // if (this.selectedModel.modelTrained) {
-      if (true) {
+      if (!this.selectedModel.modelTrained) {
 
         // Get the image data from the canvas
         const imgData = new FormData();
@@ -174,7 +173,7 @@ export default {
         imgData.append("canvas_drawing", imgAsBlob);
 
         const predictionResponse = await modelPredict(this.selectedModel, imgData);
-        console.log("Prediction Response:", predictionResponse);
+        // console.log("Prediction Response:", predictionResponse);
 
         // Add Loading State and Spinner here
 
