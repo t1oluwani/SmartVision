@@ -38,7 +38,7 @@ export default {
     let mouseIsPressed = false;
     let mouseX, mouseY, pmouseX, pmouseY;
     // let isPen = true;
-    let penSize = 50;
+    let penSize = 45;
     let penColor = "black";
 
     // Main Program Loop (60 FPS)
@@ -91,15 +91,17 @@ export default {
     // Button Event Functions
     function clearCanvas() {
       ctx.clearRect(0, 0, cnv.width, cnv.height);
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, cnv.width, cnv.height);
     }
     function changeToPen() {
       // isPen = true;
-      penSize = 50;
+      penSize = 45;
       penColor = document.querySelector("#colorpicker").value;
     }
     function changeToEraser() {
       // isPen = false;
-      penSize = 75;
+      penSize = 90;
       penColor = "white";
     }
     function changeColor() {
