@@ -116,13 +116,19 @@
       </div>
 
       <div v-if="loadingState" class="loading-overlay">
-        <div class="loading-spinner"></div>
-        <p v-if="selectedModel === 'CNN'">Training Convolutional Neural Network Model...</p>
-        <p v-if="selectedModel === 'CNN'">(Estimated time to train: 5-6 minutes)</p>
-        <p v-if="selectedModel === 'FNN'">Training Feedforward Neural Network Model...</p>
-        <p v-if="selectedModel === 'FNN'">(Estimated time to train: 2-3 minutes)</p>
-        <p v-if="selectedModel === 'LR'">Training Logistic Regression Model...</p>
-        <p v-if="selectedModel === 'LR'">(Estimated time to train: 3-4 minutes)</p>
+        <div class="loading-content">
+          <div class="loader"></div>
+          <div class="loading-text">
+            <p v-if="selectedModel === 'CNN'">Training Convolutional Neural Network Model...</p>
+            <p v-if="selectedModel === 'CNN'">(Estimated time to train: 5-6 minutes)</p>
+
+            <p v-if="selectedModel === 'FNN'">Training Feedforward Neural Network Model...</p>
+            <p v-if="selectedModel === 'FNN'">(Estimated time to train: 2-3 minutes)</p>
+
+            <p v-if="selectedModel === 'LR'">Training Logistic Regression Model...</p>
+            <p v-if="selectedModel === 'LR'">(Estimated time to train: 3-4 minutes)</p>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -141,7 +147,7 @@ export default {
 
   data() {
     return {
-      loadingState: false,
+      loadingState: true,
       selectedModel: 'LR', // Default model
       cnn_model: {
         modelTrained: false,
