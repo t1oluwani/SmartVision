@@ -33,9 +33,10 @@
   gap: 30px;
 }
 .HN-Scope .model-info {
-  padding: 25px;
-  line-height: 1.4;
-  letter-spacing: 0.8px;
+  padding: 20px;
+  line-height: 1.5;
+  text-align: left;
+  letter-spacing: 0.5px;
 }
 /* Right Side */
 .HN-Scope .right-container {

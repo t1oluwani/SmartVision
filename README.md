@@ -1,6 +1,5 @@
 TODOs:
 - Fill in model information on left
-- Loading functionalities
 - First Deploy, new desc + save old descs
 
 - Complete VR/ML Logic (3 and 5)
