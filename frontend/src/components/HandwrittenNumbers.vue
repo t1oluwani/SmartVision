@@ -213,7 +213,8 @@ export default {
 
   methods: {
     async identify() {
-      if (!this.selectedModel.modelTrained) {
+      const modelTrained = this.modelIsTrained();
+      if (modelTrained) {
 
         // Get the image data from the canvas
         const imgData = new FormData();
@@ -235,6 +236,8 @@ export default {
             this.lr_model.modelPrediction = predictionResponse.predicted_class;
             break;
         }
+      } else {
+        alert("Please train the model first before making a prediction.");
       }
     },
 
@@ -294,6 +297,17 @@ export default {
         }
       }
     },
+
+    modelIsTrained() {
+      switch (this.selectedModel) {
+        case 'CNN':
+          return this.cnn_model.modelTrained;
+        case 'FNN':
+          return this.fnn_model.modelTrained;
+        default: // LR
+          return this.lr_model.modelTrained;
+      }
+    }
   }
 };
 </script>

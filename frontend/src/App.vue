@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <!-- <span "> -->
       <img id="logo" @click="showTab('default')" src="smartvision_logo.png" alt="SmartVision Logo" />
-    <!-- </span> -->
 
     <div id="tabs">
       <button @click="showTab('numbers')">Handwritten Numbers</button>

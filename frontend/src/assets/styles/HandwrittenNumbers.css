@@ -38,6 +38,10 @@
   text-align: left;
   letter-spacing: 0.5px;
 }
+.HN-Scope .model-info h3 {
+  color: indigo;
+  text-align: center;
+}
 /* Right Side */
 .HN-Scope .right-container {
   flex: 1;
