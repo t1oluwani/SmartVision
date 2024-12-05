@@ -35,24 +35,20 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 
 # Loads the model according to the model type
 def load_model(model_path, model_type):
-    if model_type == "CNN":
-        model = CNNModel().to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))
-    elif model_type == "FNN":
-        model = FNNModel().to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))
-        model.eval()
-    elif model_type == "LR":
-        model = LogisticRegressionModel().to(device)
-        model.load_state_dict(torch.load(model_path, weights_only=True))
-        model.eval()
-    else:
-        return (
-            jsonify(
-                {"error": "Invalid model type to load. Choose from CNN, FNN, or LR."}
-            ),
-            400,
-        )
+    match model_type:
+        case "CNN":
+            model = CNNModel().to(device)
+            model.load_state_dict(torch.load(model_path, weights_only=True))
+        case "FNN":
+            model = FNNModel().to(device)
+            model.load_state_dict(torch.load(model_path, weights_only=True))
+            model.eval()
+        case "LR":
+            model = LogisticRegressionModel().to(device)
+            model.load_state_dict(torch.load(model_path, weights_only=True))
+            model.eval()
+        case _:
+            print("Invalid model type to load.")
 
     return model
 
@@ -83,12 +79,15 @@ def train_and_save(model_type):
         model_path = f"ml_models/{model_type}_model.pth"
 
         # Train the model
-        if model_type == "CNN":
-            training_results = CNN(device)
-        elif model_type == "FNN":
-            training_results = FNN(device)
-        elif model_type == "LR":
-            training_results = LogisticRegression(device)
+        match model_type:
+            case "CNN":
+                training_results = CNN(device)
+            case "FNN":
+                training_results = FNN(device)
+            case "LR":
+                training_results = LogisticRegression(device)
+            case _:
+                print("Invalid model type to train.")
 
         # Save the model and stats
         trained_model = training_results["model"]
@@ -175,12 +174,15 @@ def clear_model(model_type):
     if not model_type or model_type not in ["CNN", "FNN", "LR"]:
         return jsonify({"error": "Invalid Model Type."}), 400
     
-    if model_type == "CNN":
-        os.remove("ml_models/CNN_model.pth")
-    elif model_type == "FNN":
-        os.remove("ml_models/FNN_model.pth")
-    elif model_type == "LR":
-        os.remove("ml_models/LR_model.pth")
+    match model_type:
+        case "CNN":
+            os.remove("ml_models/CNN_model.pth")
+        case "FNN":
+            os.remove("ml_models/FNN_model.pth")
+        case "LR":
+            os.remove("ml_models/LR_model.pth")
+        case _:
+            print("Invalid model type to clear.")
 
     return jsonify({"message": f"{model_type} model cleared successfully!"}), 200
 
