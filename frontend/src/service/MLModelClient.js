@@ -46,7 +46,6 @@ async function modelPredict(model_type, img_data) {
       });
 
     if (response && response.data) {
-      console.log("Model prediction result:", response.data);
       return response.data;
     }
 

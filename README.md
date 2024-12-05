@@ -1,5 +1,4 @@
 TODOs:
-- Make predict functional
 - Turn if cases to switch
 - change lets to const
 

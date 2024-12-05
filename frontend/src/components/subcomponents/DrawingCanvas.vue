@@ -24,7 +24,6 @@ export default {
         });
       });
     }
-
   },
   mounted() {
     // Setup Canvas and Graphics Context

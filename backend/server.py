@@ -149,12 +149,7 @@ def preprocess_and_predict(model_type):
 
     try:
         # Load the model
-        if model_type == "CNN":
-            model_path = "ml_models/CNN_model.pth"
-        elif model_type == "FNN":
-            model_path = "ml_models/FNN_model.pth"
-        elif model_type == "LR":
-            model_path = "ml_models/LR_model.pth"
+        model_path = f"ml_models/{model_type}_model.pth"
 
         model = load_model(model_path, model_type)
         model.eval()

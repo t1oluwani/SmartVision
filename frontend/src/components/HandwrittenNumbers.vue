@@ -38,7 +38,7 @@
       </div>
 
       <div class="middle-container">
-        <DrawingCanvas ref="drawingCanvas"/>
+        <DrawingCanvas ref="drawingCanvas" />
 
         <div class="choose-model">
           <label for="model">Choose Model: </label>
@@ -165,30 +165,27 @@ export default {
   },
   methods: {
     async identify() {
-      // Placeholder for identify function (no logic)
-      alert(`Identifying with ${this.selectedModel}`);
-
       // if (this.selectedModel.modelTrained) {
-      //   this.modelPredict();
-      // }
+      if (true) {
 
-      // Get the image data from the canvas
-      const imgData = new FormData();
-      const imgAsBlob = await this.$refs.drawingCanvas.getCanvasImageAsBlob();
-      imgData.append("canvas_drawing", imgAsBlob);
+        // Get the image data from the canvas
+        const imgData = new FormData();
+        const imgAsBlob = await this.$refs.drawingCanvas.getCanvasImageAsBlob();
+        imgData.append("canvas_drawing", imgAsBlob);
 
-      const predictionResponse = await modelPredict(this.selectedModel, imgData);
-      console.log("Prediction Response:", predictionResponse);
-      
-      // Add Loading State and Spinner here
+        const predictionResponse = await modelPredict(this.selectedModel, imgData);
+        console.log("Prediction Response:", predictionResponse);
 
-      // Update model prediction
-      if (this.selectedModel === 'CNN') {
-        this.cnn_model.modelPrediction = predictionResponse.predicted_class;
-      } else if (this.selectedModel === 'FNN') {
-        this.fnn_model.modelPrediction = predictionResponse.predicted_class;
-      } else {
-        this.lr_model.modelPrediction = predictionResponse.predicted_class;
+        // Add Loading State and Spinner here
+
+        // Update model prediction
+        if (this.selectedModel === 'CNN') {
+          this.cnn_model.modelPrediction = predictionResponse.predicted_class;
+        } else if (this.selectedModel === 'FNN') {
+          this.fnn_model.modelPrediction = predictionResponse.predicted_class;
+        } else {
+          this.lr_model.modelPrediction = predictionResponse.predicted_class;
+        }
       }
     },
 
