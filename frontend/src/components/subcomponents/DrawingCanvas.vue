@@ -155,7 +155,7 @@ export default {
 #image-guideline {
   position: absolute;
   /* Overlaps with canvas */
-  width: 280px;
+  width: 320px;
   height: 420px;
   border-radius: 50%;
   border: dashed 6px rgba(128, 128, 128, 0.5);
