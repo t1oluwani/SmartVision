@@ -15,17 +15,17 @@ Visit the live deployment to explore SmartVision:<br><br>
 
 ## Installation
 
-To get started with StudyAI, follow these steps:
+To get started with SmartVision, follow these steps:
 
 1. Clone or fork the repository:
    ```bash
-   git clone https://github.com/t1oluwani/StudyAI.git
+   git clone https://github.com/t1oluwani/SmartVision.git
    ```
    
 2. **Create and Activate Virtual Environment** (Optional, but Highly Recommended):
    - Navigate to the project directory:
      ```bash
-     cd StudyAI
+     cd SmartVision
      ```
    - Create a virtual environment using `venv`:
      ```bash
