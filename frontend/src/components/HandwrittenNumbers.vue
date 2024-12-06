@@ -11,58 +11,64 @@
           }}</h3>
 
           <p v-if="selectedModel === 'CNN'">
-            Convolutional Neural Networks (CNNs) are a type of deep learning computer models designed to work with images. 
-            They are great at recognizing objects, identifying faces, video analysis and Image segmentation.<br><br> </p>
-          <p v-if="selectedModel === 'CNN'">
-            <strong>Pros:</strong>
-          <ul>
-            <li>Good at detecting complex patterns.</li>
-            <li>Handles high-dimensional input well.</li>
-            <li>Excellent for images and spatial data.</li>
-          </ul>
-          <strong>Cons:</strong>
-          <ul>
-            <li>Requires strong computation.</li>
-            <li>Longer training than simpler models.</li>
-            <li>Potential overfitting without proper regularization.</li>
-          </ul>
+            Convolutional Neural Networks (CNNs) are a type of deep learning computer models designed to work with
+            images.
+            They are great at recognizing objects, identifying faces, video analysis and Image segmentation.<br><br>
           </p>
+          <div id="pro-con" v-if="selectedModel === 'CNN'">
+            <strong>Pros:</strong>
+            <ul>
+              <li>Good at detecting complex patterns.</li>
+              <li>Handles high-dimensional input well.</li>
+              <li>Excellent for images and spatial data.</li>
+            </ul>
+            <strong>Cons:</strong>
+            <ul>
+              <li>Requires strong computation.</li>
+              <li>Longer training than simpler models.</li>
+              <li>Potential overfitting without proper regularization.</li>
+            </ul>
+          </div>
 
           <p v-if="selectedModel === 'FNN'">
-            Feedforward Neural Networks (FNNs) are a type of deep learning models that have fully connected layers. They are flexible 
-            and often used for tasks involving organized data, like spreadsheets, where relationships between features are prioritized.<br><br></p>
-          <p v-if="selectedModel === 'FNN'">
+            Feedforward Neural Networks (FNNs) are a type of deep learning models that have fully connected layers. They
+            are flexible
+            and often used for tasks involving organized data, like spreadsheets, where relationships between features
+            are prioritized.<br><br></p>
+          <div id="pro-con" v-if="selectedModel === 'FNN'">
             <strong>Pros:</strong>
-          <ul>
-            <li>Simpler architecture, trains quick.</li>
-            <li>Versatile & suitable for various tasks.</li>
-            <li>Good for patterns and structured data</li>
-          </ul>
-          <strong>Cons:</strong>
-          <ul>
-            <li>Bad for images/unstructured data.</li>
-            <li>Efficiiency suffers on complex datasets.</li>
-            <li>Requires feature engineering for optimal results.</li>
-          </ul>
-          </p>
+            <ul>
+              <li>Simpler architecture, trains quick.</li>
+              <li>Versatile & suitable for various tasks.</li>
+              <li>Good for patterns and structured data</li>
+            </ul>
+            <strong>Cons:</strong>
+            <ul>
+              <li>Bad for images/unstructured data.</li>
+              <li>Efficiiency suffers on complex datasets.</li>
+              <li>Requires feature engineering for optimal results.</li>
+            </ul>
+          </div>
 
           <p v-if="selectedModel === 'LR'">
-            Logistic Regression is a simple model used for tasks where outcomes only have two choices (eg. yes/no). It works by 
-            analyzing the relationship between input data and the outcome, predicting the likelihood of each possibility.<br><br></p>
-          <p v-if="selectedModel === 'LR'">
+            Logistic Regression is a simple model used for tasks where outcomes only have two choices (eg. yes/no). It
+            works by
+            analyzing the relationship between input data and the outcome, predicting the likelihood of each
+            possibility.<br><br></p>
+          <div id="pro-con" v-if="selectedModel === 'LR'">
             <strong>Pros:</strong>
-          <ul>
-            <li>Efficient and quick to train.</li>
-            <li>Easy to interpret and implement.</li>
-            <li>Great for small/medium datasets.</li>
-          </ul>
-          <strong>Cons:</strong>
-          <ul>
-            <li>Limited to linear boundaries.</li>
-            <li>Does not handle non-linear or complex patterns well.</li>
-            <li>Sensitive to outliers in the data.</li>
-          </ul>
-          </p>
+            <ul>
+              <li>Efficient and quick to train.</li>
+              <li>Easy to interpret and implement.</li>
+              <li>Great for small/medium datasets.</li>
+            </ul>
+            <strong>Cons:</strong>
+            <ul>
+              <li>Limited to linear boundaries.</li>
+              <li>Does not handle non-linear or complex patterns well.</li>
+              <li>Sensitive to outliers in the data.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
