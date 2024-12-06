@@ -214,7 +214,7 @@ export default {
   methods: {
     async identify() {
       const modelTrained = this.modelIsTrained();
-      if (!modelTrained) {
+      if (modelTrained) {
 
         // Get the image data from the canvas
         const imgData = new FormData();
