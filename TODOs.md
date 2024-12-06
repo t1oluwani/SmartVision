@@ -1,6 +1,4 @@
 TODOs:
-- First Deploy, new desc + save old descs
-
 - Complete VR/ML Logic (3 and 5)
 - Connect 3 & 5 Logic to rest of app
 - Pen eraser toggle functionality
