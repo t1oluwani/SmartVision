@@ -19,4 +19,4 @@ Feature TODOs (VR/ML Logic):
 
 - Feature4: Recognize and Categorize fashion items (replace this with another dataset) with high accuracy. Via Vision Transformer
 
-- Feature5: Create unique clothing items (replace with another dataset) based on chosen category (replace with another dataset). Via AI Model trained on FashionMNIST (replace)
+- Feature5: Create unique clothing items (replace with another dataset) based on chosen category (replace with another dataset). Via AI Model trained on FashionMNIST (replace) 
