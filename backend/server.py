@@ -22,7 +22,7 @@ CORS(
             "origins": ["http://localhost:8080", "https://smartvisionfrontend.onrender.com"],
             "methods": ["GET", "POST"],
             "allow_headers": ["Content-Type", "Authorization"],
-            "supports_credentials": True,
+            # "supports_credentials": True,
         }
     },
 )
