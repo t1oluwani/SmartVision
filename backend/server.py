@@ -20,7 +20,8 @@ CORS(
     resources={
         r"/*": {
             # "origins": ["http://localhost:8080"], # Local Frontend URL
-            "origins": ["https://smartvisionfrontend.onrender.com"], # Deployed Frontend URL
+            # "origins": ["https://smartvisionfrontend.onrender.com"], # Deployed Frontend URL
+            "origins": "*", # Allow all origins for testing
             "methods": ["GET", "POST"],
             "allow_headers": ["Content-Type", "Authorization"],
             "supports_credentials": True,
