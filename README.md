@@ -1,6 +1,6 @@
 # SmartVision
 
-⚠️🚨***Free tier of deployment options, do not possess enough memories to train models, you can predict with pretrain models, but clearing and attempting to train your own will likely be unsuccesful on the deployed site. In order to train your own model, you would have to clone and deploy it locally. Instructions to do that in Installation section ***🚨⚠️
+⚠️🚨***Free tier of deployment services, do not possess enough memories to train models, you can predict with the already pretrain models, but clearing and attempting to train your own will likely be unsuccesful on the deployed site. In order to train your own model, you would have to clone and deploy it locally. Instructions to do that in the Installation section ***🚨⚠️
 
 ## Overview
 
@@ -55,8 +55,11 @@ To get started with SmartVision, follow these steps:
    cd ..
    ```
 
-5. In `frontend/services/MLModelClient.js`, comment out **Line 4** and uncomment **Line 3**. 
-(This change updates the backend API URL from the deployed version to the local version.)
+5. In `frontend/services/MLModelClient.js`, comment out **Line 4** and uncomment **Line 3**. Should look like this:
+   ```
+   const API_URL = "http://localhost:5000"; // Local Backend URL
+   // const API_URL = "https://smartvisionbackend.onrender.com"; // Deployed Backend URL
+   ```
 
 6. Start the backend server and frontend by running the following shell script:
    ```bash
