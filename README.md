@@ -10,7 +10,8 @@ Welcome to **SmartVision**, a cutting-edge visual recognition playground! This p
 
 # Deployment
 
-Visit the live deployment to explore SmartVision:<br><br>
+Deployed backend on a web service on render and frontend on a static site on render.<br><br>
+Live deployment can be accessed to explore SmartVision here:<br><br>
 https://smartvisionfrontend.onrender.com/
 
 ## Installation
