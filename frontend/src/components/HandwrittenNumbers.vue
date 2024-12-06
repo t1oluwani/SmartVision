@@ -178,7 +178,7 @@ export default {
     return {
       loadingState: false,
       selectedModel: 'LR', // Default model
-      cnn_model: {
+      lr_model: {
         modelTrained: true,
         modelSpecs: {
           averageLoss: 0.0016,
@@ -198,7 +198,7 @@ export default {
         },
         modelPrediction: null,
       },
-      lr_model: {
+      cnn_model: {
         modelTrained: true,
         modelSpecs: {
           averageLoss: 0.0021,
@@ -278,6 +278,19 @@ export default {
     },
 
     async clearModel() {
+      // Display a confirmation dialog
+      const userConfirmed = confirm(
+        "READ, IMPORTANT!\n\nThe free tier of deployment services do not provide enough memory to train datasets, so if this is the live site, clearing it would mean you would not be able to retrain the model. However, if you have set the applications up locally then you are able to retrain each model however many times you want.\n\nDo you still want to clear the model?"
+      );
+
+      if (!userConfirmed) {
+        // User chose not to clear the model
+        console.log("Model Not Cleared!")
+        return;
+      } else {
+        console.log("Model Cleared!")
+      }
+
       // Make a request to clear the model
       const clearStatus = await modelClear(this.selectedModel);
       console.log(clearStatus);
