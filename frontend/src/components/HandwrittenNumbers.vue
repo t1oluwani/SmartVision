@@ -139,13 +139,13 @@
           <h3>Model Predictions</h3>
           <p>The Model predicts the handwritten number to have a value of</p>
           <div v-if="selectedModel === 'CNN'" class="predicted-value">
-            <strong>{{ cnn_model.modelPrediction ? cnn_model.modelPrediction : "?" }}</strong>
+            <strong>{{ typeof cnn_model.modelPrediction === "number" ? cnn_model.modelPrediction : "?" }}</strong>
           </div>
           <div v-if="selectedModel === 'FNN'" class="predicted-value">
-            <strong>{{ fnn_model.modelPrediction ? fnn_model.modelPrediction : "?" }}</strong>
+            <strong>{{ typeof fnn_model.modelPrediction === "number" ? fnn_model.modelPrediction : "?" }}</strong>
           </div>
           <div v-if="selectedModel === 'LR'" class="predicted-value">
-            <strong>{{ lr_model.modelPrediction ? lr_model.modelPrediction : "?" }}</strong>
+            <strong>{{ typeof lr_model.modelPrediction === "number" ? lr_model.modelPrediction : "?" }}</strong>
           </div>
         </div>
       </div>
