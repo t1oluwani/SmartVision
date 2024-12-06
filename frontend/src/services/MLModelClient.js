@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:5000"; // Backend URL
-const API_URL = "https://smartvisionbackend.onrender.com/"; // Backend URL
+// const API_URL = "http://localhost:5000"; // Local Backend URL
+const API_URL = "https://smartvisionbackend.onrender.com/"; // Deployed Backend URL
 
 async function modelTrain(model_type) {
   try {
