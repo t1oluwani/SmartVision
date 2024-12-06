@@ -1,6 +1,4 @@
 TODOs:
-- Partial READme
-- Partial API DOCS
 - First Deploy, new desc + save old descs
 
 - Complete VR/ML Logic (3 and 5)

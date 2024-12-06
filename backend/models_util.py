@@ -18,7 +18,7 @@ image_dimension = 28 * 28
 
 def load_MNIST():
     MNIST_data_set = datasets.MNIST(
-        "/MNIST_dataset/",
+        "/tmp/MNIST_dataset/",
         train=True,
         download=True,
         transform=transforms.Compose(
@@ -26,7 +26,7 @@ def load_MNIST():
         ),
     )
     MNIST_test_set = datasets.MNIST(
-        "/MNIST_dataset/",
+        "/tmp/MNIST_dataset/",
         train=False,
         download=True,
         transform=transforms.Compose(
