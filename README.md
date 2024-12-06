@@ -109,7 +109,7 @@ python api_tests/<test_file>
 - [Introduction to PyTorch (YouTube)](https://pytorch.org/tutorials/beginner/introyt/)
 
 ### Understanding of Logistic Regression, FNN, and CNN:
-- UofA CMPUT 328 Visual Recognition Class Notes
+- [UofA CMPUT 328 Visual Recognition Class Notes](https://apps.ualberta.ca/catalogue/course/cmput/328)
 
 ### CSS Loading Loaders:
 - [CSS Loaders](https://css-loaders.com/)
