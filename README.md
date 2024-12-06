@@ -11,7 +11,7 @@ Welcome to **SmartVision**, a cutting-edge visual recognition playground! This p
 # Deployment
 
 Visit the live deployment to explore SmartVision:<br><br>
-[Deployment Link]
+https://smartvisionfrontend.onrender.com/
 
 ## Installation
 
