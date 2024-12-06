@@ -84,7 +84,7 @@ To get started with StudyAI, follow these steps:
 
 ## API Documentation
 
-API documentation will be available at: [_]
+API documentation will be available at: [https://github.com/t1oluwani/SmartVision/blob/main/APIdocs.md]
 
 The API includes:
 - **POST /train/<model_type>**: Train and save the selected model (CNN, FNN, Logistic Regression).
