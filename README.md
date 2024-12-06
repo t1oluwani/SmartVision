@@ -1,5 +1,7 @@
 # SmartVision
 
+⚠️🚨***Free tier of deployment options, do not possess enough memories to train models, you can predict with pretrain models, but clearing and attempting to train your own will likely be unsuccesful on the deployed site. In order to train your own model, you would have to clone and deploy it locally. Instructions to do that in Installation section ***🚨⚠️
+
 ## Overview
 
 Welcome to **SmartVision**, a cutting-edge visual recognition playground! This platform lets you explore and interact with advanced visual recognition models for handwritten numbers.<!-- and object recognition. --> The main features include:
@@ -53,7 +55,10 @@ To get started with SmartVision, follow these steps:
    cd ..
    ```
 
-5. Start the backend server and frontend by running the following shell script:
+5. In `frontend/services/MLModelClient.js`, comment out **Line 4** and uncomment **Line 3**. 
+(This change updates the backend API URL from the deployed version to the local version.)
+
+6. Start the backend server and frontend by running the following shell script:
    ```bash
    chmod +x start.sh
    ./start.sh
