@@ -6,7 +6,6 @@ import torch
 from torchvision import transforms, datasets
 
 from flask_cors import CORS
-from flask_compress  import Compress
 from flask import Flask, request, jsonify
 
 from models_util import CNN, FNN, LogisticRegression
@@ -14,7 +13,6 @@ from models_util import CNNModel, FNNModel, LogisticRegressionModel
 
 # Initialize Flask app
 app = Flask(__name__)
-Compress(app)
 
 # Enable CORS
 CORS(
