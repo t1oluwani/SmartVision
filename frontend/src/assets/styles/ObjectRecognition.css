@@ -7,8 +7,7 @@
 }
 
 .OR-Scope .tab-content {
-  display: none; /* Hides entire Object Recog Tab (Delete when start on implementation branch) */
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
