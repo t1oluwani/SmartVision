@@ -3,8 +3,8 @@ TODOs:
 - Connect 3 & 5 Logic to rest of app
 - Pen eraser toggle functionality
 - Final Frontend Styling
-- Proper READme and Documentations (api/docs)
-- Requirements.txt file for virtual enviroment module prerequisites
+- Proper READme and Documentations (api/docs) (Update)
+- Requirements.txt file for virtual enviroment module prerequisites (Update)
 
 Feature TODOs (VR/ML Logic):
 - Feature1: Recognize Handwritten Digits (MNIST-10). Via Logistic Regression (DONE)
