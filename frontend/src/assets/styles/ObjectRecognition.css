@@ -107,3 +107,7 @@
   height: 100%;
   cursor: pointer;
 }
+
+.OR-Scope .upload-label {
+  position: fixed;
+}

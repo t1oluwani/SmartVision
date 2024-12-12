@@ -4,8 +4,8 @@
 
       <div class="left-container">
         <div class="upload-box">
-          <input class="upload-image" type="file" accept="image/*"/>
-          <!-- <label>{{ imageSelected ? 'Image Selected' : 'No Image Selected' }}</label> -->
+          <input class="upload-image" type="file" accept="image/*" @change="updateSelectedImage" />
+          <label class="upload-label" >{{ imageSelected || 'No Image Selected' }}</label>
         </div>
         <button @click="identify">Identify Item</button>
       </div>
@@ -49,7 +49,7 @@
 export default {
   data() {
     return {
-      imageSelected: false,
+      imageSelected: '',
       loadingState: false,
       modelTrained: false,
       modelSpecs: {
@@ -62,6 +62,9 @@ export default {
     };
   },
   methods: {
+    updateSelectedImage(event) {
+      this.imageSelected = event.target.files[0].name;
+    },
     identify() {
       // Placeholder for identify function (no logic)
       alert(`Identifying image`);
