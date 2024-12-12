@@ -142,7 +142,7 @@
             <strong>{{ typeof cnn_model.modelPrediction === "number" ? cnn_model.modelPrediction : "?" }}</strong>
           </div>
           <div v-if="selectedModel === 'FNN'" class="predicted-value">
-            <strong>{{ typeof fnn_model.modelPrediction === "number" ? fnn_model.modelPrediction : "?" }}</strong>
+            <strong>{{ typeof fkkkkkkkkkkkjknn_model.modelPrediction === "number" ? fnn_model.modelPrediction : "?" }}</strong>
           </div>
           <div v-if="selectedModel === 'LR'" class="predicted-value">
             <strong>{{ typeof lr_model.modelPrediction === "number" ? lr_model.modelPrediction : "?" }}</strong>

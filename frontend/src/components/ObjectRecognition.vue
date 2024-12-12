@@ -5,7 +5,7 @@
       <div class="left-container">
         <div class="upload-box">
           <input class="upload-image" type="file" accept="image/*"/>
-          <p>Upload Image</p>
+          <!-- <label>{{ imageSelected ? 'Image Selected' : 'No Image Selected' }}</label> -->
         </div>
         <button @click="identify">Identify Item</button>
       </div>
@@ -49,6 +49,8 @@
 export default {
   data() {
     return {
+      imageSelected: false,
+      loadingState: false,
       modelTrained: false,
       modelSpecs: {
         avgLoss: 0,

@@ -11,23 +11,27 @@
   align-items: center;
   text-align: center;
 }
+
 .OR-Scope h3 {
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: 600;
 }
+
 .OR-Scope p {
   font-size: 18px;
   margin: 4px;
 }
+
 .OR-Scope strong {
   color: slateblue;
 }
+
 .OR-Scope button {
   font-size: 18px;
   margin-top: 10px;
   border-radius: 10px;
-  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
 
 /* Left Side */
@@ -38,6 +42,7 @@
   flex-direction: column;
   gap: 30px;
 }
+
 /* Middle Part */
 .OR-Scope .middle-container {
   display: flex;
@@ -46,6 +51,7 @@
   margin: 10px;
   gap: 20px;
 }
+
 .OR-Scope .model-prediction {
   display: flex;
   flex-direction: column;
@@ -54,6 +60,7 @@
   width: 75%;
   margin: 0 auto;
 }
+
 .OR-Scope .predicted-value {
   font-size: 50px;
   padding: 10px 25px;
@@ -61,6 +68,7 @@
   border: 5px solid darkslateblue;
   border-radius: 50%;
 }
+
 /* Right Side */
 .OR-Scope .right-container {
   flex: 1;
@@ -73,18 +81,28 @@
 .OR-Scope .left-container button {
   width: 50%;
   margin: 0 auto;
-} 
+}
 
 .OR-Scope .right-container button {
   width: 50%;
   margin: 0 auto;
 }
- 
-.OR-Scope .upload-image, .OR-Scope .generate-placeholder {
+
+.OR-Scope .upload-box,
+.OR-Scope .generate-placeholder {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 4px dashed gray;
+  border-radius: 15px;
+}
+
+.OR-Scope .upload-image {
+  opacity: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
-  border: 2px dashed gray;
-  line-height: 400px;
-  text-align: center;
+  cursor: pointer;
 }
