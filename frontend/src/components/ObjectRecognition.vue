@@ -38,7 +38,7 @@
         <button @click="generate">Generate Item</button>
         <div class="generate-box">
           <div class="generate-placeholder">
-            <label class="generate-label">Generated Image Area</label>
+            <label class="generate-label">Generated Image will appear here</label>
           </div>
         </div>
       </div>
