@@ -61,12 +61,13 @@
   margin: 0 auto;
 }
 
-.OR-Scope .predicted-value {
+.OR-Scope .predicted-type {
+  width: 250px;
   font-size: 50px;
   padding: 10px 25px;
   margin-top: 10px;
   border: 5px solid darkslateblue;
-  border-radius: 50%;
+  border-radius: 25px;
 }
 
 /* Right Side */

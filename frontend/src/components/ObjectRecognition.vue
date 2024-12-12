@@ -27,8 +27,8 @@
 
         <div class="model-prediction">
           <h3>Model Predictions</h3>
-          <p>The Model predicts the handwritten number to have a value of</p>
-          <div class="predicted-value">
+          <p>The Model predicts the uploaded image to belong to the category of:</p>
+          <div class="predicted-type">
             <strong>{{ modelPrediction ? modelPrediction : "?" }}</strong>
           </div>
         </div>
