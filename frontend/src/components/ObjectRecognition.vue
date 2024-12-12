@@ -4,8 +4,8 @@
 
       <div class="left-container">
         <div class="upload-box">
-          <!-- Placeholder for image upload: White rectangle -->
-          <div class="upload-placeholder">Upload Image Area</div>
+          <input class="upload-image" type="file" accept="image/*"/>
+          <p>Upload Image</p>
         </div>
         <button @click="identify">Identify Item</button>
       </div>
