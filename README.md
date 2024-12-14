@@ -117,7 +117,7 @@ python api_tests/<test_file>
 - [PyTorch Basics (Beginner)](https://pytorch.org/tutorials/beginner/basics/)
 - [Introduction to PyTorch (YouTube)](https://pytorch.org/tutorials/beginner/introyt/)
 
-### Understanding of Logistic Regression, FNN, and CNN Models:
+### Understanding of Logistic Regression, FNN, CNN, ViT and Diffusion Models:
 - [UofA CMPUT 328 Visual Recognition Class Notes](https://apps.ualberta.ca/catalogue/course/cmput/328)
 
 ### CSS Loading Loaders:
