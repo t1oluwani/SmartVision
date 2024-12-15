@@ -1,4 +1,7 @@
 TODOs:
+Returning Note:
+"When you come back, get logic for a3 and a5 into logic testing, get it to identify from a local image and test to see the range of things it identifies to see what approach to take. (From drawings, to similar images to datasets, to any image that features and/or contains the image category). If inclusive, add option to either draw or upload local image to identify. One the worse case that model is only able to identify similar images (Provide instructions and templates to isolate clothing images)""
+
 - Complete VR/ML Logic (3 and 5)
 - Connect 3 & 5 Logic to rest of app
 - Pen eraser toggle functionality
