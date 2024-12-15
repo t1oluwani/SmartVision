@@ -1,12 +1,11 @@
 <template>
   <div class="OR-Scope">
-    <h1>Coming Soon...</h1>
     <div class="tab-content">
 
       <div class="left-container">
         <div class="upload-box">
-          <!-- Placeholder for image upload: White rectangle -->
-          <div class="upload-placeholder">Upload Image Area</div>
+          <input class="upload-image" type="file" accept="image/*" @change="updateSelectedImage" />
+          <label class="upload-label" >{{ imageSelected || 'No Image Selected' }}</label>
         </div>
         <button @click="identify">Identify Item</button>
       </div>
@@ -28,8 +27,8 @@
 
         <div class="model-prediction">
           <h3>Model Predictions</h3>
-          <p>The Model predicts the handwritten number to have a value of</p>
-          <div class="predicted-value">
+          <p>The Model predicts the uploaded image to belong to the category of:</p>
+          <div class="predicted-type">
             <strong>{{ modelPrediction ? modelPrediction : "?" }}</strong>
           </div>
         </div>
@@ -38,8 +37,9 @@
       <div class="right-container">
         <button @click="generate">Generate Item</button>
         <div class="generate-box">
-          <!-- Placeholder for image generation: White rectangle -->
-          <div class="generate-placeholder">Generated Image Area</div>
+          <div class="generate-placeholder">
+            <label class="generate-label">Generated Image will appear here</label>
+          </div>
         </div>
       </div>
     </div>
@@ -50,6 +50,8 @@
 export default {
   data() {
     return {
+      imageSelected: '',
+      loadingState: false,
       modelTrained: false,
       modelSpecs: {
         avgLoss: 0,
@@ -61,6 +63,9 @@ export default {
     };
   },
   methods: {
+    updateSelectedImage(event) {
+      this.imageSelected = event.target.files[0].name;
+    },
     identify() {
       // Placeholder for identify function (no logic)
       alert(`Identifying image`);

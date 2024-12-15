@@ -3,33 +3,35 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Centering "Coming soon" text */
 }
 
 .OR-Scope .tab-content {
-  display: none; /* Hides entire Object Recog Tab (Delete when start on implementation branch) */
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
+
 .OR-Scope h3 {
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: 600;
 }
+
 .OR-Scope p {
   font-size: 18px;
   margin: 4px;
 }
+
 .OR-Scope strong {
   color: slateblue;
 }
+
 .OR-Scope button {
   font-size: 18px;
   margin-top: 10px;
   border-radius: 10px;
-  font-family: 'Gill Sans MT','Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
 
 /* Left Side */
@@ -40,6 +42,7 @@
   flex-direction: column;
   gap: 30px;
 }
+
 /* Middle Part */
 .OR-Scope .middle-container {
   display: flex;
@@ -48,6 +51,7 @@
   margin: 10px;
   gap: 20px;
 }
+
 .OR-Scope .model-prediction {
   display: flex;
   flex-direction: column;
@@ -56,13 +60,16 @@
   width: 75%;
   margin: 0 auto;
 }
-.OR-Scope .predicted-value {
+
+.OR-Scope .predicted-type {
+  width: 250px;
   font-size: 50px;
   padding: 10px 25px;
   margin-top: 10px;
   border: 5px solid darkslateblue;
-  border-radius: 50%;
+  border-radius: 25px;
 }
+
 /* Right Side */
 .OR-Scope .right-container {
   flex: 1;
@@ -75,18 +82,41 @@
 .OR-Scope .left-container button {
   width: 50%;
   margin: 0 auto;
-} 
+}
 
 .OR-Scope .right-container button {
   width: 50%;
   margin: 0 auto;
 }
- 
-.OR-Scope .upload-placeholder, .OR-Scope .generate-placeholder {
+
+.OR-Scope .upload-box,
+.OR-Scope .generate-placeholder {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 4px dashed gray;
+  border-radius: 15px;
+}
+
+.OR-Scope .upload-image {
+  z-index: 1;
+  opacity: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
-  border: 2px dashed gray;
-  line-height: 400px;
-  text-align: center;
+  cursor: pointer;
+}
+
+.OR-Scope .upload-label {
+  position: fixed;
+}
+
+.OR-Scope .upload-label, .OR-Scope .generate-label {
+  font-size: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.7);
+  font-family: 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }

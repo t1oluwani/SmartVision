@@ -110,20 +110,20 @@ python api_tests/<test_file>
 
 # References
 
-### PyTorch Website:
+### PyTorch:
 - [PyTorch Tutorials](https://pytorch.org/tutorials/)
 - [PyTorch Recipes](https://pytorch.org/tutorials/recipes/)
 - [Getting Started Locally](https://pytorch.org/get-started/locally/)
 - [PyTorch Basics (Beginner)](https://pytorch.org/tutorials/beginner/basics/)
 - [Introduction to PyTorch (YouTube)](https://pytorch.org/tutorials/beginner/introyt/)
 
-### Understanding of Logistic Regression, FNN, and CNN:
+### Understanding of Logistic Regression, FNN, CNN, ViT and Diffusion Models:
 - [UofA CMPUT 328 Visual Recognition Class Notes](https://apps.ualberta.ca/catalogue/course/cmput/328)
 
 ### CSS Loading Loaders:
 - [CSS Loaders](https://css-loaders.com/)
 
-### Getting a `<Canvas>` as a Blob:
+### Getting `<Canvas>` as a Blob:
 - [Stack Overflow - Access Blob Value](https://stackoverflow.com/questions/42458849/access-blob-value-outside-of-canvas-toblob-async-function)
 
 ## Contributions and Contact
