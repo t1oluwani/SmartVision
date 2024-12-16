@@ -1,6 +1,10 @@
 # SmartVision
 
-⚠️🚨***Free tier of deployment services, do not possess enough memories to train models, you can predict with the already pretrain models, but clearing and attempting to train your own will likely be unsuccesful on the deployed site. In order to train your own model, you would have to clone and deploy it locally. Instructions to do that in the Installation section ***🚨⚠️
+⚠️🚨 **Important Notice** 🚨⚠️  
+
+The free tier of most deployment services lack sufficient memory to be able to train new models or perform predictions with complex models such as FNNs or CNNs. Predictions are limited to the simple and cost-effective  **logistic regression model**. While all the pretrained models store pretrained parameters, loading the FNNs and CNNs model are too resource-intensive and computationally expensive for the current deployment setup. Attempting to clear these models and train your own will likely fail on the deployed site due to these limitations. To train or test your own models, you will need to clone the project and deploy it locally. Detailed instructions for this process can be found in the **Installation** section. 
+
+Thank you for your understanding! 
 
 ## Overview
 
