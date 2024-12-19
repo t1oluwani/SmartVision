@@ -1,6 +1,7 @@
 '''
-Save full model state dict instead of weights only and using torch.load() to load the model directly from directory.
+Load model on server start using torch.save and torch.load to save and load the model weights respectively via parameters weights_only=True. 
 '''
+
 import os
 import timeit
 from PIL import Image
