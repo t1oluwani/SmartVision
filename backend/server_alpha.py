@@ -58,8 +58,22 @@ def load_model(model_path, model_type):
 
     return model
 
-# ROUTES AND ENDPOINTS
+# Load the model on server start
 
+# Paths to the saved models
+CNN_model_path = "ml_models/CNN_model.pth"
+FNN_model_path = "ml_models/FNN_model.pth"
+LR_model_path = "ml_models/LR_model.pth"
+
+# Load the ml models
+if os.path.exists(CNN_model_path):
+    CNN_model = load_model(CNN_model_path, "CNN")
+if os.path.exists(FNN_model_path):
+    FNN_model = load_model(FNN_model_path, "FNN")
+if os.path.exists(LR_model_path):
+    LR_model = load_model(LR_model_path, "LR")
+
+# ROUTES AND ENDPOINTS
 
 # Test Route
 @app.route("/", methods=["GET"])
@@ -68,7 +82,6 @@ def test():
     Test route to check if the server is running.
     """
     return jsonify({"message": "Server is up and running!"}), 200
-
 
 # Route: Train or retrain the model
 @app.route("/train/<model_type>", methods=["POST"])
