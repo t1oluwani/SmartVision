@@ -1,3 +1,7 @@
+'''
+Load model on server start using torch.save and torch.load to save and load the model weights respectively via parameters weights_only=True. 
+'''
+
 import os
 import timeit
 from PIL import Image
@@ -54,8 +58,22 @@ def load_model(model_path, model_type):
 
     return model
 
-# ROUTES AND ENDPOINTS
+# Load the model on server start
 
+# Paths to the saved models
+CNN_model_path = "ml_models/CNN_model.pth"
+FNN_model_path = "ml_models/FNN_model.pth"
+LR_model_path = "ml_models/LR_model.pth"
+
+# Load the ml models
+if os.path.exists(CNN_model_path):
+    CNN_model = load_model(CNN_model_path, "CNN")
+if os.path.exists(FNN_model_path):
+    FNN_model = load_model(FNN_model_path, "FNN")
+if os.path.exists(LR_model_path):
+    LR_model = load_model(LR_model_path, "LR")
+
+# ROUTES AND ENDPOINTS
 
 # Test Route
 @app.route("/", methods=["GET"])
@@ -64,7 +82,6 @@ def test():
     Test route to check if the server is running.
     """
     return jsonify({"message": "Server is up and running!"}), 200
-
 
 # Route: Train or retrain the model
 @app.route("/train/<model_type>", methods=["POST"])
@@ -149,10 +166,13 @@ def preprocess_and_predict(model_type):
     processed_image = transform(unprocessed_image).unsqueeze(0).to(device)
 
     try:
-        # Load the model
-        model_path = f"ml_models/{model_type}_model.pth"
-
-        model = load_model(model_path, model_type)
+        if model_type == "CNN":
+            model = CNN_model
+        elif model_type == "FNN":
+            model = FNN_model
+        elif model_type == "LR":
+            model = LR_model
+        
         model.eval()
 
         # Make a prediction
@@ -164,7 +184,6 @@ def preprocess_and_predict(model_type):
     except Exception as e:
         print("Failed to predict image class.")
         return jsonify({"error": str(e)}), 500
-
 
 # Route: Clear saved model by type
 @app.route("/clear/<model_type>", methods=["GET"])
