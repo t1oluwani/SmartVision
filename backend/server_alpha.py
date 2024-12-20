@@ -166,10 +166,13 @@ def preprocess_and_predict(model_type):
     processed_image = transform(unprocessed_image).unsqueeze(0).to(device)
 
     try:
-        # Load the model
-        model_path = f"ml_models/{model_type}_model.pth"
-
-        model = load_model(model_path, model_type)
+        if model_type == "CNN":
+            model = CNN_model
+        elif model_type == "FNN":
+            model = FNN_model
+        elif model_type == "LR":
+            model = LR_model
+        
         model.eval()
 
         # Make a prediction
@@ -181,7 +184,6 @@ def preprocess_and_predict(model_type):
     except Exception as e:
         print("Failed to predict image class.")
         return jsonify({"error": str(e)}), 500
-
 
 # Route: Clear saved model by type
 @app.route("/clear/<model_type>", methods=["GET"])
