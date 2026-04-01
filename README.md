@@ -82,7 +82,7 @@ To get started with SmartVision, follow these steps:
    - Click "Identify" to send your image to the backend.
    - The app processes the image and predicts the number class using your selected model (Logistic Regression, CNN, or FNN).
 
-3. **Object Recognition** (INCOMPLETE)
+3. **Object Recognition** (To Be Implemented)
    - Upload an image to classify objects into categories based on the **FashionMNIST** dataset.
    - The application uses trained models to identify and predict the object class. 
 
